@@ -1,0 +1,282 @@
+{
+  "last_run": "2026-05-26T15:07:46.681758+00:00",
+  "tickers_scanned": [
+    "IONQ",
+    "WOLF",
+    "ASML"
+  ],
+  "patents": {
+    "IONQ": {
+      "ticker": "IONQ",
+      "total_hits": 15,
+      "strategic_hits": 0,
+      "patent_bonus": 0,
+      "label": "➖ Stratejik IP haberi yok",
+      "recent_items": [],
+      "source_breakdown": {
+        "google_patents_html": 0,
+        "google_news_patent": 15
+      },
+      "scanned_at": "2026-05-26T15:07:52.748239+00:00"
+    },
+    "WOLF": {
+      "ticker": "WOLF",
+      "total_hits": 12,
+      "strategic_hits": 1,
+      "patent_bonus": 2,
+      "label": "📝 IP HAREKETI VAR",
+      "recent_items": [
+        {
+          "title": "Slkor Announces More Good News – Yet Another Utility Model Patent Granted - Scott Coop",
+          "summary": "Slkor Announces More Good News – Yet Another Utility Model Patent Granted&nbsp;&nbsp;Scott Coop",
+          "published": "Thu, 05 Feb 2026 08:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQeUVsdEhDZEVHck9aSmVJRGpob3ZBb3NhZ0g5bjd5aDdlU2V4c3JJSUcwSjBvMWZpSmxLdG9abXVmMWVFT0MyWklFa293RXRCQmFvcUtZMWdjVFpJMXdpb3BRdkNqdEViWll5WXIySEhIVGhjbHRpcEF4bmN4d0hucTNXY2JaNmo5UmZHMXBWUGM4emtQQ0ZXa1ZVRFZhdjQ5U2tMYUNUUUVFUnVhLWwwR0FvSGtYT3FOcEM4UTZfVE9YbnBnWnladEhGRUVaTzB4V3JELU1OOW9tMkU5?oc=5",
+          "source": "google_news_patent",
+          "keyword": "silicon carbide MOSFET"
+        }
+      ],
+      "source_breakdown": {
+        "google_patents_html": 0,
+        "google_news_patent": 12
+      },
+      "scanned_at": "2026-05-26T15:07:58.888864+00:00"
+    },
+    "ASML": {
+      "ticker": "ASML",
+      "total_hits": 9,
+      "strategic_hits": 0,
+      "patent_bonus": 0,
+      "label": "➖ Stratejik IP haberi yok",
+      "recent_items": [],
+      "source_breakdown": {
+        "google_patents_html": 0,
+        "google_news_patent": 9
+      },
+      "scanned_at": "2026-05-26T15:08:04.685741+00:00"
+    }
+  },
+  "geopolitics": {
+    "IONQ": {
+      "ticker": "IONQ",
+      "risk_score": -1,
+      "risk_level": "📡 IZLE",
+      "critical_alert": false,
+      "negative_items": [
+        {
+          "title": "Quantum Export Control Regulatory Framework: Interview with Ivon Guo, Quantum Times - Morgan Lewis",
+          "summary": "Quantum Export Control Regulatory Framework: Interview with Ivon Guo, Quantum Times&nbsp;&nbsp;Morgan Lewis",
+          "published": "Fri, 01 May 2026 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNV1JZZkt2QjlPTlhpZmNVNm9yTUN1RERrbGkxSE9NdWk2d3ZISmRZZURiWllESk5vN3dxRVE5SUlZaE51cHNQTEpnYUVPSEJ6V3ZITnE1anVrZ0JJeWp6bGVDdERYa0lPN1NEeWZFMS1oVFRrSkZ3QXFlUEdLTXZDZEtlVEliWUlDOXJvLS1mZUxSSUs4QWZMNFlPMFJySHFpZFBfWTBwcVpfZFlh?oc=5",
+          "source": "google_news_geo"
+        }
+      ],
+      "positive_items": [],
+      "n_negative": 1,
+      "n_positive": 0,
+      "export_weight": 1,
+      "scanned_at": "2026-05-26T15:07:54.796691+00:00"
+    },
+    "WOLF": {
+      "ticker": "WOLF",
+      "risk_score": -1,
+      "risk_level": "📡 IZLE",
+      "critical_alert": false,
+      "negative_items": [
+        {
+          "title": "Honor Vote Restores Expulsion Option in New Multi-Sanction System - UVA Today",
+          "summary": "Honor Vote Restores Expulsion Option in New Multi-Sanction System&nbsp;&nbsp;UVA Today",
+          "published": "Tue, 21 Mar 2023 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQZnNWTHJOR0pLN0kxTy14N3dNYzFqa3d2N0Y2Y1JMX1pqRnM0b2tXX05LdE5MUmNWX0ZjT0ZUcHdqSGJSNEVrMWt3Z19DUm5jNi14RDJDalNSalpzNUlWMG5zSUlsdDg3Q3R1eGxUOTk2QWlWSnF2U2hHMXoxdm0teDZtd1BicnhHek1IdVp4Z1Vpd0xoMlp6Z1lCXzk?oc=5",
+          "source": "google_news_geo"
+        }
+      ],
+      "positive_items": [],
+      "n_negative": 1,
+      "n_positive": 0,
+      "export_weight": 1,
+      "scanned_at": "2026-05-26T15:08:00.246812+00:00"
+    },
+    "ASML": {
+      "ticker": "ASML",
+      "risk_score": -2,
+      "risk_level": "⚠️ DIKKAT",
+      "critical_alert": false,
+      "negative_items": [
+        {
+          "title": "New Momentum, Old Problems: Transatlantic Export Control Considerations - CSIS | Center for Strategic and International Studies",
+          "summary": "New Momentum, Old Problems: Transatlantic Export Control Considerations&nbsp;&nbsp;CSIS | Center for Strategic and International Studies",
+          "published": "Wed, 15 Apr 2026 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPa01CQzZlcWNGYlBzZUZ2WEUxTmQ0eng1TkVGT2oyeGt1UGVhTDlybjYwRklGdUoxeUthUXdHRTgxcU91MWhNYmZHUEpoV2Fmb2VPSVcydzhLT3o5TjdZT1RBaGF2aEVLbFJYX0ozTWNnRWFxYnY3MXBFRlZFUkQwUUo3V3FDYnZsb0lCeFlMX0thR2JndW5SdTBEaTB3QXBu?oc=5",
+          "source": "google_news_geo"
+        },
+        {
+          "title": "The MATCH Act Is the Missing Piece in America’s AI Export Control Strategy - The Foundation for American Innovation",
+          "summary": "The MATCH Act Is the Missing Piece in America’s AI Export Control Strategy&nbsp;&nbsp;The Foundation for American Innovation",
+          "published": "Mon, 13 Apr 2026 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOWjZ3eW1tWG4zSnM1SU1VdGhMYmJKQzdaeWZ5b1E3MWNBNldFV2xxRmFlZDF4YTFndXdWVFR3bkZKQ1NrUHE4Nmxqb3JtWldzXzBVZDlqUXRqeDVYM09lclhfZ29Rei12NllsUWQ5bkVyM1NuQThPSWRaLUx5UXdiNE9ab3dERGJ0d2w2eGZPazMtNXBfYXJsVm1DckRBY3ZWZjl1Y3Z3?oc=5",
+          "source": "google_news_geo"
+        }
+      ],
+      "positive_items": [],
+      "n_negative": 2,
+      "n_positive": 0,
+      "export_weight": 2,
+      "scanned_at": "2026-05-26T15:08:05.675388+00:00"
+    }
+  },
+  "yield_intel": {
+    "IONQ": {
+      "ticker": "IONQ",
+      "yield_data_points": [],
+      "avg_yield_pct": null,
+      "production_health": "❓ Yield verisi yok",
+      "production_score": 0,
+      "raw_news_count": 8,
+      "raw_news_sample": [
+        {
+          "title": "IonQ Hits #AQ 64 Milestone Ahead of Schedule — And Sets Its Sights Even Higher - IonQ",
+          "summary": "IonQ Hits #AQ 64 Milestone Ahead of Schedule — And Sets Its Sights Even Higher&nbsp;&nbsp;IonQ",
+          "published": "Mon, 13 Oct 2025 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNS2luMmsySVJfVDRVcXUzX280VU1uN2xEWFo4OWVNRjY1VUd4R21mU1hQSDYyRzU3Q2ppVTNVNkhya19mY2JvVEl2eUVSY0dLdUcxdGUxblRBR09feWJoZEFBcUl0LTl2d1hCdnNsYmoxbjFycXRZa0hyUGhueG1NbkxjUFJaT1BpRzZCS3JOb3FiUUk0eUdPSDF0MlR3MTAtZGRv?oc=5",
+          "query": "IONQ AQ 64 milestone progress"
+        },
+        {
+          "title": "IonQ Achieves Record Breaking Quantum Performance Milestone of #AQ 64 - IonQ",
+          "summary": "IonQ Achieves Record Breaking Quantum Performance Milestone of #AQ 64&nbsp;&nbsp;IonQ",
+          "published": "Thu, 25 Sep 2025 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNRllzWkVjeUd2MW04eDZYSnRqdFZuRF9BZGdGY3cxQWtFN3pLTC1nTUhSZkVKM2gtZDRWMEtzazZ4TWt4cnNWcVNodFNSQm0zczlVdkpjcUhFT1RiNXUwblpPazd6ZFVlNlFxNHdTVm1CWE5FN3FxU1l2X2ZocFhHUDA5TjlBZW1sWDBPZnNNZWdMWE5RRkV0REtB?oc=5",
+          "query": "IONQ AQ 64 milestone progress"
+        },
+        {
+          "title": "How Low Can IONQ Stock Go? - Trefis",
+          "summary": "How Low Can IONQ Stock Go?&nbsp;&nbsp;Trefis",
+          "published": "Wed, 13 May 2026 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPWnJrYnRNYjMwczRFX0d1NEJjdWxRS01iNnQwSnhHbW1fMW1RSUhTZ2V0b1ZXaTBtVmU1NVViWDFBNG1OejFGZEZQS25wYTRwTEdvMG5nOXE1TTVtc2RtYmlHeEdYTTc3dHZXLUt0Y01XRnhnWXJmZXcxQXlEWmc2TDNmaW5FeWxXSlRwc1JDWQ?oc=5",
+          "query": "IONQ AQ 64 milestone progress"
+        },
+        {
+          "title": "IonQ Selected for DARPA HARQ Program and Demonstrates First Remote Photonic Interconnect - Quantum Computing Report",
+          "summary": "IonQ Selected for DARPA HARQ Program and Demonstrates First Remote Photonic Interconnect&nbsp;&nbsp;Quantum Computing Report",
+          "published": "Tue, 14 Apr 2026 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNczVrNVVJeEtzak1JWk5iSE1aVS1Rejhhd25vZHRYVTN2RGtfNVFoVTMxTXJ0dGR3YWFCQVNyeWlLWnRXMkVjbDRvNmNsVWREOFBmOTF2MXRkOEI5aVRwQ0lndjdPSTVkYzlRMVdHenV5bXFSankwQmo2MjZfWmdqSjZXLXY0SmJvU1lrV2NGOTNZTXhSaXU1MGFxR2FKdGUwSFRkUFlWQ0c2RVhabHNEcVgtU1NuNWlhN0pNRm5uMkxMUdIBxwFBVV95cUxOdjJOTE9HQzMwRVNZSXBJeW1MZlR0N3loRm5FNDJZc1VPMHU4b21ES0t1WDZZNGthMXNKeW5PTTJrbmFIM28zNlJ6bndfVHAyRzM3d1dMZHVoWFY1MVJ4Mno1c2lEVGVndFVoUEFFRjk2OXFGUmVob3FReFJXMjBMcmd3aUtGSU1DNnc1UlpKclFWT2Q0NXpzdkFTVV8yOUU0SGZ2Q2FobktyU0FESXg5T3ZwazU5VHplTTRva2JPX1pvc2JMWXdB?oc=5",
+          "query": "IONQ AQ 64 milestone progress"
+        },
+        {
+          "title": "IonQ and QuantumBasel Expand Long-Term Partnership in Next-Generation Quantum Systems - IonQ",
+          "summary": "IonQ and QuantumBasel Expand Long-Term Partnership in Next-Generation Quantum Systems&nbsp;&nbsp;IonQ",
+          "published": "Wed, 17 Dec 2025 08:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQeE5UOW5wNFA0cFRadWxNdVkxYVZDbHhpOUEzelpBenJIejhGb3dDNVgtb2ZGNzAzNExjd3R5NW1DN3FnYWpMMWVLemROUnJJM2ZzOHRDZEhJd21OS1RZa1J1d2l0OG04ZzNHUlZBWGNRSTZRcHhvVWtKdTBFSHVsTHVuQ0dkX1hjb1dSTldLY2JWMlcyRk5QME1ZMUtZNjA5NnFBdGs0eUtqb3FwWGU3eA?oc=5",
+          "query": "Forte Enterprise quantum delivery"
+        }
+      ],
+      "scanned_at": "2026-05-26T15:07:55.460744+00:00"
+    },
+    "WOLF": {
+      "ticker": "WOLF",
+      "yield_data_points": [],
+      "avg_yield_pct": null,
+      "production_health": "❓ Yield verisi yok",
+      "production_score": 0,
+      "raw_news_count": 12,
+      "raw_news_sample": [
+        {
+          "title": "Has Wolfspeed Truly Turned the Corner After Bankruptcy - Kavout",
+          "summary": "Has Wolfspeed Truly Turned the Corner After Bankruptcy&nbsp;&nbsp;Kavout",
+          "published": "Tue, 26 May 2026 13:09:44 GMT",
+          "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQQjV3OWZudmkxOEk1TWpSekFpQ2k4SWVHSThZMVlPcDg4U0pxcE5iVGNLVWEtU1ZLTWh1XzVJc0pFYzdRdy1IcUJfUUQyZ3hoVVlQN2dhYi1zRENyR243eTRzS3BraFZHaWlmdUJOQmdla1JIYVRtWHBpa1pqSi1WdWdhc1htQjM2SDB1MFQ3Nk1hUm8?oc=5",
+          "query": "Mohawk Valley Fab utilization rate"
+        },
+        {
+          "title": "Wolfspeed Reports Financial Results for the First Quarter of Fiscal 2026 - Business Wire",
+          "summary": "Wolfspeed Reports Financial Results for the First Quarter of Fiscal 2026&nbsp;&nbsp;Business Wire",
+          "published": "Wed, 29 Oct 2025 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQc1FDdF9LOWJIVkYwWFUtMFZHMWlDY0RBdkJfZ2daU3ZZdThlYUVsVmFDNkNXM3JnYzNwZW9NNWRuNHc4QlpqT3oxLUdaMlltTmtIZ3FZSU43cmJiTWxHenl4b3c3MlZaZkMycmpQaVN0WFhFd0VBbVJ0RFU5VmY0LUFwTFd2TVNlOExNbVZRdXZxcFc1LThXaXVUaWdIb014VW1qa1BOY3FYREVkdjZTVmZTZmlNaEduX3Z6VDkzODNET1VhVUlNUg?oc=5",
+          "query": "Mohawk Valley Fab utilization rate"
+        },
+        {
+          "title": "Wolfspeed: Full Production Ramp Ripe For Automotive Scaling (NYSE:WOLF) - Seeking Alpha",
+          "summary": "Wolfspeed: Full Production Ramp Ripe For Automotive Scaling (NYSE:WOLF)&nbsp;&nbsp;Seeking Alpha",
+          "published": "Mon, 22 Dec 2025 08:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNZFY2Ry1IZUFnN1RzNDRfQVEtX2pid281ZFdwMjRDV25UUF85VVA3R2xjR1VPV3FkT1hqNmVMa2xsTVJBb1NzNnJrTkxqQ0t4cGx5ZHlqRkFRTy13dlRSYy1pdlpCX0lUaTh1aVZVTUJSbUhIZHZQbEx2YVF2SzNDM1RzLTZ3THBaQmY1a2JtLVZvbGstemQ2aUFrMzB5ejBW?oc=5",
+          "query": "Mohawk Valley Fab utilization rate"
+        },
+        {
+          "title": "Wolfspeed FY25 Q2 slides: 200mm transition amid financial headwinds - Investing.com",
+          "summary": "Wolfspeed FY25 Q2 slides: 200mm transition amid financial headwinds&nbsp;&nbsp;Investing.com",
+          "published": "Thu, 28 Aug 2025 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPQ0pScnpCdWFfNXVCNG1IMFV5VERtM1Q4T0xudmVjelN0MGNfdzNpSXdVaEVvSDVLeUxyVFlTdmVRVm5LRGZSbGYzbXIyX2Z4YU1UM0MwaDNxYXRMaTY0Y1NaM1pURlpOdVBPZDJtZmlCbDNRb3hLdDYwNF9ZRi0zQWVpWG04X0g5Z042dW1jNUJPVmdXOGJNTk1PZUlMZS13ZnM3Vkl3QXFHZmtOMF90R0ZHUFVLcThtZUFIQkhYM2Q?oc=5",
+          "query": "Mohawk Valley Fab utilization rate"
+        },
+        {
+          "title": "Wolfspeed to Build 200-mm SiC Wafer Fab in Germany - EE Times",
+          "summary": "Wolfspeed to Build 200-mm SiC Wafer Fab in Germany&nbsp;&nbsp;EE Times",
+          "published": "Wed, 03 Dec 2025 17:27:14 GMT",
+          "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPaEQxVUV0cmFzQkQzem96MkdTUU9oQUo3Yk5UTzR4OHIybmxpYmllYXoxZkplbUs5WWJHNE5aR3ZHSDVucnhXeXhYdUZmUy1rTl8zbEpkLU0zWlBDX0drdUdzbkJGOFhBeXlHMGxzaExPcEJJQXdPSGdybUc0S25IVQ?oc=5",
+          "query": "Wolfspeed 200mm SiC wafer yield 2026"
+        }
+      ],
+      "scanned_at": "2026-05-26T15:08:00.930927+00:00"
+    },
+    "ASML": {
+      "ticker": "ASML",
+      "yield_data_points": [],
+      "avg_yield_pct": null,
+      "production_health": "❓ Yield verisi yok",
+      "production_score": 0,
+      "raw_news_count": 12,
+      "raw_news_sample": [
+        {
+          "title": "ASML's roadmap for chipmaking lithography tools examined — from DUV to Low-NA, High-NA, Hyper-NA, and beyond - Tom's Hardware",
+          "summary": "ASML's roadmap for chipmaking lithography tools examined — from DUV to Low-NA, High-NA, Hyper-NA, and beyond&nbsp;&nbsp;Tom's Hardware",
+          "published": "Fri, 01 May 2026 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPQWRrdktnTGlac1U4ZHp0OVFIRzFFM2JEQ3V3d2g4MVZQWUtteEY1YUVReTJhVGhiOE9NNnJuVjR6eVRfdnJUM2hiQlZWeF9qN1pCUm5pN3pmTmh3U1hiZlQ0M0tndXVGYnU2ZmV6S1l1SEo4RjBCeVpqekVuOGFwRC0wRHRtUkp2NWxIdDdQUTVuNUhERU5KR0E3VjJsYXhEUnhJSkNuS2VjMWEwZVVSVw?oc=5",
+          "query": "ASML High-NA EUV shipping updates"
+        },
+        {
+          "title": "ASML extends Low NA EUV to 2031, ramps up High NA production - digitimes",
+          "summary": "ASML extends Low NA EUV to 2031, ramps up High NA production&nbsp;&nbsp;digitimes",
+          "published": "Fri, 17 Apr 2026 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQSlFDY2xEN3FCcmpRVV9HRVVzNVVRMVM3NHFtc0xqdUNSa3JVbDFoZDdOUUdqSk5pRkxjTnE1YnlHeHZlTTlKaU1wWnJDdTFSY3l6UmlKSmkzZ0FIbWtTa19CaENqNDluSHBnY3I2VkpGem95TlZFTVEwbmY3dHVTWnB5NnpESEdUVlE?oc=5",
+          "query": "ASML High-NA EUV shipping updates"
+        },
+        {
+          "title": "[News] imec Secures ASML’s Most Advanced EXE:5200 High-NA EUV for Sub-2nm; 4Q26 Qualification Target - TrendForce",
+          "summary": "[News] imec Secures ASML’s Most Advanced EXE:5200 High-NA EUV for Sub-2nm; 4Q26 Qualification Target&nbsp;&nbsp;TrendForce",
+          "published": "Thu, 19 Mar 2026 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNV3gzX2xVMV9JNzlCRHEzZlloWFUtRkNFeU9fUnpab2FYVGZKNTRvOXprSUNhdFlTcFM3ZmxMOUU5U2JGT3ZlNUtIWFJTMUNXZ2VhTFRxWUlnUTVQbE1aTEtJQnprUnRLUjQ3ZUEzSHJJckNsT0gtTmw0b1R0Zk9EYmQxV05JWDZNaVFmVmowZGxiWlFmV3BtZDVLZzFIZ2JMcERaQzN1MmxuWEJXUU4wMnM4SllESXg0dS1KeGtoZ3puTk9ZdGtnRGRGSk5mQmlDRXF0NHB3?oc=5",
+          "query": "ASML High-NA EUV shipping updates"
+        },
+        {
+          "title": "ASML Schedules Delivery of 56 Low-NA and 10 High-NA EUV Tools in 2027 - TechPowerUp",
+          "summary": "ASML Schedules Delivery of 56 Low-NA and 10 High-NA EUV Tools in 2027&nbsp;&nbsp;TechPowerUp",
+          "published": "Wed, 24 Sep 2025 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPWHNhVEs3UDNCYWl5UnhuUUIweGJCZkpLRC1UTUhvWlA0M3I4Znl6bjlBTUN0Y09NSWpoSE81VVlFOFBlX2xYTEZVTmgzR2xXSXRpSFEtb0dpX1RzaTRpVkhQY1ppMkRua3hxQUVuVVcwdXM2UnQ3Vlk0MWFsNjltUE03Zms2eW1pRTFzUnRfWHY5SHNrSEVFZ2dkck1sMVZRZVBmM1I4MNIBrAFBVV95cUxObUJ6YXhralE2ZmxMdmJha0NmeU96cExfU0o2VU9Veng4dkxvOW9rWFUyOEFIdUktcXpoNlFuQUpoSlFLUFdYWlFGQ2RjbUNLMzU1aDRGdGFBdmd6SEtLT0pna2plcUpNelJRV242Q3VHRTB0NzNwd1lmM2ZzWFRRN2Frd0VVVTFGbEJlT1dJTk5sYXQ5VGxYUXFOSEY0UmFWT1ltMXN6ZGEyWHNG?oc=5",
+          "query": "ASML High-NA EUV shipping updates"
+        },
+        {
+          "title": "ASML Remains Key Bottleneck Play in AI Chip Buildout - Let's Data Science",
+          "summary": "ASML Remains Key Bottleneck Play in AI Chip Buildout&nbsp;&nbsp;Let's Data Science",
+          "published": "Wed, 13 May 2026 07:00:00 GMT",
+          "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNYnhZMUI4UFdTcWxFWDVMUW1UY3RtWi1WcnhRVGtmNFRuMEhqZExTYTZrWm1lUmZmbFppOGZUZGs3cXo4RFl4a2VGR09GYUtCcGNCXzMxa25JSm5VN21xN21rYkdRd1dTUjZ6WlgyaWNZVnpyMGM1ZHBrOHBZdGhHTFA3RTNSZkJtampHWEJWNTBCWjZLT1dDMVdR?oc=5",
+          "query": "ASML 2nm logic delivery"
+        }
+      ],
+      "scanned_at": "2026-05-26T15:08:06.709783+00:00"
+    }
+  },
+  "semi_cycle": {
+    "phase": "🔥 PEAK (Asiri Isinma)",
+    "cycle_score": 90.4,
+    "modifier": -3,
+    "narrative": "Sektor pikinde - geri donus yakin. Yeni alimlar icin DCA stratejisine geç, yuksek pozisyonlari hafiflet.",
+    "signals": {
+      "soxx_rsi60": 68.3,
+      "smh_rsi60": 67.7,
+      "equipment_12m_pct": 201.77,
+      "logic_12m_pct": 174.38,
+      "memory_12m_pct": 897.14,
+      "above_200_breadth_pct": 100.0
+    },
+    "scanned_at": "2026-05-26T15:07:47.978932+00:00"
+  }
+}

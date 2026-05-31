@@ -1,0 +1,50 @@
+{
+  "WOLF_ML_OVERFIT": {
+    "last_fired": "2026-05-27T21:50:19.445746",
+    "severity": "UYARI"
+  },
+  "IONQ_ML_OVERFIT": {
+    "last_fired": "2026-05-27T21:50:34.587946",
+    "severity": "UYARI"
+  },
+  "RGTI_ML_OVERFIT": {
+    "last_fired": "2026-05-27T21:50:38.206765",
+    "severity": "UYARI"
+  },
+  "ATOM_FOUNDRY_JDA": {
+    "last_fired": "2026-05-27T21:50:46.003222",
+    "severity": "KRITIK"
+  },
+  "ATOM_ML_OVERFIT": {
+    "last_fired": "2026-05-27T21:50:46.003222",
+    "severity": "UYARI"
+  },
+  "LAES_NIST_PQC_INTEGRATION": {
+    "last_fired": "2026-05-27T21:50:54.761921",
+    "severity": "KRITIK"
+  },
+  "LAES_ML_OVERFIT": {
+    "last_fired": "2026-05-27T21:50:54.761921",
+    "severity": "UYARI"
+  },
+  "NVTS_ML_OVERFIT": {
+    "last_fired": "2026-05-27T21:51:06.916900",
+    "severity": "UYARI"
+  },
+  "QBTS_ML_OVERFIT": {
+    "last_fired": "2026-05-27T21:51:11.827646",
+    "severity": "UYARI"
+  },
+  "POET_ML_OVERFIT": {
+    "last_fired": "2026-05-27T21:51:20.492702",
+    "severity": "UYARI"
+  },
+  "ARQQ_ML_OVERFIT": {
+    "last_fired": "2026-05-27T21:51:28.652969",
+    "severity": "UYARI"
+  },
+  "SMCI_ML_OVERFIT": {
+    "last_fired": "2026-05-27T21:51:36.504836",
+    "severity": "UYARI"
+  }
+}

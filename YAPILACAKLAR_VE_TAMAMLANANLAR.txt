@@ -1,0 +1,537 @@
+================================================================================
+   QUANT AI DASHBOARD — TAM YAPILACAKLAR VE TAMAMLANANLAR DEFTERI
+   Tarih: 28 Mayis 2026
+   Versiyon: v9 (Master Score + Monte Carlo + Telegram + Tek EXE)
+================================================================================
+
+LEJANT:
+   [X] = Tamamlandi, calisiyor, test edildi
+   [~] = Kismi tamamlandi (kod var ama bazi noktalari eksik)
+   [ ] = Yapilmadi, planlanan
+   [!] = ACIL / kritik eksiklik
+   [?] = Karar bekleyen (kullanici icin)
+
+
+================================================================================
+BOLUM 1 — TEMEL ALTYAPI (CEKIRDEK SISTEM)
+================================================================================
+
+  [X] 1.1   yfinance entegrasyonu — fiyat + temel veri cekme
+  [X] 1.2   Streamlit dashboard altyapisi
+  [X] 1.3   .env + config.py — TICKERS, REFRESH_MINUTES, ALL_WATCHLIST_DEFAULTS
+  [X] 1.4   Cache mekanizmasi (joblib + streamlit cache, 15 dk)
+  [X] 1.5   Plotly interaktif grafikler (price, MACD, candle, gauge)
+  [X] 1.6   Loglama altyapisi (alerts.log + python logging)
+  [X] 1.7   Tarayici otomatik acma + 15 dakikada bir yenileme
+  [X] 1.8   3 sutunlu responsive layout
+  [X] 1.9   Sidebar kontrol paneli (manuel cache temizleme, auto-refresh toggle)
+  [X] 1.10  Hata yakalama — eksik veri varsa graceful fallback
+
+
+================================================================================
+BOLUM 2 — TEKNIK ANALIZ MODULLERI
+================================================================================
+
+  [X] 2.1   RSI (14 gun, Wilder smoothing)
+  [X] 2.2   MACD (12/26/9, signal + histogram)
+  [X] 2.3   SMA (20, 50, 200) + crossover sinyalleri
+  [X] 2.4   EMA (50, 200) + golden/death cross
+  [X] 2.5   Bollinger Bands (20-2)
+  [X] 2.6   ATR (Average True Range) — dinamik volatilite
+  [X] 2.7   Stochastic Oscillator
+  [X] 2.8   Volume z-score anormal hacim tespiti
+  [X] 2.9   Murphy Trend Takip (SMA20>SMA50>SMA200 + RSI koridoru)
+  [X] 2.10  Stop-loss + Take-profit hesabi (ATR carpani)
+
+
+================================================================================
+BOLUM 3 — TEMEL ANALIZ (FUNDAMENTALS)
+================================================================================
+
+  [X] 3.1   PEG ratio
+  [X] 3.2   ROE / ROIC
+  [X] 3.3   Gross Margin trend
+  [X] 3.4   Debt-to-Equity
+  [X] 3.5   P/E, P/S, P/B
+  [X] 3.6   Fundamental Score (0-100) hesaplama
+  [X] 3.7   Cash Runway hesabi (cash / quarterly burn rate)
+  [X] 3.8   Spekulatif hisseler icin "is_unsustainable" tagi (< 6 ay nakit)
+
+
+================================================================================
+BOLUM 4 — SENTIMENT & HABER ANALIZI
+================================================================================
+
+  [X] 4.1   TextBlob duyarlilik analizi
+  [X] 4.2   NLTK VADER hybrid (cross-validation)
+  [X] 4.3   Yahoo Finance haber feed'i
+  [X] 4.4   RSS feed parse (Reuters, Bloomberg proxy)
+  [X] 4.5   Reddit WallStreetBets scraping
+  [X] 4.6   Critical news pattern matching (Tier-1 OEM, JDA, NIST PQC)
+  [X] 4.7   Kritik haber sayisi metric
+  [X] 4.8   Negativite bias compensation
+
+
+================================================================================
+BOLUM 5 — MAKINE OGRENMESI
+================================================================================
+
+  [X] 5.1   XGBoost yon tahmini (up/down binary)
+  [X] 5.2   RandomForest fallback
+  [X] 5.3   Feature engineering (RSI, MACD, returns, sentiment, fundamental)
+  [X] 5.4   StandardScaler normalize
+  [X] 5.5   prob_up + recommendation (AL/BEKLE/SAT)
+  [X] 5.6   Train accuracy + test accuracy raporu
+  [X] 5.7   Wilson confidence interval (prob_up icin %95 CI)
+  [X] 5.8   Lopez de Prado Purged K-Fold CV (overfit teshisi)
+  [X] 5.9   Overfit verdict (CLEAN / WARNING / SEVERE)
+  [X] 5.10  Andrew Ng error decomposition (bias / variance)
+  [~] 5.11  MDI (Mean Decrease Impurity) — model.feature_importances_ dondurur
+            EKSIK: app.py Detail panelinde tablo bos kaliyor cunku
+            ml_model.py 'feature_importance' dict dondururken, app.py
+            'feature_importance_mdi' bekliyor — anahtar uyumsuzlugu var
+  [~] 5.12  MDA (Mean Decrease Accuracy, Lopez de Prado gold standard)
+            Fonksiyon yazildi (feature_importance.feature_importance_mda)
+            EKSIK: analyze_ticker pipeline'i bunu cagirmiyor; sadece smoke
+            testte mock data ile gosterildi
+  [X] 5.13  top_features_report() — Top-5 listesi + sentiment vs SMA verdict
+  [ ] 5.14  Son 30 gun filtreli MDI/MDA raporu (kullanici istedi: 'son 1 ay')
+            Pipeline degisikligi gerekir: model son 30 gunluk veriyle
+            ayrica train edilip MDA hesaplanmali
+  [ ] 5.15  Multi-class ML (uc sinif: BUY/HOLD/SELL)
+  [ ] 5.16  Ensemble (XGBoost + LightGBM + CatBoost voting)
+  [ ] 5.17  Online learning (model yeni veri ile incremental update)
+
+
+================================================================================
+BOLUM 6 — MASTER SCORE (HIBRIT GUVEN ENDEKSI)
+================================================================================
+
+  [X] 6.1   Taban skor formulu: B = T(30) + V(30) + F(20) + S(20)
+  [X] 6.2   Research-Agent kappa katsayisi (Lopez de Prado MDA, 0.5-1.5)
+  [X] 6.3   Modifier sistemi:
+              - sector chain      +/-5
+              - capex watch       +/-5
+              - critical news     +/-10
+              - fear penalty      -5..0
+              - moat penalty      -5..0
+              - patent bonus      0..+5
+              - geopolitical      -15..+10  (CRITICAL EXPORT FILTER)
+              - cycle phase       +/-3
+              - macro tailwind    +/-10     (EXPANSION/PEAK/DOWNTURN)
+              - strategic overlay +/-30     (clamp + raporda full bonus)
+              - cash runway       -20..0
+              - moonshot J-curve  -5..+20
+  [X] 6.4   Rating tablosu (KRITIK ALIM / GUCLU AL / AL / BEKLE / DIKKAT / SAT)
+  [X] 6.5   Calculation Trace expander (Detail tab'da)
+  [X] 6.6   Sigmoid normalize alternatif (B * kappa sigmoid'e atilabilir)
+  [ ] 6.7   Bayesian Master Score — modifier'lara guven araligi ekle
+
+
+================================================================================
+BOLUM 7 — STRATEJIK OVERLAY'LER (DOMAIN-OZGUL)
+================================================================================
+
+  [X] 7.1   QUANTUM_BASKET — IONQ + RGTI + QBTS + ARQQ kombinasyonu
+  [X] 7.2   IP_LICENSING (ATOM) — JDA + foundry pattern
+  [X] 7.3   ATOM GAA (Gate-All-Around) evaluation phase pattern
+  [X] 7.4   PQC_HW_SECURITY (SEALSQ/LAES) — NIST + FIPS 140-3 + CC Lab Letter
+  [X] 7.5   GAN_POWER (NVTS) — Tier-1 OEM + DC rack power
+  [X] 7.6   AI_INTERCONNECT (CRDO/ALAB/POET) — silikon fotonik
+  [X] 7.7   CUSTOM_AI_ASIC (AVGO/MRVL)
+  [X] 7.8   AI_DC_INFRA (VRT/SMCI)
+  [X] 7.9   HBM_MEMORY (MU)
+  [X] 7.10  EDGE_AI_FPGA (LSCC)
+  [X] 7.11  CPU_IP (ARM)
+  [X] 7.12  PQC_SAAS (ARQQ)
+  [X] 7.13  AI_ENTERPRISE (PLTR)
+  [X] 7.14  VISION_SOC (AMBA)
+  [X] 7.15  SPECULATIVE_TICKERS set — Bessembinder iskontosu icin
+  [!] 7.16  ATOM regex over-triggering — "Makes progress towards adoption"
+            gibi muglak ifadeleri JDA gibi yakalıyor. Fine-tune lazim:
+            JDA imzasi VEYA "signed agreement" VEYA "qualified for production"
+            ifadelerinde tetiklensin, "progress / towards / discussion" gibi
+            kelimelerde SUS.
+  [ ] 7.17  Kucuk hisselerin (mikrokap) "pump & dump" pattern tespiti
+
+
+================================================================================
+BOLUM 8 — SEKTOREL ZEKA (SECTOR INTELLIGENCE)
+================================================================================
+
+  [X] 8.1   SECTOR_CHAINS — lider/takipci mapping
+              AI_DEMAND, EV_POWER_EFFICIENCY, AI_DATACENTER_POWER,
+              SECURITY_IP, QUANTUM_HYPE, AI_INTERCONNECT, CUSTOM_XPU,
+              SEMI_TEST_RAMP, AI_DC_BUILDOUT
+  [X] 8.2   CapEx Watch — hyperscaler/foundry capex haberi tespiti
+  [X] 8.3   Correlation Matrix (30/90/180 gun rolling)
+  [X] 8.4   Moat Analysis (Porter/Buffett + gross margin + ROIC + IP)
+  [X] 8.5   Volatility Smile (put skew vs call skew)
+  [X] 8.6   Semi Cycle Index — SOX/SMH RSI + equipment + memory
+  [X] 8.7   Semi Cycle Phase tespit (PEAK/EXPANSION/RECOVERY/TROUGH/DOWNTURN)
+  [X] 8.8   Macro Bonus mapping (EXPANSION +10, PEAK -5, DOWNTURN -10)
+  [ ] 8.9   Inflation overlay (CPI > %4 ise tum portfoye -5)
+  [ ] 8.10  Yield curve inversion alarm (10Y - 2Y < 0)
+
+
+================================================================================
+BOLUM 9 — HARDWARE INTELLIGENCE AGENT
+================================================================================
+
+  [X] 9.1   Patent watch — USPTO + Google Patents proxy
+  [X] 9.2   Patent z-score anormal artis tespiti
+  [X] 9.3   Geopolitik risk skoru (-10..+10)
+  [X] 9.4   BIS Federal Register RSS feed
+  [X] 9.5   Critical Export Filter (Ga/Ge/InP/EUV/SiC) — Master -15
+  [X] 9.6   Genisletilmis GEO_KEYWORDS (NVTS, INDI, QBTS, RGTI, POET, MU, ARM)
+  [X] 9.7   Patent bonus Master Score'a entegre
+  [X] 9.8   Engineering Notes (her hisse icin teknik aciklama + kritik esik)
+  [ ] 9.9   Talent flow analizi (LinkedIn proxy — sirketten cikan/giren muh.)
+  [ ] 9.10  Supply chain map gorseli (kim kimden alir)
+
+
+================================================================================
+BOLUM 10 — FORECASTING (TAHMIN)
+================================================================================
+
+  [X] 10.1  Prophet 6-ay yatay forecast
+  [X] 10.2  Prophet logistic growth mode (cap + floor)
+  [X] 10.3  Outlier cleaning (IQR clipping, sigma=6)
+  [X] 10.4  Reality check 1: Per-ticker price cap (NVTS $100, ATOM $40 vb.)
+  [X] 10.5  Reality check 2: Sektor lider market cap saturation
+  [X] 10.6  Reality check 3: Global 20x hard cap
+  [X] 10.7  Reality check 4: %15-25 CAGR band clamp
+  [X] 10.8  Confidence intervals (yhat_lower/upper)
+  [X] 10.9  Timezone helpers (tz-naive enforcement)
+  [X] 10.10 Sektor PS multiplier (market cap threshold realistic)
+  [ ] 10.11 LSTM neural net forecast (Prophet alternatifi)
+  [ ] 10.12 Sektor-bazli ortalama forecast (tek hisse yerine sepet)
+  [ ] 10.13 Olay-bazli forecast (FED toplantisi sonrasi senaryo)
+
+
+================================================================================
+BOLUM 11 — MONTE CARLO SIMULASYONU
+================================================================================
+
+  [X] 11.1  Geometric Brownian Motion (10K path, 10 yil)
+  [X] 11.2  Fat-tail clipping (20x cap, min 0.01)
+  [X] 11.3  Macro stress overlay (inflation + rate hike + cycle phase)
+  [X] 11.4  Drift + volatility yfinance'tan estimate (3 yil gecmise bakar)
+  [X] 11.5  VaR 5% + CVaR 5%
+  [X] 11.6  P(bust) / P(loss) / P(double) / P(10x) / P(20x_cap_hit)
+  [X] 11.7  Median CAGR + worst/best 5 path
+  [X] 11.8  app.py Detail tab'da expander (slider'larla)
+  [X] 11.9  Plotly histogram (kirmizi VaR + sari median + yesil P95)
+  [ ] 11.10 Multi-asset portfoy MC (korelasyonlu, 10 hisse birlikte)
+  [ ] 11.11 Olay agaclari (decision tree: catalyst hit vs miss)
+  [ ] 11.12 Sektor ortalama MC (NVTS yerine "GaN Power" sektoru icin)
+
+
+================================================================================
+BOLUM 12 — RISK YONETIMI
+================================================================================
+
+  [X] 12.1  Max Drawdown
+  [X] 12.2  Sharpe Ratio
+  [X] 12.3  Calmar Ratio
+  [X] 12.4  P(bust) / P(10x) / P(100x) dagilim haritasi
+  [X] 12.5  Annualized volatility
+  [X] 12.6  Risk band etiketi (DUSUK/ORTA/YUKSEK/SPEKULATIF)
+  [ ] 12.7  Sortino Ratio — formul Math_Specs.md'de var, kod yok
+  [ ] 12.8  Kelly Criterion position sizing
+  [ ] 12.9  Optimal F (Vince) konum buyuklugu
+  [ ] 12.10 Risk parity portfoy onerisi
+  [ ] 12.11 Stress test (2008, 2020, dot-com cracli senaryolari)
+
+
+================================================================================
+BOLUM 13 — PAPER PORTFOLIO (SANAL PORTFOY)
+================================================================================
+
+  [X] 13.1  Initialize — her hissseye $1000, share hesabi
+  [X] 13.2  Current value — anlik PnL hesabi
+  [X] 13.3  Value history (yfinance gecmis kapanis ile)
+  [X] 13.4  SPY benchmark (S&P 500 ayni miktarda yatirilmis gibi)
+  [X] 13.5  Anchor enforcement (en az 2 nokta plot icin)
+  [X] 13.6  Future scenarios (1y/5y/10y, pessimistic/base/optimistic)
+  [X] 13.7  Gercekci model (Bessembinder, p_success, hard caps)
+  [X] 13.8  DCA projeksiyon (aylik ek yatirim + bilesik faiz)
+  [X] 13.9  suggest_dca_return() — dinamik getiri onerisi
+  [X] 13.10 Per-ticker 10Y senaryo detayi (expander)
+  [X] 13.11 Bar chart (10Y senaryo karsilastirma)
+  [X] 13.12 Sifirla butonu
+  [ ] 13.13 Stop-loss simulasyonu (otomatik satis)
+  [ ] 13.14 Take-profit ladder (kademeli kar realize)
+  [ ] 13.15 Manuel transaction ekleme (gercek portfoy ile senkron)
+  [ ] 13.16 Vergi / tax-loss harvesting analizi
+  [ ] 13.17 Multi-currency display (TRY karsiligi anlik)
+
+
+================================================================================
+BOLUM 14 — MOONSHOT DETECTION
+================================================================================
+
+  [X] 14.1  J-Curve score (0-100, logarithmic fit)
+  [X] 14.2  Explosive Factor narratif (her ticker icin ozgun)
+  [X] 14.3  MOONSHOT_CANDIDATES set (NVTS, INDI, RGTI, QBTS, CRDO, ALAB, POET)
+  [X] 14.4  SECONDARY_MOONSHOT (ARM, SMCI, PLTR)
+  [X] 14.5  +20 SICRAMA POTANSIYELI bonus
+  [X] 14.6  Finansal yorgunluk uyarisi (revenue -%50 + nakit zayif)
+  [ ] 14.7  "POTANSIYEL PATLAMA" verdict — investor_summary.py'a yok
+            (mevcut: TUT/EKLE/BEKLE/AZALT/DIKKAT). Eklenmeli:
+            moonshot + strategic overlay aktif + Master >= 75 ise POTANSIYEL.
+
+
+================================================================================
+BOLUM 15 — KUR & FINANSAL MODELLEME
+================================================================================
+
+  [X] 15.1  Triple Barrier Method (Lopez de Prado, ATR SL + ATR TP + zaman)
+  [X] 15.2  Backtest (son 2 yil, win rate, profit factor, alpha vs B&H)
+  [X] 15.3  Black-Litterman portfoy optimizasyonu
+  [X] 15.4  Feature importance Top-5 (Math_Specs.md Bolum 7)
+  [ ] 15.5  Fama-MacBeth regresyon (faktor risk premium)
+  [ ] 15.6  Hidden Markov Model — rejim degisikligi tespiti
+
+
+================================================================================
+BOLUM 16 — DASHBOARD UI / UX
+================================================================================
+
+  [X] 16.1  8 sekme: Sanal Portfoy / Overview / Detail / Forecast / Sectoral /
+            Moonshots / Investor Summary / Canvas
+  [X] 16.2  Master Score progress bar (column_config)
+  [X] 16.3  Plotly dark theme
+  [X] 16.4  KIRMIZI KRITIK BANNER (sticky, son 24h olaylar, pulse animasyon)
+  [X] 16.5  Calculation Trace expander (Master Score formul dokumu)
+  [X] 16.6  Monte Carlo paneli (slider + histogram + metrikler)
+  [~] 16.7  MDI/MDA Top-5 paneli (UI hazir, data wiring eksik — bkz 5.11)
+  [X] 16.8  Engineering Notes paneli (statik + dinamik)
+  [X] 16.9  ML Overfit Teshisi paneli (badge + Purged CV detayi)
+  [X] 16.10 Critical News badge (haberlerde alev emoji)
+  [X] 16.11 Reddit posts ozeti
+  [X] 16.12 Confidence interval gosterimi
+  [ ] 16.13 Settings sayfasi (default ticker'lar, esikler, theme)
+  [ ] 16.14 Karanlik mod toggle (sabit suanda)
+  [ ] 16.15 Mobil-first responsive design (suanda masaustu odakli)
+  [ ] 16.16 CSV / Excel export butonu (Master Score tablosu icin)
+  [ ] 16.17 Watchlist yonetim UI (sidebar'dan ticker ekle/cikar)
+  [ ] 16.18 Strategy builder (custom modifier agirligi belirleme)
+  [ ] 16.19 Side-by-side hisse karsilastirma (NVTS vs WOLF radar chart)
+  [ ] 16.20 Detayli hatirlatma not paneli (kullanici kendi notunu yazsin)
+
+
+================================================================================
+BOLUM 17 — TELEFON & MOBILE BILDIRIM
+================================================================================
+
+  [X] 17.1  Plyer desktop notification (Windows toast)
+  [X] 17.2  Idempotent trigger state (7 gun cache)
+  [X] 17.3  Telegram bot push (HTML formatli)
+  [X] 17.4  Telegram setup UI (token + auto chat_id + test mesaji)
+  [X] 17.5  Severity filtresi (KRITIK / UYARI / GUCLU / BILGI)
+  [X] 17.6  Master Score >= 85 icin ozel Telegram mesaji
+  [X] 17.7  LAN access (0.0.0.0 bind, QR kod sidebar'da)
+  [X] 17.8  Konsol banner'inda LAN IP gosterimi
+  [X] 17.8b phone_app/ PWA shell (index.html + manifest + service worker)
+  [X] 17.8c phone_app_server.py port 8502 (launcher ile otomatik baslar)
+  [X] 17.8d PWA ikonlari (192/512/maskable) + generate_icons.py
+  [X] 17.8e APK_OLUSTURMA.md (PWABuilder / Bubblewrap rehberi)
+  [X] 17.8f Sidebar: Telefon Uygulamasi (PWA + APK) QR port 8502
+  [X] 17.8g make_apk.ps1 — tek tik APK helper (Cloudflare Tunnel + PWABuilder)
+            cloudflared.exe otomatik indirir, HTTPS public URL acar,
+            URL'yi panoya kopyalar + tarayicida PWABuilder acar
+  [~] 17.8h Kalici APK domain (Cloudflare Tunnel + DNS) — rehber: APK_OLUSTURMA.md C
+  [ ] 17.9  Email backup bildirim (Telegram olmayanlar icin)
+  [ ] 17.10 Discord webhook
+  [ ] 17.11 Slack webhook
+  [ ] 17.12 SMS gateway (Twilio)
+  [ ] 17.13 Apple Watch / Garmin entegrasyonu
+  [ ] 17.14 Voice notification (TTS — sesli okuma)
+  [ ] 17.15 Coklu Telegram chat (aile/ekibe ayni anda gonder)
+  [ ] 17.16 ngrok / Tailscale ile dis ag (mobil veri) erisimi otomatik tunnel
+  [ ] 17.17 iOS Shortcuts entegrasyonu (Siri ile sor: "ATOM skoru ne?")
+
+
+================================================================================
+BOLUM 18 — DAGITIM (DEPLOYMENT)
+================================================================================
+
+  [X] 18.1  setup.ps1 (ilk kurulum scripti)
+  [X] 18.2  run.bat (tek tik baslat)
+  [X] 18.3  requirements.txt
+  [X] 18.4  PyInstaller --onefile build (QuantDashboard.exe, 299 MB)
+  [X] 18.5  launcher.py (browser ac + LAN IP goster)
+  [X] 18.6  QuantDashboard.spec (hidden imports + collect-all)
+  [X] 18.7  build_exe.ps1 (otomatik derleme)
+  [X] 18.8  KURULUM_ARKADAS.md (Turkce kilavuz)
+  [X] 18.9  Math_Specs.md (LaTeX formuller, 12 bolum)
+  [ ] 18.10 Code signing (Microsoft kod imzasi — false positive engelle)
+  [ ] 18.11 Auto-update (yeni versiyon cikinca otomatik indir)
+  [ ] 18.12 macOS / Linux build (PyInstaller multi-platform)
+  [ ] 18.13 Docker image (cloud deploy icin)
+  [ ] 18.14 Streamlit Community Cloud deploy (ucretsiz public URL)
+
+
+================================================================================
+BOLUM 19 — VALIDATION & QA
+================================================================================
+
+  [X] 19.1  _system_validation.py (116 test, 7 faz, hepsi PASS)
+  [X] 19.2  _qa_ground_truth.py (5 senaryo: SEALSQ FIPS, NVTS Q1, Semi Cycle,
+            ATOM GAA, Ga/Ge Export) — 11/11 PASS
+  [X] 19.3  _verify_ai_quantum.py — 15 yeni stok metadata bütünlügü
+  [X] 19.4  _verify_core.py — TICKERS listesi tamlik kontrolu
+  [X] 19.5  _smoke_paper*.py — paper portfolio smoke testleri
+  [X] 19.6  _smoke_montecarlo.py — Monte Carlo + feature_importance test
+  [ ] 19.7  pytest dizini (gerçek unit testler, GitHub Actions CI uyumlu)
+  [ ] 19.8  Coverage rapor (codecov / coverage.py)
+  [ ] 19.9  Mutation testing (mutmut)
+
+
+================================================================================
+BOLUM 20 — DOKUMANTASYON
+================================================================================
+
+  [X] 20.1  README.md (proje yapisi + kurulum)
+  [X] 20.2  Math_Specs.md (12 bolum LaTeX formuller + 13 akademik referans)
+  [X] 20.3  KURULUM_ARKADAS.md (Turkce, telefon kilavuzu, Telegram setup)
+  [X] 20.4  LIBRARIES.md (kullanilan kutuphaneler listesi)
+  [X] 20.5  OGRENME_KITAPLARI.md (referans kitap listesi)
+  [X] 20.6  Akademik docstring'ler (master_score, backtest, forecasting,
+            purged_cv, feature_importance, monte_carlo, telegram_notifier)
+  [ ] 20.7  Video kilavuz (5 dk YouTube tour)
+  [ ] 20.8  API dokumentasyonu (Sphinx / mkdocs)
+  [ ] 20.9  Strategy cookbook (orneklerle "su olursa ne yap?")
+  [ ] 20.10 Hata kodu sozlugu (kullanici "X hatasi aldim" derse cozumu)
+
+
+================================================================================
+BOLUM 21 — ACIK EKSIKLIKLER (ONCELIK SIRASI)
+================================================================================
+
+ACIL (1-2 saat icinde yapilabilir):
+
+  [!] 21.1  ATOM regex over-trigger — "progress towards adoption" gibi
+            ifadelerde tetiklenmesin (Bolum 7.16). YONTEM:
+            ATOM_FOUNDRY_INTEGRATION_PATTERNS'i daraltacak negative lookahead
+            ekle: "progress|towards|discussion|considering" varsa SUS.
+            Yerine "signed|imzaladi|qualified|production-ready" iste.
+
+  [!] 21.2  MDI/MDA data wiring (Bolum 5.11 + 5.12)
+            ml_model.train_model() icindeki return dict'e su anahtarlari ekle:
+              feature_importance_mdi: [{feature, importance}, ...]
+              feature_importance_mda: [{feature, importance, std}, ...]
+            (MDA opsiyonel — slow oldugu icin sadece manuel buton ile)
+
+  [!] 21.3  Sortino Ratio (Bolum 12.7) — backtest.py'ye 10 satir ekle
+            sigma_down = sqrt(mean(r_negatif^2))
+            sortino = (mean(r) - rf/N) / sigma_down * sqrt(N)
+
+ORTA (3-5 saat):
+
+  [ ] 21.4  POTANSIYEL PATLAMA verdict (Bolum 14.7) — investor_summary.py
+            mevcut _verdict() fonksiyonuna ekle:
+              if moonshot + strategic_overlay >= +25 + master >= 75:
+                  return "POTANSIYEL PATLAMA"
+
+  [ ] 21.5  Son 30 gun MDI/MDA filtrelenmiş raporu (Bolum 5.14)
+
+  [ ] 21.6  CSV / Excel export (Bolum 16.16) — pd.DataFrame.to_csv() butonu
+
+  [ ] 21.7  Watchlist yonetim UI (Bolum 16.17) — sidebar text_input + ekle butonu
+
+UZUN (1-2 gun):
+
+  [ ] 21.8  Code signing (Bolum 18.10) — DigiCert/Sectigo sertifika lazim ($300-500/yil)
+
+  [ ] 21.9  ngrok auto-tunnel (Bolum 17.16) — dis aglardan erisim
+
+  [ ] 21.10 Streamlit Cloud deploy (Bolum 18.14) — GitHub repo + 1 click deploy
+
+
+================================================================================
+BOLUM 22 — UZUN VADELI VIZYON (3-12 AY)
+================================================================================
+
+  [?] 22.1  LLM entegrasyonu — GPT/Claude API ile gunluk ozet
+              "Bugun NVTS'de su 3 olay var, su yuzden onemli..."
+
+  [?] 22.2  Otomatik trade botu (Alpaca / Interactive Brokers API)
+              Master Score >= 85 ise otomatik AL emri (RISKLI — sadece simule)
+
+  [?] 22.3  Multi-user destegi — birden fazla kullanici, ayri portfolio'lar
+
+  [?] 22.4  Mobile native app (React Native + ayni Streamlit backend'i API olarak)
+
+  [?] 22.5  Crypto entegrasyonu — BTC/ETH korelasyonu, on-chain veriler
+
+  [?] 22.6  Backtesting platform — ozel strateji yazip 5 yil geriye test
+
+  [?] 22.7  Algorithmic Trading Workshop — Python kodu ureten LLM agent
+
+  [?] 22.8  Public sharing — belirli analizi public link ile paylas
+
+  [?] 22.9  Marketplace — kullanicilar kendi stratejilerini paylasir/satar
+
+  [?] 22.10 Insider trading data feed (Form 4 SEC filings)
+
+  [?] 22.11 Earnings calendar push (kazanc gunu 1 gun once Telegram alarm)
+
+
+================================================================================
+BOLUM 23 — OZET ISTATISTIKLERI (28 MAYIS 2026)
+================================================================================
+
+  Tamamlanan kategoriler:     20 ana modul, 41 .py dosyasi
+  Tamamlanan ozellikler:      164
+  Yarim kalan / data wiring:  3   (MDI/MDA, son 30 gun filtre)
+  Eksik kritik (ACIL):        3   (ATOM regex, MDI wiring, Sortino)
+  Eksik orta oncelik:         8
+  Uzun vadeli plan:           23
+
+  Toplam kod satiri:          ~25,000 satir Python
+  EXE dosya boyutu:           299.2 MB (tek dosya, hicbir kurulum gerekmiyor)
+  Test sayisi:                127 PASS (116 + 11 QA)
+  Akademik referans sayisi:   13 kitap/makale
+
+  KULLANIM:
+    - Bilgisayar:   QuantDashboard.exe cift tikla
+    - Telefon:      Ayni WiFi -> QR kod oku
+    - Push alarm:   Telegram bot kur (~3 dakika)
+
+
+================================================================================
+BOLUM 24 — KULLANICI NOTLARI / TARTISMA KONULARI
+================================================================================
+
+  *  Master Score'un duygusal kararlardan ayrismasi onemli — sistem
+     "AL" dese de kullanici hala kendi due diligence yapmali.
+
+  *  Spekulatif hisselerde (NVTS, ATOM, IONQ, RGTI) Bessembinder iskontosu
+     sert — gercekci CAGR yillik %3-12 araliginda, %22 mutlak ust sinir.
+
+  *  Telegram bot suanda sadece bilgilendirme — otomatik trade YOK.
+
+  *  AXTI ornek olayinda goruldugu uzere: agresif overlay'ler "umut" haberini
+     "imza" gibi yorumlayabilir — kullanicinin habere bizzat bakmasi gerekli.
+
+  *  Monte Carlo sonuclari yfinance'tan cekilen 3 yillik gecmise dayanir;
+     yeni IPO'lar icin (POET, QBTS) volatilite tahmini kararsiz olabilir.
+
+  *  Sistem AB borsalari + Turk hisseleri icin egitilmemis; yalnizca ABD
+     piyasasi optimize edilmistir.
+
+
+================================================================================
+                    SONUNDA
+================================================================================
+
+Bu defter, projenin Mayis 2026 tarihindeki tam durumunu yansitir.
+Yeni bir ozellik baslamadan once Bolum 21 (Acik Eksiklikler) kontrol edilmeli.
+
+Sorular / istekler icin sohbete devam.
+
+                                  --- Quant AI Dashboard v9 ---
+                                  Master Score + Monte Carlo +
+                                  Telegram + Tek EXE

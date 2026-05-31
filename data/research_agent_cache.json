@@ -1,0 +1,186 @@
+{
+  "last_run": "2026-05-26T15:31:57.710779+00:00",
+  "ttl_hours": 4,
+  "tickers_scanned": [
+    "WOLF",
+    "IONQ",
+    "ASML"
+  ],
+  "by_ticker": {
+    "WOLF": {
+      "ticker": "WOLF",
+      "queries_run": 3,
+      "total_items": 24,
+      "recent_items": 3,
+      "bullish": 0,
+      "bearish": 0,
+      "neutral": 3,
+      "intensity": 6,
+      "net_score": 0.0,
+      "dynamic_coef": 1.0,
+      "headlines": [
+        {
+          "title": "Wolfspeed Reports Financial Results for the First Quarter of Fiscal 2026 - Business Wire",
+          "summary": "Wolfspeed Reports Financial Results for the First Quarter of Fiscal 2026&nbsp;&nbsp;Business Wire",
+          "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQc1FDdF9LOWJIVkYwWFUtMFZHMWlDY0RBdkJfZ2daU3ZZdThlYUVsVmFDNkNXM3JnYzNwZW9NNWRuNHc4QlpqT3oxLUdaMlltTmtIZ3FZSU43cmJiTWxHenl4b3c3MlZaZkMycmpQaVN0WFhFd0VBbVJ0RFU5VmY0LUFwTFd2TVNlOExNbVZRdXZxcFc1LThXaXVUaWdIb014VW1qa1BOY3FYREVkdjZTVmZTZmlNaEduX3Z6VDkzODNET1VhVUlNUg?oc=5",
+          "query": "Mohawk Valley fab yield percentage",
+          "classification": "bullish",
+          "published": "Wed, 29 Oct 2025 07:00:00 GMT"
+        },
+        {
+          "title": "Wolfspeed: Full Production Ramp Ripe For Automotive Scaling (NYSE:WOLF) - Seeking Alpha",
+          "summary": "Wolfspeed: Full Production Ramp Ripe For Automotive Scaling (NYSE:WOLF)&nbsp;&nbsp;Seeking Alpha",
+          "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNZFY2Ry1IZUFnN1RzNDRfQVEtX2pid281ZFdwMjRDV25UUF85VVA3R2xjR1VPV3FkT1hqNmVMa2xsTVJBb1NzNnJrTkxqQ0t4cGx5ZHlqRkFRTy13dlRSYy1pdlpCX0lUaTh1aVZVTUJSbUhIZHZQbEx2YVF2SzNDM1RzLTZ3THBaQmY1a2JtLVZvbGstemQ2aUFrMzB5ejBW?oc=5",
+          "query": "Wolfspeed EV power module ramp",
+          "classification": "bullish",
+          "published": "Mon, 22 Dec 2025 08:00:00 GMT"
+        },
+        {
+          "title": "Has Wolfspeed Truly Turned the Corner After Bankruptcy - Kavout",
+          "summary": "Has Wolfspeed Truly Turned the Corner After Bankruptcy&nbsp;&nbsp;Kavout",
+          "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQQjV3OWZudmkxOEk1TWpSekFpQ2k4SWVHSThZMVlPcDg4U0pxcE5iVGNLVWEtU1ZLTWh1XzVJc0pFYzdRdy1IcUJfUUQyZ3hoVVlQN2dhYi1zRENyR243eTRzS3BraFZHaWlmdUJOQmdla1JIYVRtWHBpa1pqSi1WdWdhc1htQjM2SDB1MFQ3Nk1hUm8?oc=5",
+          "query": "Mohawk Valley fab yield percentage",
+          "classification": "neutral",
+          "published": "Tue, 26 May 2026 13:09:44 GMT"
+        },
+        {
+          "title": "Wolfspeed: The Post-Bankruptcy Reset Is Working (NYSE:WOLF) - Seeking Alpha",
+          "summary": "Wolfspeed: The Post-Bankruptcy Reset Is Working (NYSE:WOLF)&nbsp;&nbsp;Seeking Alpha",
+          "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNWTVvd2pGS0NkT1dJVnY3UVRqSDVpb3NUR09qVWh5WHhMNFQyNm5yWmlfeVRFbDBYRk9qOUZnWXdPSWJYQ0dfMWtKbkZ6S183MGNFMmtMSDZSOVd3NHZqLTBLWkJTdjVNSGg2MjhrcHc1bnVJMjF2VGFIWlFMc0lBSDhObTNXQXpONlZseF9oUG4?oc=5",
+          "query": "Wolfspeed EV power module ramp",
+          "classification": "neutral",
+          "published": "Wed, 20 May 2026 14:50:26 GMT"
+        },
+        {
+          "title": "Semis Memo: Supply Chain Inheritance - Citrini Research | Substack",
+          "summary": "Semis Memo: Supply Chain Inheritance&nbsp;&nbsp;Citrini Research | Substack",
+          "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE00ZjdpWGVFblhmell2VkxrbnRrcWJoU1E1QVI3dWJpNHlmYVQ1N0VTbi1obzhMTENFVWVHbmRVLWJud3M2QUt0aTktNWFFZThUWHFKaXlyYUVaRVoxd25reml1X0ZXSlhoTmJCNHU1TE5BYTFyaWVEZA?oc=5",
+          "query": "Wolfspeed EV power module ramp",
+          "classification": "neutral",
+          "published": "Tue, 12 May 2026 07:00:00 GMT"
+        }
+      ],
+      "evidence_tag": "Confirmed by Web Research",
+      "scanned_at": "2026-05-26T15:31:58.303688+00:00"
+    },
+    "IONQ": {
+      "ticker": "IONQ",
+      "queries_run": 3,
+      "total_items": 24,
+      "recent_items": 0,
+      "bullish": 0,
+      "bearish": 0,
+      "neutral": 0,
+      "intensity": 0,
+      "net_score": 0.0,
+      "dynamic_coef": 1.0,
+      "headlines": [
+        {
+          "title": "IonQ Achieves Industry Breakthrough – First Trapped Ion Quantum System to Surpass 99.9% Fidelity on Barium - IonQ",
+          "summary": "IonQ Achieves Industry Breakthrough – First Trapped Ion Quantum System to Surpass 99.9% Fidelity on Barium&nbsp;&nbsp;IonQ",
+          "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxOaTF6cGkxa002YmVlelVKSktBaDV2ZkVSb1hrdURwWVlOdXNaZDhRZlltdGlrNHFxYlNraVN0UElRQWlOTGdfTEFJWmNzU2FSZnlwblR6T1lPM3g1QUVRYnJBM3p1VTNEeXRxcXJubzU0OThkRV9EV0NIbWppOEw4Z0dUMjdnZ2E3WFJPSUQ3eHlvaHdCUXlRNU1GX2M3dw?oc=5",
+          "query": "IONQ Barium trap reliability",
+          "classification": "bullish",
+          "published": "Thu, 12 Sep 2024 07:00:00 GMT"
+        },
+        {
+          "title": "IonQ Announces Partnership with NKT Photonics for Next-Generation Laser Systems to Power Future Quantum Computers - IonQ",
+          "summary": "IonQ Announces Partnership with NKT Photonics for Next-Generation Laser Systems to Power Future Quantum Computers&nbsp;&nbsp;IonQ",
+          "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQbmUxbmZLMjdLU3lnRHBFakNHSE9aLVByMWRTZGs0RXhla3puMmFXVlJEMG9FSHg4ZXRQWkExX1prTnN1OF9NNmEtU0FjRE56aFRnMEk2cFNuUzdUTldLMHBSLTY5emdwQUVubVk5dFUyc19QR0ZEcFhXWDJXRDVFMEVEUHdLQWRkX2xmZzNyQmJ6b05XQllNb29MNV9zdw?oc=5",
+          "query": "IONQ Barium trap reliability",
+          "classification": "bullish",
+          "published": "Thu, 07 Nov 2024 08:00:00 GMT"
+        },
+        {
+          "title": "In Industry First, IonQ to Use Barium Ions for Computation - IonQ",
+          "summary": "In Industry First, IonQ to Use Barium Ions for Computation&nbsp;&nbsp;IonQ",
+          "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1TVWxJc1BCUFlqcktUQ09EZEFqaWJRTlV2TVhJR2lETkQ2T0M4TjA3N3I3Q0hnLU96WWxsTTZlYi1KZlJaNFlXbEVXa3h1amw4OURyN3RmbU82SEpYYk04NjVKakVacWlxaDdzRWlB?oc=5",
+          "query": "IONQ Barium trap reliability",
+          "classification": "bullish",
+          "published": "Fri, 10 Dec 2021 08:00:00 GMT"
+        },
+        {
+          "title": "IonQ and KISTI Finalize Agreement to Deliver 100-Qubit Quantum System in South Korea - The Quantum Insider",
+          "summary": "IonQ and KISTI Finalize Agreement to Deliver 100-Qubit Quantum System in South Korea&nbsp;&nbsp;The Quantum Insider",
+          "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOYW9heHNId2o2YWZVTXk1YjhCTGw5VFYyOFB4QXA2NElQdnBGa185UEhOS21FcjNnZ0dTeXhHNG5RdXotRVBVeWthUkdCRlV1aVlJZ2lRVmk5ME9hTFdEM3lkeWdDeFlLWTlReWFRTEI2SWxEWl9SdDNEb0hvZnB5WndpclpxVUlfQi1rZzZ2a0FLN3QtOWUzR1ZNeWlHNGk1NExOVkV4MWFmdTZSRE5uR2xpS25Demp3czVLZ3cyVjJLVFIt?oc=5",
+          "query": "IONQ enterprise quantum delivery",
+          "classification": "bullish",
+          "published": "Tue, 23 Dec 2025 08:00:00 GMT"
+        },
+        {
+          "title": "IonQ and QuantumBasel Expand Long-Term Partnership in Next-Generation Quantum Systems - IonQ",
+          "summary": "IonQ and QuantumBasel Expand Long-Term Partnership in Next-Generation Quantum Systems&nbsp;&nbsp;IonQ",
+          "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQeE5UOW5wNFA0cFRadWxNdVkxYVZDbHhpOUEzelpBenJIejhGb3dDNVgtb2ZGNzAzNExjd3R5NW1DN3FnYWpMMWVLemROUnJJM2ZzOHRDZEhJd21OS1RZa1J1d2l0OG04ZzNHUlZBWGNRSTZRcHhvVWtKdTBFSHVsTHVuQ0dkX1hjb1dSTldLY2JWMlcyRk5QME1ZMUtZNjA5NnFBdGs0eUtqb3FwWGU3eA?oc=5",
+          "query": "IONQ enterprise quantum delivery",
+          "classification": "bullish",
+          "published": "Wed, 17 Dec 2025 08:00:00 GMT"
+        }
+      ],
+      "evidence_tag": "Confirmed by Web Research",
+      "scanned_at": "2026-05-26T15:32:00.282358+00:00"
+    },
+    "ASML": {
+      "ticker": "ASML",
+      "queries_run": 3,
+      "total_items": 24,
+      "recent_items": 1,
+      "bullish": 0,
+      "bearish": 0,
+      "neutral": 1,
+      "intensity": 2,
+      "net_score": 0.0,
+      "dynamic_coef": 1.0,
+      "headlines": [
+        {
+          "title": "ASML ships first high-NA EUV production scanner - Bits&Chips",
+          "summary": "ASML ships first high-NA EUV production scanner&nbsp;&nbsp;Bits&amp;Chips",
+          "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNbzdRdnVUMGxxNWZ0VWxZMFVBUkdZTVdVVElyQWwxSDhXR3B1aWRWVktkVkpodjJiSXZ5N29OTWszOVNyZjYyLWtPME5iZTRGSXh1Q2tlZXE4ZmxvSUhSakFoSDdydnNUc2xEVWpIYVFzdzRGRFZTaU04VkdiRXNFYUgtc0c0QQ?oc=5",
+          "query": "ASML High-NA EUV shipping status",
+          "classification": "bullish",
+          "published": "Wed, 23 Jul 2025 07:00:00 GMT"
+        },
+        {
+          "title": "ASML's roadmap for chipmaking lithography tools examined — from DUV to Low-NA, High-NA, Hyper-NA, and beyond - Tom's Hardware",
+          "summary": "ASML's roadmap for chipmaking lithography tools examined — from DUV to Low-NA, High-NA, Hyper-NA, and beyond&nbsp;&nbsp;Tom's Hardware",
+          "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPQWRrdktnTGlac1U4ZHp0OVFIRzFFM2JEQ3V3d2g4MVZQWUtteEY1YUVReTJhVGhiOE9NNnJuVjR6eVRfdnJUM2hiQlZWeF9qN1pCUm5pN3pmTmh3U1hiZlQ0M0tndXVGYnU2ZmV6S1l1SEo4RjBCeVpqekVuOGFwRC0wRHRtUkp2NWxIdDdQUTVuNUhERU5KR0E3VjJsYXhEUnhJSkNuS2VjMWEwZVVSVw?oc=5",
+          "query": "ASML High-NA EUV shipping status",
+          "classification": "neutral",
+          "published": "Fri, 01 May 2026 07:00:00 GMT"
+        },
+        {
+          "title": "ASML extends Low NA EUV to 2031, ramps up High NA production - digitimes",
+          "summary": "ASML extends Low NA EUV to 2031, ramps up High NA production&nbsp;&nbsp;digitimes",
+          "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQSlFDY2xEN3FCcmpRVV9HRVVzNVVRMVM3NHFtc0xqdUNSa3JVbDFoZDdOUUdqSk5pRkxjTnE1YnlHeHZlTTlKaU1wWnJDdTFSY3l6UmlKSmkzZ0FIbWtTa19CaENqNDluSHBnY3I2VkpGem95TlZFTVEwbmY3dHVTWnB5NnpESEdUVlE?oc=5",
+          "query": "ASML High-NA EUV shipping status",
+          "classification": "neutral",
+          "published": "Fri, 17 Apr 2026 07:00:00 GMT"
+        },
+        {
+          "title": "Intel increases ASML's new High-NA EUV machine orders, ready for 14A process against TSMC - TweakTown",
+          "summary": "Intel increases ASML's new High-NA EUV machine orders, ready for 14A process against TSMC&nbsp;&nbsp;TweakTown",
+          "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPakxtakNhY0lYNU1GeWdKZlRsRC0ycDBPTEV6V0Zja0p3ZDhPcWxrOFIxVm41LXlYNFB6RWZVVUtzTDdzWkM0ZEFDekpmVTUyN0I1VUJ0cWNtM0gyeHFpdWlnc1FtQkx2TzVrdTk5ZWFfRzBzS2tKOHJxNVpxWTJ4M1BTMzRoM1FCZ3k0eU9uMTNPN1NQSGU2dF8tOURRUXUwcWVueENzTjFoUUw2N1VacVhwdEx6LXNPU213WndoTjkzSk1yZ1RWaWJBRTJLNUtHeFE?oc=5",
+          "query": "ASML High-NA EUV shipping status",
+          "classification": "neutral",
+          "published": "Wed, 24 Sep 2025 07:00:00 GMT"
+        },
+        {
+          "title": "[News] Intel Rumored to Purchase more ASML High-NA EUV Equipment - TrendForce",
+          "summary": "[News] Intel Rumored to Purchase more ASML High-NA EUV Equipment&nbsp;&nbsp;TrendForce",
+          "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOYmRya1Rzc3A4dG1rc0M2RXM4Qm9WcmVnVUFBYTZoa2FGbDUwZEVhS3NyYnlYTHZrcFpUeFZJcGQ1U0U1YnhTbm9hdUdfU2ZqY0dpaWhIR19wQVQxZ1h0WkZxWXpsdU5DVjlIT3FHLTRmVVRuYmpaVUpNbUlhZzVlT3duOTdHVndfSm1wdi1TX0o3NkU5MUswbE13SzAzLWtZVktKLUZyNC11UQ?oc=5",
+          "query": "ASML High-NA EUV shipping status",
+          "classification": "neutral",
+          "published": "Thu, 02 Oct 2025 07:00:00 GMT"
+        }
+      ],
+      "evidence_tag": "Confirmed by Web Research",
+      "scanned_at": "2026-05-26T15:32:02.907242+00:00"
+    }
+  },
+  "summary": {
+    "avg_intensity": 2.7,
+    "avg_net_score": 0.0,
+    "max_intensity_ticker": "WOLF",
+    "tickers_with_bull": 0,
+    "tickers_with_bear": 0
+  }
+}

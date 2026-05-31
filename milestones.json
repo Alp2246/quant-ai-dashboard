@@ -1,0 +1,709 @@
+{
+  "IONQ": {
+    "name": "IonQ",
+    "big_vision": "Oda sicakliginda, hataya dayanikli (error-corrected), binlerce algoritmik kubit (AQ) ile dunyanin en guclu kuantum bilgisayarini ticari hale getirmek.",
+    "current_milestone": "AQ 64 (algoritmik kubit) ticari sistem hedefi",
+    "target_date": "2025-12-31",
+    "north_star_metric": "AQ (Algorithmic Qubits)",
+    "current_value": 36,
+    "target_value": 64,
+    "keywords": [
+      "AQ 64",
+      "AQ-64",
+      "barium qubits",
+      "barium ion",
+      "enterprise-grade quantum",
+      "algorithmic qubit",
+      "tempo system",
+      "forte enterprise"
+    ],
+    "achievement_patterns": [
+      "ionq.{0,30}(achieve[sd]?|reach(ed|es)?|hits?|launches?|announces?).{0,30}aq",
+      "aq.{0,5}64.{0,30}(achieve|reach|deliver|live)",
+      "ionq.{0,40}barium.{0,30}(milestone|achieve|breakthrough)",
+      "forte.{0,30}(enterprise|launch|available)",
+      "enterprise.{0,5}quantum.{0,30}(live|available|deliver)"
+    ],
+    "delay_patterns": [
+      "ionq.{0,40}(delay|postpone|push.{0,3}back|behind.{0,3}schedule|miss(ed)?.{0,10}target)",
+      "aq.{0,5}target.{0,30}(miss|delay|push)",
+      "quantum.{0,30}roadmap.{0,30}delay"
+    ],
+    "evidence": [
+      {
+        "type": "CYCLE_PHASE",
+        "tag": "Confirmed by Web Research",
+        "phase": "🔥 PEAK (Asiri Isinma)",
+        "cycle_score": 90.4,
+        "timestamp": "2026-05-26T15:08:06.709783+00:00"
+      },
+      {
+        "type": "RESEARCH_AGENT",
+        "tag": "Confirmed by Web Research",
+        "intensity": 0,
+        "net_score": 0.0,
+        "dynamic_coef": 1.0,
+        "bullish": 0,
+        "bearish": 0,
+        "headlines": [
+          {
+            "title": "IonQ Achieves Industry Breakthrough – First Trapped Ion Quantum System to Surpass 99.9% Fidelity on Barium - IonQ",
+            "summary": "IonQ Achieves Industry Breakthrough – First Trapped Ion Quantum System to Surpass 99.9% Fidelity on Barium&nbsp;&nbsp;IonQ",
+            "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxOaTF6cGkxa002YmVlelVKSktBaDV2ZkVSb1hrdURwWVlOdXNaZDhRZlltdGlrNHFxYlNraVN0UElRQWlOTGdfTEFJWmNzU2FSZnlwblR6T1lPM3g1QUVRYnJBM3p1VTNEeXRxcXJubzU0OThkRV9EV0NIbWppOEw4Z0dUMjdnZ2E3WFJPSUQ3eHlvaHdCUXlRNU1GX2M3dw?oc=5",
+            "query": "IONQ Barium trap reliability",
+            "classification": "bullish",
+            "published": "Thu, 12 Sep 2024 07:00:00 GMT"
+          },
+          {
+            "title": "IonQ Announces Partnership with NKT Photonics for Next-Generation Laser Systems to Power Future Quantum Computers - IonQ",
+            "summary": "IonQ Announces Partnership with NKT Photonics for Next-Generation Laser Systems to Power Future Quantum Computers&nbsp;&nbsp;IonQ",
+            "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQbmUxbmZLMjdLU3lnRHBFakNHSE9aLVByMWRTZGs0RXhla3puMmFXVlJEMG9FSHg4ZXRQWkExX1prTnN1OF9NNmEtU0FjRE56aFRnMEk2cFNuUzdUTldLMHBSLTY5emdwQUVubVk5dFUyc19QR0ZEcFhXWDJXRDVFMEVEUHdLQWRkX2xmZzNyQmJ6b05XQllNb29MNV9zdw?oc=5",
+            "query": "IONQ Barium trap reliability",
+            "classification": "bullish",
+            "published": "Thu, 07 Nov 2024 08:00:00 GMT"
+          },
+          {
+            "title": "In Industry First, IonQ to Use Barium Ions for Computation - IonQ",
+            "summary": "In Industry First, IonQ to Use Barium Ions for Computation&nbsp;&nbsp;IonQ",
+            "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1TVWxJc1BCUFlqcktUQ09EZEFqaWJRTlV2TVhJR2lETkQ2T0M4TjA3N3I3Q0hnLU96WWxsTTZlYi1KZlJaNFlXbEVXa3h1amw4OURyN3RmbU82SEpYYk04NjVKakVacWlxaDdzRWlB?oc=5",
+            "query": "IONQ Barium trap reliability",
+            "classification": "bullish",
+            "published": "Fri, 10 Dec 2021 08:00:00 GMT"
+          }
+        ],
+        "timestamp": "2026-05-26T15:32:02.907242+00:00"
+      }
+    ],
+    "last_research": "2026-05-26T15:08:06.709783+00:00",
+    "last_research_agent": "2026-05-26T15:32:02.907242+00:00",
+    "strategic_overlays": {
+      "type": "QUANTUM_BASKET",
+      "sibling": "RGTI",
+      "critical_thresholds": [
+        {
+          "name": "Error Correction Integration with FPGA/GPU",
+          "bonus": 25,
+          "keywords": [
+            "FPGA-based quantum control",
+            "real-time error correction",
+            "error correction integrated with classical compute",
+            "logical qubit operational"
+          ]
+        },
+        {
+          "name": "Room Temperature / Data Center Readiness",
+          "bonus": 15,
+          "keywords": [
+            "room temperature operation",
+            "data center ready quantum",
+            "cryogenic-free",
+            "enterprise-grade quantum"
+          ]
+        },
+        {
+          "name": "Standartlasma Tehdidi (IBM/Google API monopoly)",
+          "bonus": -15,
+          "keywords": [
+            "IBM quantum API standard",
+            "Google quantum protocol",
+            "Microsoft quantum platform standard"
+          ]
+        }
+      ],
+      "speculative_risk": true
+    }
+  },
+  "WOLF": {
+    "name": "Wolfspeed",
+    "big_vision": "Dunyayi silikon temelli yari iletkenlerden Silicon Carbide (SiC) teknolojisine tasimak. EV verimliligini %20 artirarak Tesla ve devlerin ana tedarikcisi olmak.",
+    "current_milestone": "Mohawk Valley Fab tam kapasite + 200mm SiC wafer ramp",
+    "target_date": "2025-06-30",
+    "north_star_metric": "200mm SiC Wafer Yield",
+    "current_value": 70,
+    "target_value": 90,
+    "keywords": [
+      "Mohawk Valley Fab",
+      "200mm SiC wafer",
+      "EV power density",
+      "Siler City",
+      "SiC ramp",
+      "wolfspeed fab",
+      "automotive design win"
+    ],
+    "achievement_patterns": [
+      "mohawk.{0,30}(full|complete|ramp|production|operational)",
+      "200mm.{0,5}sic.{0,30}(ramp|mass|production|achieve|deliver)",
+      "siler.{0,3}city.{0,30}(open|operational|launch)",
+      "wolfspeed.{0,30}(design.{0,3}win|contract.{0,3}award)",
+      "ev.{0,10}power.{0,10}density.{0,30}(improve|increase|breakthrough)"
+    ],
+    "delay_patterns": [
+      "wolfspeed.{0,40}(delay|postpone|behind.{0,3}schedule|miss(ed)?.{0,10}target)",
+      "mohawk.{0,40}(delay|setback|push back)",
+      "wolfspeed.{0,40}(loss|impair|writedown|chapter.{0,3}11)",
+      "siler.{0,3}city.{0,40}delay"
+    ],
+    "evidence": [
+      {
+        "type": "PATENT",
+        "tag": "Confirmed by Web Research",
+        "patent_bonus": 2,
+        "count": 1,
+        "label": "📝 IP HAREKETI VAR",
+        "timestamp": "2026-05-26T15:08:06.709783+00:00",
+        "items": [
+          {
+            "title": "Slkor Announces More Good News – Yet Another Utility Model Patent Granted - Scott Coop",
+            "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQeUVsdEhDZEVHck9aSmVJRGpob3ZBb3NhZ0g5bjd5aDdlU2V4c3JJSUcwSjBvMWZpSmxLdG9abXVmMWVFT0MyWklFa293RXRCQmFvcUtZMWdjVFpJMXdpb3BRdkNqdEViWll5WXIySEhIVGhjbHRpcEF4bmN4d0hucTNXY2JaNmo5UmZHMXBWUGM4emtQQ0ZXa1ZVRFZhdjQ5U2tMYUNUUUVFUnVhLWwwR0FvSGtYT3FOcEM4UTZfVE9YbnBnWnladEhGRUVaTzB4V3JELU1OOW9tMkU5?oc=5",
+            "source": "google_news_patent"
+          }
+        ]
+      },
+      {
+        "type": "CYCLE_PHASE",
+        "tag": "Confirmed by Web Research",
+        "phase": "🔥 PEAK (Asiri Isinma)",
+        "cycle_score": 90.4,
+        "timestamp": "2026-05-26T15:08:06.709783+00:00"
+      },
+      {
+        "type": "RESEARCH_AGENT",
+        "tag": "Confirmed by Web Research",
+        "intensity": 6,
+        "net_score": 0.0,
+        "dynamic_coef": 1.0,
+        "bullish": 0,
+        "bearish": 0,
+        "headlines": [
+          {
+            "title": "Wolfspeed Reports Financial Results for the First Quarter of Fiscal 2026 - Business Wire",
+            "summary": "Wolfspeed Reports Financial Results for the First Quarter of Fiscal 2026&nbsp;&nbsp;Business Wire",
+            "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQc1FDdF9LOWJIVkYwWFUtMFZHMWlDY0RBdkJfZ2daU3ZZdThlYUVsVmFDNkNXM3JnYzNwZW9NNWRuNHc4QlpqT3oxLUdaMlltTmtIZ3FZSU43cmJiTWxHenl4b3c3MlZaZkMycmpQaVN0WFhFd0VBbVJ0RFU5VmY0LUFwTFd2TVNlOExNbVZRdXZxcFc1LThXaXVUaWdIb014VW1qa1BOY3FYREVkdjZTVmZTZmlNaEduX3Z6VDkzODNET1VhVUlNUg?oc=5",
+            "query": "Mohawk Valley fab yield percentage",
+            "classification": "bullish",
+            "published": "Wed, 29 Oct 2025 07:00:00 GMT"
+          },
+          {
+            "title": "Wolfspeed: Full Production Ramp Ripe For Automotive Scaling (NYSE:WOLF) - Seeking Alpha",
+            "summary": "Wolfspeed: Full Production Ramp Ripe For Automotive Scaling (NYSE:WOLF)&nbsp;&nbsp;Seeking Alpha",
+            "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNZFY2Ry1IZUFnN1RzNDRfQVEtX2pid281ZFdwMjRDV25UUF85VVA3R2xjR1VPV3FkT1hqNmVMa2xsTVJBb1NzNnJrTkxqQ0t4cGx5ZHlqRkFRTy13dlRSYy1pdlpCX0lUaTh1aVZVTUJSbUhIZHZQbEx2YVF2SzNDM1RzLTZ3THBaQmY1a2JtLVZvbGstemQ2aUFrMzB5ejBW?oc=5",
+            "query": "Wolfspeed EV power module ramp",
+            "classification": "bullish",
+            "published": "Mon, 22 Dec 2025 08:00:00 GMT"
+          },
+          {
+            "title": "Has Wolfspeed Truly Turned the Corner After Bankruptcy - Kavout",
+            "summary": "Has Wolfspeed Truly Turned the Corner After Bankruptcy&nbsp;&nbsp;Kavout",
+            "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQQjV3OWZudmkxOEk1TWpSekFpQ2k4SWVHSThZMVlPcDg4U0pxcE5iVGNLVWEtU1ZLTWh1XzVJc0pFYzdRdy1IcUJfUUQyZ3hoVVlQN2dhYi1zRENyR243eTRzS3BraFZHaWlmdUJOQmdla1JIYVRtWHBpa1pqSi1WdWdhc1htQjM2SDB1MFQ3Nk1hUm8?oc=5",
+            "query": "Mohawk Valley fab yield percentage",
+            "classification": "neutral",
+            "published": "Tue, 26 May 2026 13:09:44 GMT"
+          }
+        ],
+        "timestamp": "2026-05-26T15:32:02.907242+00:00"
+      }
+    ],
+    "last_research": "2026-05-26T15:08:06.709783+00:00",
+    "last_research_agent": "2026-05-26T15:32:02.907242+00:00"
+  },
+  "ASML": {
+    "name": "ASML Holding",
+    "big_vision": "Cip uretiminde tek yol olan EUV litografi makinelerinde tekel kalmak ve 2nm ve alti cipler icin High-NA EUV makinelerini sektore standart olarak kabul ettirmek.",
+    "current_milestone": "High-NA EUV ilk musteri sevkiyatlari + 2nm node ramp",
+    "target_date": "2026-12-31",
+    "north_star_metric": "High-NA EUV Adet (yillik)",
+    "current_value": 2,
+    "target_value": 10,
+    "keywords": [
+      "High-NA EUV",
+      "High NA EUV",
+      "EUV delivery",
+      "2nm logic node",
+      "EXE:5000",
+      "EXE 5200",
+      "TWINSCAN NXE",
+      "intel 18A",
+      "TSMC N2"
+    ],
+    "achievement_patterns": [
+      "asml.{0,40}(high.{0,3}na|highna).{0,30}(ship|deliver|operational|order)",
+      "high.{0,3}na.{0,5}euv.{0,30}(deliver|ship|achieve)",
+      "asml.{0,30}order.{0,30}(record|backlog|new)",
+      "2nm.{0,30}(launch|ramp|production|operational)",
+      "exe.{0,3}5(000|200).{0,30}(ship|deliver|order)"
+    ],
+    "delay_patterns": [
+      "asml.{0,40}(delay|postpone|push.{0,3}back|behind.{0,3}schedule)",
+      "asml.{0,30}(export.{0,5}control|sanction|ban|restriction)",
+      "high.{0,3}na.{0,40}(delay|push|miss)",
+      "asml.{0,40}order.{0,30}(decline|drop|cancel)"
+    ],
+    "evidence": [
+      {
+        "type": "CYCLE_PHASE",
+        "tag": "Confirmed by Web Research",
+        "phase": "🔥 PEAK (Asiri Isinma)",
+        "cycle_score": 90.4,
+        "timestamp": "2026-05-26T15:08:06.709783+00:00"
+      },
+      {
+        "type": "RESEARCH_AGENT",
+        "tag": "Confirmed by Web Research",
+        "intensity": 2,
+        "net_score": 0.0,
+        "dynamic_coef": 1.0,
+        "bullish": 0,
+        "bearish": 0,
+        "headlines": [
+          {
+            "title": "ASML ships first high-NA EUV production scanner - Bits&Chips",
+            "summary": "ASML ships first high-NA EUV production scanner&nbsp;&nbsp;Bits&amp;Chips",
+            "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNbzdRdnVUMGxxNWZ0VWxZMFVBUkdZTVdVVElyQWwxSDhXR3B1aWRWVktkVkpodjJiSXZ5N29OTWszOVNyZjYyLWtPME5iZTRGSXh1Q2tlZXE4ZmxvSUhSakFoSDdydnNUc2xEVWpIYVFzdzRGRFZTaU04VkdiRXNFYUgtc0c0QQ?oc=5",
+            "query": "ASML High-NA EUV shipping status",
+            "classification": "bullish",
+            "published": "Wed, 23 Jul 2025 07:00:00 GMT"
+          },
+          {
+            "title": "ASML's roadmap for chipmaking lithography tools examined — from DUV to Low-NA, High-NA, Hyper-NA, and beyond - Tom's Hardware",
+            "summary": "ASML's roadmap for chipmaking lithography tools examined — from DUV to Low-NA, High-NA, Hyper-NA, and beyond&nbsp;&nbsp;Tom's Hardware",
+            "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPQWRrdktnTGlac1U4ZHp0OVFIRzFFM2JEQ3V3d2g4MVZQWUtteEY1YUVReTJhVGhiOE9NNnJuVjR6eVRfdnJUM2hiQlZWeF9qN1pCUm5pN3pmTmh3U1hiZlQ0M0tndXVGYnU2ZmV6S1l1SEo4RjBCeVpqekVuOGFwRC0wRHRtUkp2NWxIdDdQUTVuNUhERU5KR0E3VjJsYXhEUnhJSkNuS2VjMWEwZVVSVw?oc=5",
+            "query": "ASML High-NA EUV shipping status",
+            "classification": "neutral",
+            "published": "Fri, 01 May 2026 07:00:00 GMT"
+          },
+          {
+            "title": "ASML extends Low NA EUV to 2031, ramps up High NA production - digitimes",
+            "summary": "ASML extends Low NA EUV to 2031, ramps up High NA production&nbsp;&nbsp;digitimes",
+            "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQSlFDY2xEN3FCcmpRVV9HRVVzNVVRMVM3NHFtc0xqdUNSa3JVbDFoZDdOUUdqSk5pRkxjTnE1YnlHeHZlTTlKaU1wWnJDdTFSY3l6UmlKSmkzZ0FIbWtTa19CaENqNDluSHBnY3I2VkpGem95TlZFTVEwbmY3dHVTWnB5NnpESEdUVlE?oc=5",
+            "query": "ASML High-NA EUV shipping status",
+            "classification": "neutral",
+            "published": "Fri, 17 Apr 2026 07:00:00 GMT"
+          }
+        ],
+        "timestamp": "2026-05-26T15:32:02.907242+00:00"
+      }
+    ],
+    "last_research": "2026-05-26T15:08:06.709783+00:00",
+    "last_research_agent": "2026-05-26T15:32:02.907242+00:00"
+  },
+  "ATOM": {
+    "name": "Atomera",
+    "big_vision": "Mears Silicon Technology (MST) ile mevcut transistorlerin performansini donanim degistirmeden artirmak. Intel, Samsung, TSMC gibi uretim hattina 'lisansli bir katman' olarak girmek.",
+    "current_milestone": "Buyuk muhrtu/foundry ile JDA (Joint Development Agreement)",
+    "target_date": "2026-06-30",
+    "north_star_metric": "Lisansli Foundry Sayisi",
+    "current_value": 1,
+    "target_value": 3,
+    "keywords": [
+      "MST licensing",
+      "Mears Silicon Technology",
+      "JDA",
+      "Joint Development Agreement",
+      "Atomera license",
+      "foundry deal",
+      "tier-1 customer"
+    ],
+    "achievement_patterns": [
+      "atomera.{0,30}(license|licensing|jda|joint.{0,3}development)",
+      "mst.{0,30}(license|deal|agreement|adoption)",
+      "atomera.{0,40}(commercial|production.{0,3}license|tier.{0,3}1)",
+      "atomera.{0,30}(tsmc|samsung|intel|globalfoundries)"
+    ],
+    "delay_patterns": [
+      "atomera.{0,40}(delay|postpone|setback)",
+      "atomera.{0,30}(impair|writedown|cash.{0,5}runway|going.{0,5}concern)"
+    ],
+    "evidence": [
+      {
+        "type": "CYCLE_PHASE",
+        "tag": "Confirmed by Web Research",
+        "phase": "🔥 PEAK (Asiri Isinma)",
+        "cycle_score": 90.4,
+        "timestamp": "2026-05-26T15:08:06.709783+00:00"
+      }
+    ],
+    "last_research": "2026-05-26T15:08:06.709783+00:00",
+    "strategic_overlays": {
+      "type": "ATOM_LICENSING",
+      "critical_thresholds": [
+        {
+          "name": "Integration into Standard Process Flow (Foundry)",
+          "bonus": 30,
+          "trigger_exponential_mode": true,
+          "keywords": [
+            "JDA",
+            "joint development agreement",
+            "integration into standard process flow",
+            "MST qualified for production",
+            "Intel adopt MST",
+            "TSMC license MST",
+            "Samsung integrate MST"
+          ]
+        },
+        {
+          "name": "Design Win / Royalty per Wafer",
+          "bonus": 15,
+          "keywords": [
+            "design win",
+            "royalty per wafer",
+            "commercial license",
+            "revenue sharing agreement"
+          ]
+        },
+        {
+          "name": "Performance Gain (Mobility/Drive Current)",
+          "bonus": 12,
+          "keywords": [
+            "% performance improvement",
+            "mobility enhancement",
+            "drive current increase",
+            "band engineering"
+          ]
+        }
+      ],
+      "speculative_risk": true
+    }
+  },
+  "0981.HK": {
+    "name": "SMIC (Semiconductor Manufacturing Intl)",
+    "big_vision": "Cin'in teknolojik bagimsizliginin kalesi olmak. Bati kisitlamalarina ragmen 7nm ve alti ciplerde seri uretime gecerek Cin'in yerli islemci ihtiyacini karsilamak.",
+    "current_milestone": "7nm Kirin/loongson seri uretim ramp",
+    "target_date": "2026-12-31",
+    "north_star_metric": "Yerli Cip Self-Sufficiency %",
+    "current_value": 30,
+    "target_value": 70,
+    "keywords": [
+      "7nm mass production",
+      "Self-sufficiency",
+      "Kirin 9000s",
+      "Huawei chip",
+      "yerli cip",
+      "DUV multi-patterning",
+      "SMIC capacity"
+    ],
+    "achievement_patterns": [
+      "smic.{0,30}(7nm|5nm).{0,30}(mass|production|achieve|ramp)",
+      "smic.{0,30}(capacity|expansion|new fab|ramp)",
+      "huawei.{0,30}(kirin|chip).{0,30}(launch|production|smic)",
+      "china.{0,30}(self.{0,3}sufficiency|self.{0,3}reliance).{0,40}chip"
+    ],
+    "delay_patterns": [
+      "smic.{0,40}(delay|postpone|setback|sanction|export.{0,5}control)",
+      "smic.{0,40}(yield|production).{0,30}(low|poor|problem)",
+      "china.{0,40}chip.{0,30}(sanction|ban|restriction)"
+    ],
+    "evidence": [
+      {
+        "type": "CYCLE_PHASE",
+        "tag": "Confirmed by Web Research",
+        "phase": "🔥 PEAK (Asiri Isinma)",
+        "cycle_score": 90.4,
+        "timestamp": "2026-05-26T15:08:06.709783+00:00"
+      }
+    ],
+    "last_research": "2026-05-26T15:08:06.709783+00:00"
+  },
+  "RGTI": {
+    "name": "Rigetti Computing",
+    "big_vision": "Modular superconducting qubit mimarisi ile 1000+ qubit hatasiz sistemler.",
+    "current_milestone": "Ankaa-3 84 qubit > %99 2Q fidelity",
+    "target_date": "2025-12-31",
+    "north_star_metric": "2Q Gate Fidelity",
+    "current_value": 99.0,
+    "target_value": 99.5,
+    "keywords": [
+      "Ankaa",
+      "fidelity",
+      "modular qubit",
+      "superconducting",
+      "Rigetti qubit"
+    ],
+    "achievement_patterns": [
+      "rigetti.{0,30}(achieve|reach|deliver).{0,30}qubit",
+      "ankaa.{0,30}(launch|deliver|fidelity)",
+      "rigetti.{0,30}fidelity.{0,30}(99|achieve)"
+    ],
+    "delay_patterns": [
+      "rigetti.{0,40}(delay|postpone|miss|setback)",
+      "rigetti.{0,40}(cash|going.{0,5}concern|dilution)"
+    ],
+    "evidence": [
+      {
+        "type": "CYCLE_PHASE",
+        "tag": "Confirmed by Web Research",
+        "phase": "🔥 PEAK (Asiri Isinma)",
+        "cycle_score": 90.4,
+        "timestamp": "2026-05-26T15:08:06.709783+00:00"
+      }
+    ],
+    "last_research": "2026-05-26T15:08:06.709783+00:00",
+    "strategic_overlays": {
+      "type": "QUANTUM_BASKET",
+      "sibling": "IONQ",
+      "critical_thresholds": [
+        {
+          "name": "Error Correction Integration with FPGA/GPU",
+          "bonus": 25,
+          "keywords": [
+            "FPGA-based quantum control",
+            "real-time error correction",
+            "error correction integrated with classical compute",
+            "logical qubit operational"
+          ]
+        },
+        {
+          "name": "Room Temperature / Data Center Readiness",
+          "bonus": 15,
+          "keywords": [
+            "room temperature operation",
+            "data center ready quantum",
+            "cryogenic-free",
+            "enterprise-grade quantum"
+          ]
+        },
+        {
+          "name": "Standartlasma Tehdidi (IBM/Google API monopoly)",
+          "bonus": -15,
+          "keywords": [
+            "IBM quantum API standard",
+            "Google quantum protocol",
+            "Microsoft quantum platform standard"
+          ]
+        }
+      ],
+      "speculative_risk": true
+    }
+  },
+  "LAES": {
+    "name": "SEALSQ Corp",
+    "category": "Post-Quantum Hardware Security",
+    "big_vision": "Post-Quantum Cryptography (PQC) cipleri ile NIST'in onayladigi kuantum-guvenli standartlari hardware-level olarak IoT, Matter ve RISC-V ekosistemlerine yaymak. Q-Day yaklasimi ile global talep patlamasinin merkezinde yer almak.",
+    "current_milestone": "NIST PQC algoritmalarinin (CRYSTALS-Kyber/Dilithium) Secure Element ciplerine entegrasyonu + Matter Protocol sertifikasyonu",
+    "target_date": "2026-12-31",
+    "north_star_metric": "PQC-Hazir Secure Element Sevkiyati (Milyon adet)",
+    "current_value": 10,
+    "target_value": 100,
+    "keywords": [
+      "post-quantum cryptography",
+      "PQC chip",
+      "quantum safe",
+      "secure element",
+      "RISC-V security",
+      "IoT security",
+      "VaultiTrust",
+      "Matter Protocol",
+      "NIST PQC",
+      "CRYSTALS Kyber",
+      "CRYSTALS Dilithium",
+      "FIPS 203",
+      "FIPS 204",
+      "SEALSQ",
+      "WISeKey",
+      "Q-Day"
+    ],
+    "achievement_patterns": [
+      "sealsq.{0,40}(launch|ship|production|deliver|certif)",
+      "nist.{0,40}(integrate|approved|certif).{0,40}(sealsq|pqc|chip)",
+      "matter.{0,30}(protocol|certif).{0,30}(adopt|sealsq)",
+      "vaultitrust.{0,40}(deploy|partnership|customer)",
+      "post[- ]quantum.{0,40}(silicon|chip|hardware).{0,30}(ship|deploy)"
+    ],
+    "delay_patterns": [
+      "sealsq.{0,40}(delay|postpone|miss|setback)",
+      "pqc.{0,40}(delay|setback|push)",
+      "fips.{0,20}(reject|fail|denied)"
+    ],
+    "evidence": [
+      {
+        "type": "CATEGORY_UPDATE",
+        "tag": "Renamed from Laser Photonics to SEALSQ Corp (Post-Quantum Hardware Security)",
+        "timestamp": "2026-05-27T09:50:00+00:00"
+      }
+    ],
+    "last_research": "2026-05-27T09:50:00+00:00",
+    "strategic_overlays": {
+      "type": "SEALSQ_PQC",
+      "critical_thresholds": [
+        {
+          "name": "NIST PQC Hardware Integration (KRITIK ESIK)",
+          "bonus": 30,
+          "keywords": [
+            "NIST approved CRYSTALS hardware",
+            "NIST certified post-quantum chip",
+            "SEALSQ integrate NIST PQC",
+            "FIPS 203 certified silicon",
+            "FIPS 204 certified silicon",
+            "hardware-level post-quantum cryptography"
+          ]
+        },
+        {
+          "name": "Secure Element / Matter / VaultiTrust Design Win",
+          "bonus": 20,
+          "keywords": [
+            "secure element design win",
+            "IoT device certif SEALSQ",
+            "Matter Protocol adopt",
+            "VaultiTrust deployment",
+            "RISC-V security core",
+            "WISeKey partnership"
+          ]
+        },
+        {
+          "name": "Q-Day Demand Spike (10y Talep Patlamasi Catalyst)",
+          "bonus": 10,
+          "keywords": [
+            "Q-day approaching",
+            "quantum threat RSA",
+            "harvest now decrypt later",
+            "CNSA 2.0 migration",
+            "EU mandate PQC",
+            "government quantum-safe"
+          ]
+        },
+        {
+          "name": "IoT / Cybersecurity CAPEX Ruzgari",
+          "bonus": 12,
+          "keywords": [
+            "IoT device shipment grow",
+            "cybersecurity spending increase",
+            "Gartner cybersecurity forecast",
+            "edge computing secure"
+          ]
+        },
+        {
+          "name": "Negatif PQC sinyal (FIPS reject vs)",
+          "bonus": -25,
+          "keywords": [
+            "FIPS reject",
+            "PQC delay",
+            "SEALSQ setback",
+            "quantum-safe standard postpone"
+          ]
+        }
+      ],
+      "speculative_risk": true,
+      "demand_spike_window": "2027-2030 (Q-Day yaklasimi)"
+    }
+  },
+  "NVTS": {
+    "name": "Navitas Semiconductor",
+    "category": "GaN Power Semiconductor",
+    "big_vision": "GaN ve SiC bazli yuksek-verim guc cipi ile EV ve AI veri merkezi guc kaynaklarini silikon devirinden cikarmak. 48V/HVDC rack-scale AI altyapisi ve Tier-1 OEM EV traction inverter standardi.",
+    "current_milestone": "Tier-1 Otomotiv OEM (Tesla/VW/Hyundai/Stellantis) ana tedarik anlasmasi + NVDA Blackwell/Rubin rack-scale 48V GaN power supply tedariki",
+    "target_date": "2027-06-30",
+    "north_star_metric": "Tier-1 OEM Design Win Sayisi",
+    "current_value": 0,
+    "target_value": 3,
+    "moonshot_thesis": "Yuksek GaN/SiC Adaptasyon orani - sektor CAGR %15-20",
+    "price_cap_10y_usd": 100.0,
+    "rationale": "GaN power semi sektor CAGR %15-20 -> $100 ustu fiyat 10y'de outlier kabul edilir; algoritma bu cap'e gore Prophet logistic growth'u dizginler.",
+    "keywords": [
+      "Navitas",
+      "GaNFast",
+      "GaNSense",
+      "GaN power",
+      "SiC power",
+      "EV traction inverter",
+      "on-board charger",
+      "OBC",
+      "48V rack",
+      "AI data center power",
+      "NVIDIA Blackwell power",
+      "Tier-1 OEM",
+      "AEC-Q100",
+      "AEC-Q101",
+      "automotive grade GaN"
+    ],
+    "achievement_patterns": [
+      "navitas.{0,30}(tier[- ]?1|OEM|automotive)\\s+\\w+\\s+(win|deal|contract|adopt)",
+      "(Tesla|Volkswagen|Hyundai|Stellantis|Ford|GM|BMW)\\s+.{0,40}(Navitas|NVTS|GaN)",
+      "GaN.{0,30}(traction|inverter|OBC|on[- ]board)",
+      "48V\\s+(rack|GPU|AI|datacenter)\\s+power",
+      "Navitas\\s+(ship|deliver|launch|sample).{0,30}(automotive|EV|AI|datacenter)"
+    ],
+    "delay_patterns": [
+      "navitas.{0,40}(delay|miss|setback|guidance\\s+cut)",
+      "GaN.{0,40}(reliability\\s+(issue|concern)|recall)"
+    ],
+    "evidence": [],
+    "last_research": null,
+    "strategic_overlays": {
+      "type": "NVTS_GAN",
+      "critical_thresholds": [
+        {
+          "name": "Tier-1 Otomotiv OEM Tedarik Anlasmasi (KRITIK ESIK)",
+          "bonus": 20,
+          "keywords": [
+            "Tesla Navitas GaN",
+            "Volkswagen NVTS deal",
+            "Hyundai GaN supply",
+            "Stellantis EV inverter GaN",
+            "Ford GaN traction",
+            "AEC-Q100 GaN",
+            "OBC GaN automotive"
+          ]
+        },
+        {
+          "name": "AI Data Center Power (NVDA Blackwell/Rubin 48V)",
+          "bonus": 15,
+          "keywords": [
+            "NVIDIA Blackwell power 48V",
+            "rack-scale GPU power",
+            "AI data center power surge",
+            "hyperscale 48V power",
+            "HVDC data center"
+          ]
+        },
+        {
+          "name": "DC + Tier-1 Kombo (her ikisi)",
+          "bonus": 5,
+          "keywords": ["stratejik konvergens"]
+        },
+        {
+          "name": "Yuksek verim haberi (>%20)",
+          "bonus": 5,
+          "keywords": ["20% efficiency", "30% power density"]
+        }
+      ],
+      "moonshot_category": "GaN/SiC Adaptation",
+      "sector_cagr_band_pct": [15, 20],
+      "verdict_default": "AGRESIF EKLE / TUT (Tier-1 anlasma haberinde)"
+    }
+  },
+  "QBTS": {
+    "name": "D-Wave Quantum",
+    "big_vision": "Kuantum annealing ile enterprise optimizasyon ve cloud quantum hizmeti.",
+    "current_milestone": "Advantage2 sistem + enterprise cloud contract",
+    "keywords": ["Advantage2", "quantum annealing", "enterprise quantum", "cloud quantum"],
+    "achievement_patterns": ["d-wave.{0,30}(contract|partnership|deploy|launch)"],
+    "strategic_overlays": {"type": "QUANTUM_BASKET", "basket_bonus": 25}
+  },
+  "CRDO": {
+    "name": "Credo Technology",
+    "big_vision": "AI rack icinde 800G/1.6T Active Electrical Cable dominansi.",
+    "current_milestone": "Hyperscaler AEC design win",
+    "keywords": ["800G AEC", "active electrical cable", "hyperscaler design win", "1.6T"],
+    "achievement_patterns": ["credo.{0,30}(design win|hyperscaler|800g|1.6t)"]
+  },
+  "ALAB": {
+    "name": "Astera Labs",
+    "big_vision": "PCIe Gen6 + CXL retimer ile AI server fabric scaling.",
+    "current_milestone": "CXL 3.0 / PCIe Gen6 hyperscaler ramp",
+    "keywords": ["PCIe Gen6", "CXL 3.0", "Aries retimer", "hyperscaler ramp"],
+    "achievement_patterns": ["astera.{0,30}(design win|ramp|cxl|pcie gen6)"]
+  },
+  "AEHR": {
+    "name": "Aehr Test Systems",
+    "big_vision": "SiC/GaN wafer-level burn-in test ekipman tekeli.",
+    "current_milestone": "SiC/GaN test kapasite genislemesi",
+    "keywords": ["wafer level burn-in", "SiC test", "GaN test", "Fox-XP"],
+    "achievement_patterns": ["aehr.{0,30}(order|capacity|expansion|SiC|GaN)"]
+  },
+  "POET": {
+    "name": "POET Technologies",
+    "big_vision": "Monolitik silicon photonics optical engine lisanslama.",
+    "current_milestone": "800G optical engine JDA",
+    "keywords": ["optical engine", "silicon photonics", "800G", "JDA"],
+    "achievement_patterns": ["poet.{0,30}(jda|partnership|800g|optical engine)"]
+  }
+}

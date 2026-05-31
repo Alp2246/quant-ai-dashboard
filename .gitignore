@@ -1,0 +1,96 @@
+# =============================================================================
+#   QUANT AI DASHBOARD - .gitignore
+# =============================================================================
+#   ASLA commit edilmemeli:
+#   - Sirlar (telegram token, API keys, parolalar)
+#   - Otomatik uretilen buyuk dosyalar (venv, dist, APK, build cache)
+#   - Kisisel cache / log dosyalari
+# =============================================================================
+
+# ---- SIRLAR (KRITIK) -------------------------------------------------------
+.env
+.env.*
+*.key
+*.pem
+*.keystore
+telegram_config.json
+**/credentials.json
+**/secrets.json
+signing-key-info.txt
+signing.keystore
+
+# ---- Python ----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- Sanal ortamlar --------------------------------------------------------
+venv/
+.venv/
+env/
+ENV/
+
+# ---- PyInstaller / EXE build -----------------------------------------------
+build/
+dist/
+*.spec.bak
+*.exe
+!setup.exe.example
+
+# ---- APK / mobile build ----------------------------------------------------
+*.apk
+*.aab
+QuantAI_APK_*/
+QuantAI_PERMANENT_*.zip
+
+# ---- Cloudflare / Tailscale tools (binaries) -------------------------------
+tools/cloudflared.exe
+tools/tailscale-setup.msi
+tools/git-installer.exe
+tools/gh-installer.msi
+tools/*.log
+tools/*.crt
+
+# ---- Log dosyalari ---------------------------------------------------------
+*.log
+alerts.log
+_build.log
+_streamlit.log
+_streamlit.err.log
+launcher.log
+
+# ---- Streamlit cache -------------------------------------------------------
+.streamlit/secrets.toml
+
+# ---- ML model cache --------------------------------------------------------
+*.pkl
+*.joblib
+models/
+ml_cache/
+
+# ---- yfinance / data cache -------------------------------------------------
+data/cache/
+data/*.csv
+*.pkl.tmp
+
+# ---- QA / smoke test ciktilari --------------------------------------------
+_qa_ground_truth_report.json
+
+# ---- IDE / OS --------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Sertifika dosyalari (tailscale) --------------------------------------
+*.tail*.ts.net.crt
+*.tail*.ts.net.key

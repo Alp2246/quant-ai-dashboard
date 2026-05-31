@@ -1,0 +1,43 @@
+{
+  "name": "Quant AI Dashboard",
+  "short_name": "QuantAI",
+  "description": "Master Score + Monte Carlo + Strategic Overlays — Yari iletken ve kuantum yatirim asistani",
+  "lang": "tr-TR",
+  "dir": "ltr",
+  "start_url": "https://abozer.tail4ea368.ts.net/",
+  "scope": "https://abozer.tail4ea368.ts.net/",
+  "id": "/",
+  "display": "standalone",
+  "display_override": ["standalone"],
+  "orientation": "any",
+  "background_color": "#0e1117",
+  "theme_color": "#0e1117",
+  "categories": ["finance", "productivity", "business"],
+  "icons": [
+    {
+      "src": "https://abozer.tail4ea368.ts.net/app/static/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://abozer.tail4ea368.ts.net/app/static/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://abozer.tail4ea368.ts.net/app/static/icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "https://abozer.tail4ea368.ts.net/app/static/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "prefer_related_applications": false
+}

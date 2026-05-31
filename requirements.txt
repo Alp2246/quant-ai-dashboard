@@ -1,0 +1,39 @@
+# Quant AI Dashboard - bagimliliklar
+# Kurulum: pip install -r requirements.txt
+
+# Veri
+yfinance>=0.2.40
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Teknik analiz
+ta>=0.11.0
+
+# NLP / Sentiment
+textblob>=0.18.0
+nltk>=3.8.0
+feedparser>=6.0.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0  # Google Patents scraping (Hardware Intel Agent)
+
+# Makine ogrenmesi
+scikit-learn>=1.3.0
+xgboost>=2.0.0
+
+# Dashboard
+streamlit>=1.32.0
+plotly>=5.18.0
+
+# Yardimci
+python-dotenv>=1.0.0
+joblib>=1.3.0
+
+# Forecasting (6 aylik fiyat koridoru)
+prophet>=1.1.5
+statsmodels>=0.14.0
+
+# Masaustu bildirim
+plyer>=2.1.0
+
+# Opsiyonel (NewsAPI anahtari varsa)
+# newsapi-python>=0.2.7
