@@ -57,7 +57,7 @@ if ($status) {
 
 # Create public repo
 $view = gh repo view "$user/$RepoName" 2>&1 | Out-String
-if ($view -match "Could not resolve|not found") {
+if ($LASTEXITCODE -ne 0 -or $view -match "Could not resolve|not found") {
     gh repo create $RepoName --public --source=. --remote=origin `
         --description $Description
     Write-Host "Created PUBLIC repo: github.com/$user/$RepoName" -ForegroundColor Green

@@ -14,6 +14,9 @@
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-alpha-engine">Alpha Engine</a> •
   <a href="#-architecture">Architecture</a> •
+  <a href="docs/REFERENCES.md">References</a> •
+  <a href="docs/LEGAL.md">Legal</a> •
+  <a href="CITATION.cff">Cite</a> •
   <a href="docs/PROMOTION.md">Marketing Kit</a> •
   <a href="Math_Specs.md">Math Specs</a>
 </p>
@@ -28,7 +31,7 @@
 
 ---
 
-> **Disclaimer:** For education and research only. **Not financial advice.** Past signals do not guarantee future results.
+> **Disclaimer:** For education and research only. **Not financial advice.** Past signals do not guarantee future results. See [Legal Notice](docs/LEGAL.md) and [References](docs/REFERENCES.md).
 
 ## Why QuantAI?
 
@@ -203,6 +206,27 @@ Issues and PRs welcome. Please **never commit** `.env`, Telegram tokens, or API 
 Ready-made copy for Reddit, Hacker News, Twitter/X, Product Hunt, LinkedIn:
 
 **→ [docs/PROMOTION.md](docs/PROMOTION.md)**
+
+---
+
+## 📚 References & citation
+
+Academic and library sources are documented in **[docs/REFERENCES.md](docs/REFERENCES.md)** (Fama-French, López de Prado, Wilson CI, NLTK, etc.).
+
+**No proprietary code** from commercial broker apps was used. Trademarks belong to their owners — see **[docs/LEGAL.md](docs/LEGAL.md)**.
+
+**Cite this project:**
+
+```bibtex
+@software{quantai_dashboard,
+  title = {QuantAI Dashboard},
+  url = {https://github.com/Alp2246/quant-ai-dashboard},
+  year = {2026},
+  license = {MIT}
+}
+```
+
+Or use GitHub **Cite this repository** ([CITATION.cff](CITATION.cff)).
 
 ---
 

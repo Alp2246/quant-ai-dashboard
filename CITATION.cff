@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use QuantAI in academic or commercial research, please cite this repository."
+title: QuantAI Dashboard
+version: 1.0.0
+date-released: 2026-06-04
+authors:
+  - family-names: Contributors
+    affiliation: QuantAI Open Source Project
+    name: QuantAI Contributors
+repository-code: "https://github.com/Alp2246/quant-ai-dashboard"
+url: "https://github.com/Alp2246/quant-ai-dashboard"
+license: MIT
+keywords:
+  - quantitative-finance
+  - streamlit
+  - machine-learning
+  - sec-edgar
+  - sentiment-analysis
+  - algorithmic-trading
+  - semiconductor
+preferred-citation: |
+  QuantAI Contributors (2026). QuantAI Dashboard: Multi-Source Alpha for Deep-Tech Equities (Version 1.0.0) [Computer software]. https://github.com/Alp2246/quant-ai-dashboard
