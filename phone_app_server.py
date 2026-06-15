@@ -1,19 +1,10 @@
 """
-phone_app_server.py - PWA static dosya sunucusu (port 8502).
+phone_app_server.py - Gateway (port 8502).
 
-Mimari:
-    [Telefon] ---http://192.168.1.X:8502---> PWA Shell (index.html + SW + manifest + icons)
-                                                    |
-                                                    | <iframe>
-                                                    v
-    [Telefon] ---http://192.168.1.X:8501---> Streamlit Dashboard (gercek uygulama)
+- /.well-known/assetlinks.json  -> Android TWA dogrulama (APK beyaz ekran fix)
+- Diger tum istekler            -> Streamlit (127.0.0.1:8501)
 
-Avantajlari:
-  - PWA shell sayesinde telefonun "Ana ekrana ekle" cikar -> app gibi durur
-  - PWABuilder.com bu URL'yi APK'ya cevirebilir
-  - service-worker offline destek + push notification altyapisi saglar
-
-Bagimlilik: Sadece Python stdlib (http.server, socketserver, threading).
+Tailscale Funnel bu porta (8502) baglanir; telefon/APK tam dashboard gorur.
 """
 from __future__ import annotations
 
@@ -22,69 +13,106 @@ import os
 import socket
 import sys
 import threading
+import urllib.error
+import urllib.request
 from http import HTTPStatus
-from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Optional
 
 LOG = logging.getLogger("phone_app_server")
 DEFAULT_PORT = 8502
+STREAMLIT_PORT = 8501
 
 
-def _phone_app_dir() -> Path:
-    """phone_app/ klasorunu bul (PyInstaller bundle veya dev mode)."""
+def _project_root() -> Path:
     if hasattr(sys, "_MEIPASS"):
-        bundle = Path(sys._MEIPASS)
-        candidate = bundle / "phone_app"
-        if candidate.is_dir():
-            return candidate
-    here = Path(__file__).parent
-    return here / "phone_app"
+        return Path(sys._MEIPASS)
+    return Path(__file__).parent.resolve()
 
 
-PWA_ROOT = _phone_app_dir()
+PROJECT_ROOT = _project_root()
+ASSETLINKS = PROJECT_ROOT / "static" / ".well-known" / "assetlinks.json"
+STREAMLIT_BASE = f"http://127.0.0.1:{STREAMLIT_PORT}"
 
 
-_EXTRA_MIME = {
-    ".webmanifest": "application/manifest+json",
-    ".js": "application/javascript",
-    ".mjs": "application/javascript",
-    ".json": "application/json",
-    ".svg": "image/svg+xml",
-    ".png": "image/png",
-    ".ico": "image/x-icon",
-    ".html": "text/html; charset=utf-8",
-    ".css": "text/css; charset=utf-8",
-    ".txt": "text/plain; charset=utf-8",
-}
+class _GatewayHandler(BaseHTTPRequestHandler):
+    """TWA assetlinks + Streamlit reverse proxy."""
 
+    protocol_version = "HTTP/1.1"
 
-class _PWAHandler(SimpleHTTPRequestHandler):
-    """HTTP handler — phone_app/ klasorunu serve eder, dogru MIME ile."""
+    def log_message(self, fmt: str, *args) -> None:
+        LOG.debug("%s - %s", self.address_string(), fmt % args)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, directory=str(PWA_ROOT), **kwargs)
+    def do_GET(self):
+        self._handle()
 
-    def guess_type(self, path):  # type: ignore[override]
-        ext = os.path.splitext(path)[1].lower()
-        if ext in _EXTRA_MIME:
-            return _EXTRA_MIME[ext]
-        return super().guess_type(path)
+    def do_HEAD(self):
+        self._handle(head_only=True)
 
-    def end_headers(self):  # type: ignore[override]
-        self.send_header("X-Content-Type-Options", "nosniff")
-        self.send_header("Referrer-Policy", "no-referrer")
-        self.send_header("Cache-Control", "no-cache, max-age=0, must-revalidate")
-        self.send_header("Service-Worker-Allowed", "/")
-        super().end_headers()
+    def do_POST(self):
+        self._handle()
 
-    def do_GET(self):  # type: ignore[override]
-        if self.path in ("", "/"):
-            self.path = "/index.html"
-        if self.path == "/health":
-            self._send_json({"status": "ok", "pwa_root": str(PWA_ROOT)})
+    def _handle(self, *, head_only: bool = False) -> None:
+        path = self.path.split("?", 1)[0]
+        if path in ("/.well-known/assetlinks.json", "/.well-known/assetlinks.json/"):
+            self._serve_assetlinks(head_only=head_only)
             return
-        super().do_GET()
+        if path == "/health":
+            self._send_json({"status": "ok", "gateway": True, "streamlit": STREAMLIT_BASE})
+            return
+        self._proxy_to_streamlit(head_only=head_only)
+
+    def _serve_assetlinks(self, *, head_only: bool = False) -> None:
+        if not ASSETLINKS.is_file():
+            self.send_error(HTTPStatus.NOT_FOUND, "assetlinks.json missing")
+            return
+        body = ASSETLINKS.read_bytes()
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "public, max-age=3600")
+        self.end_headers()
+        if not head_only:
+            self.wfile.write(body)
+
+    def _proxy_to_streamlit(self, *, head_only: bool = False) -> None:
+        url = STREAMLIT_BASE + self.path
+        try:
+            body = None
+            if self.command in ("POST", "PUT", "PATCH"):
+                length = int(self.headers.get("Content-Length", 0))
+                body = self.rfile.read(length) if length else None
+            req = urllib.request.Request(
+                url,
+                data=body,
+                method=self.command,
+                headers={k: v for k, v in self.headers.items() if k.lower() not in ("host", "connection")},
+            )
+            with urllib.request.urlopen(req, timeout=120) as resp:
+                self.send_response(resp.status)
+                for k, v in resp.headers.items():
+                    lk = k.lower()
+                    if lk not in ("transfer-encoding", "connection"):
+                        self.send_header(k, v)
+                self.end_headers()
+                if not head_only and self.command != "HEAD":
+                    while True:
+                        chunk = resp.read(65536)
+                        if not chunk:
+                            break
+                        self.wfile.write(chunk)
+        except urllib.error.HTTPError as e:
+            self.send_response(e.code)
+            for k, v in e.headers.items():
+                if k.lower() not in ("transfer-encoding", "connection"):
+                    self.send_header(k, v)
+            self.end_headers()
+            if not head_only:
+                self.wfile.write(e.read())
+        except Exception as e:
+            LOG.error("Proxy error %s: %s", url, e)
+            self.send_error(HTTPStatus.BAD_GATEWAY, str(e))
 
     def _send_json(self, payload: dict) -> None:
         import json
@@ -95,9 +123,6 @@ class _PWAHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    def log_message(self, format: str, *args) -> None:  # type: ignore[override]
-        LOG.debug("%s - %s", self.address_string(), format % args)
-
 
 def _local_ip() -> str:
     try:
@@ -107,69 +132,49 @@ def _local_ip() -> str:
         s.close()
         return ip
     except Exception:
-        try:
-            return socket.gethostbyname(socket.gethostname())
-        except Exception:
-            return "127.0.0.1"
+        return "127.0.0.1"
 
 
 def serve(port: int = DEFAULT_PORT, *, daemon: bool = True) -> threading.Thread:
-    """PWA sunucuyu arka planda baslat, thread dondur."""
-    if not PWA_ROOT.is_dir():
-        LOG.error("phone_app/ klasoru bulunamadi: %s", PWA_ROOT)
-        raise FileNotFoundError(f"phone_app dir missing: {PWA_ROOT}")
+    if not ASSETLINKS.is_file():
+        LOG.warning("assetlinks.json yok: %s (APK beyaz ekran riski)", ASSETLINKS)
 
-    httpd = ThreadingHTTPServer(("0.0.0.0", port), _PWAHandler)
+    httpd = ThreadingHTTPServer(("0.0.0.0", port), _GatewayHandler)
 
     def _run():
+        LOG.info("Gateway :8502 -> Streamlit :8501 + assetlinks")
         try:
-            LOG.info("PWA server dinliyor: http://0.0.0.0:%d (root=%s)", port, PWA_ROOT)
             httpd.serve_forever()
         except Exception as e:
-            LOG.error("PWA server hatasi: %s", e)
+            LOG.error("Gateway error: %s", e)
         finally:
             httpd.server_close()
 
-    t = threading.Thread(target=_run, name="phone-app-server", daemon=daemon)
+    t = threading.Thread(target=_run, name="quant-gateway", daemon=daemon)
     t.start()
     return t
 
 
 def banner_lines(port: int = DEFAULT_PORT) -> list[str]:
-    """launcher.py'in banner'a ekleyecegi satirlar."""
     ip = _local_ip()
     return [
-        f"    Telefon APP (PWA):    http://{ip}:{port}",
-        f"    Telefonda 'Ana Ekrana Ekle' -> app gibi acilir",
+        f"    Telefon / APK (Funnel): https://abozer.tail4ea368.ts.net",
+        f"    LAN gateway            : http://{ip}:{port}",
     ]
 
 
 def main(argv: Optional[list[str]] = None) -> int:
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s: %(message)s")
     import argparse
-    p = argparse.ArgumentParser(description="Quant AI Dashboard PWA shell server")
+    p = argparse.ArgumentParser(description="Quant AI Gateway (assetlinks + Streamlit proxy)")
     p.add_argument("--port", type=int, default=DEFAULT_PORT)
-    p.add_argument("--standalone", action="store_true", help="Foreground (block) modunda calistir")
     args = p.parse_args(argv)
-
-    ip = _local_ip()
-    print(f"\n[Quant AI PWA Shell]")
-    print(f"  Root        : {PWA_ROOT}")
-    print(f"  Bilgisayar  : http://localhost:{args.port}")
-    print(f"  Telefon (LAN): http://{ip}:{args.port}")
-    print(f"  Health      : http://localhost:{args.port}/health")
-    print(f"\n  Ctrl+C ile durdur\n")
-
-    if args.standalone:
-        try:
-            httpd = ThreadingHTTPServer(("0.0.0.0", args.port), _PWAHandler)
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            print("\nDurduruldu.")
-            return 0
-    else:
-        t = serve(args.port, daemon=False)
-        t.join()
+    print(f"Gateway http://0.0.0.0:{args.port} -> Streamlit {STREAMLIT_BASE}")
+    httpd = ThreadingHTTPServer(("0.0.0.0", args.port), _GatewayHandler)
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        pass
     return 0
 
 

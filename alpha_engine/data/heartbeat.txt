@@ -1,0 +1,88 @@
+{
+  "ts": "2026-06-04T18:59:43.651658+00:00",
+  "tick_id": 11,
+  "last_tick_ms": 50003,
+  "tasks": [
+    {
+      "name": "sec_edgar",
+      "runs": 11,
+      "errors": 3,
+      "last_status": "timeout",
+      "last_duration_ms": 50000,
+      "last_error": "timeout>50s",
+      "last_run_at": "2026-06-04T18:58:53.647267+00:00"
+    },
+    {
+      "name": "sec_form4",
+      "runs": 11,
+      "errors": 8,
+      "last_status": "timeout",
+      "last_duration_ms": 49999,
+      "last_error": "timeout>50s",
+      "last_run_at": "2026-06-04T18:58:53.647267+00:00"
+    },
+    {
+      "name": "reddit_rss",
+      "runs": 11,
+      "errors": 0,
+      "last_status": "ok",
+      "last_duration_ms": 7297,
+      "last_error": null,
+      "last_run_at": "2026-06-04T18:58:53.647267+00:00"
+    },
+    {
+      "name": "google_news",
+      "runs": 11,
+      "errors": 0,
+      "last_status": "ok",
+      "last_duration_ms": 2584,
+      "last_error": null,
+      "last_run_at": "2026-06-04T18:58:53.648480+00:00"
+    },
+    {
+      "name": "polygon_options",
+      "runs": 11,
+      "errors": 0,
+      "last_status": "ok",
+      "last_duration_ms": 0,
+      "last_error": null,
+      "last_run_at": "2026-06-04T18:58:53.648480+00:00"
+    },
+    {
+      "name": "alpha_notify",
+      "runs": 11,
+      "errors": 0,
+      "last_status": "ok",
+      "last_duration_ms": 3,
+      "last_error": null,
+      "last_run_at": "2026-06-04T18:59:43.647079+00:00"
+    },
+    {
+      "name": "master_score",
+      "runs": 11,
+      "errors": 0,
+      "last_status": "ok",
+      "last_duration_ms": 0,
+      "last_error": null,
+      "last_run_at": "2026-06-04T18:58:53.648480+00:00"
+    },
+    {
+      "name": "heartbeat",
+      "runs": 11,
+      "errors": 0,
+      "last_status": "ok",
+      "last_duration_ms": 0,
+      "last_error": null,
+      "last_run_at": "2026-06-04T18:59:43.650516+00:00"
+    },
+    {
+      "name": "signal_prune",
+      "runs": 11,
+      "errors": 0,
+      "last_status": "ok",
+      "last_duration_ms": 0,
+      "last_error": null,
+      "last_run_at": "2026-06-04T18:59:43.650516+00:00"
+    }
+  ]
+}

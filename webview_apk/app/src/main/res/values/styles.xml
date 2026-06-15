@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.QuantAI" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/bg</item>
+    </style>
+    <style name="Theme.QuantAI.NoActionBar" parent="Theme.QuantAI">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>

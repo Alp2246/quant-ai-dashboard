@@ -56,6 +56,33 @@ tools/git-installer.exe
 tools/gh-installer.msi
 tools/*.log
 tools/*.crt
+tools/android-sdk/
+tools/cmdline-tools.zip
+tools/jdk*.msi
+tools/node*.msi
+
+# ---- Android / WebView build (large) ---------------------------------------
+webview_apk/.gradle/
+webview_apk/build/
+webview_apk/app/build/
+apk_build/
+_bubblewrap_build.py
+_build_webview_apk.py
+_download_apk_toolchain.py
+_fix_bw_config.py
+
+# ---- Alpha Engine runtime (local state) ------------------------------------
+alpha_engine/data/logs/
+alpha_engine/data/state/*.json
+alpha_engine/data/state/*.jsonl
+!alpha_engine/data/state/.gitkeep
+
+# ---- Deploy secrets --------------------------------------------------------
+deploy/server_config.ini
+
+# ---- Temp / scratch scripts ------------------------------------------------
+_test_*.py
+_check_*.py
 
 # ---- Log dosyalari ---------------------------------------------------------
 *.log

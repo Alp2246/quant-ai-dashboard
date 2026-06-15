@@ -13,13 +13,14 @@ from __future__ import annotations
 from typing import Dict, List, Any
 
 
-# Aksiyonlar
+# Aksiyonlar (TEK KAYNAK verdict_rules ile ayni vocabulary)
 ACTION_TEXT = {
-    "EKLE":   "📈 Pozisyon arttirilabilir.",
-    "TUT":    "✅ Mevcut pozisyonu koru.",
-    "BEKLE":  "⏸️ Kenarda izle - net katalist bekle.",
-    "AZALT":  "⚠️ Pozisyon kucult.",
-    "DIKKAT": "🚨 Cikis dusun - kritik risk aktif.",
+    "KRITIK ALIM": "🚨 KRITIK ALIM - guclu pozisyon ac.",
+    "GUCLU AL":    "📈 Pozisyon arttirilabilir.",
+    "AL":          "🟢 Alim bandinda - kademeli giris.",
+    "BEKLE":       "⏸️ Kenarda izle - net katalist bekle.",
+    "DIKKAT":      "🚨 Cikis dusun - kritik risk aktif.",
+    "SAT":         "🔴 Pozisyon kapat / uzak dur.",
 }
 
 
@@ -173,31 +174,18 @@ def brief_for_ticker(r: dict) -> dict:
     ms = master.get("master_score", 0)
     rating = master.get("rating", "")
 
-    # Verdict (investor_summary mantigi tekrari)
+    # Verdict = TEK KAYNAK (verdict_rules)
+    from verdict_rules import verdict_for
     cr = r.get("cash_runway", {}) or {}
     geo = r.get("geo_risk", {}) or {}
-    # Confidence proxy: 10y confidence approx
-    bd = master.get("breakdown", {})
-    tech_pct = bd.get("technical", 0) / 30 * 100 if "technical" in bd else 0
-    fund_pct = bd.get("fundamental", 0) / 20 * 100 if "fundamental" in bd else 0
-    news_pct = bd.get("sentiment", 0) / 20 * 100 if "sentiment" in bd else 0
-    vision_pct = bd.get("vision", 0) / 30 * 100 if "vision" in bd else 0
-    durab = r.get("durability_score", {}) or {}
-    durab_pct = float(durab.get("durability", durab.get("score", 50)) or 50)
-    conf = (tech_pct*0.20 + fund_pct*0.25 + news_pct*0.15
-            + vision_pct*0.20 + durab_pct*0.20)
-    conf -= abs(cr.get("master_penalty", 0)) * 2
-
-    if cr.get("is_unsustainable") or geo.get("critical_alert"):
-        verdict = "DIKKAT"
-    elif conf >= 70 and ms >= 75:
-        verdict = "EKLE"
-    elif conf >= 55 and ms >= 55:
-        verdict = "TUT"
-    elif conf >= 40:
-        verdict = "BEKLE"
-    else:
-        verdict = "AZALT"
+    verdict = verdict_for(
+        ms,
+        cash_unsustainable=cr.get("is_unsustainable", False),
+        critical_alert=geo.get("critical_alert", False),
+    )
+    # 10y confidence bilgi amacli (karari degistirmez)
+    from investor_summary import _confidence_10y
+    conf = _confidence_10y(r)
 
     # Hikaye parcalari
     comp_st = _master_components_story(r)
@@ -247,18 +235,19 @@ def market_summary(briefs: List[dict]) -> dict:
         strongest = weakest = None
 
     # Piyasa cumlesi
-    n_ekle = counts.get("EKLE", 0)
-    n_tut = counts.get("TUT", 0)
+    n_kritik = counts.get("KRITIK ALIM", 0)
+    n_guclu = counts.get("GUCLU AL", 0)
+    n_al = counts.get("AL", 0)
     n_bekle = counts.get("BEKLE", 0)
-    n_dikkat = counts.get("DIKKAT", 0) + counts.get("AZALT", 0)
+    n_risk = counts.get("DIKKAT", 0) + counts.get("SAT", 0)
     n = max(1, len(briefs))
-    pos_pct = (n_ekle + n_tut) / n * 100
+    pos_pct = (n_kritik + n_guclu + n_al) / n * 100
 
     if pos_pct >= 70:
-        regime = "🟢 **POZITIF PIYASA REJIMI** - cogu hisse alim/tutma bandinda."
+        regime = "🟢 **POZITIF PIYASA REJIMI** - cogu hisse alim bandinda."
     elif pos_pct >= 50:
         regime = "🟡 **KARISIK PIYASA** - secici olmak gerekiyor."
-    elif n_dikkat >= n / 3:
+    elif n_risk >= n / 3:
         regime = "🔴 **RISK MODU** - savunmaci pozisyon onerilir."
     else:
         regime = "⏸️ **BEKLEME REJIMI** - katalist bekleniyor."

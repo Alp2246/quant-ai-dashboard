@@ -5,7 +5,7 @@ Karmasik dashboard'un ozeti: her hisse icin 4 sutun:
   1) Hisse & Vizyon  (Orn: "ATOM - Semiconductor IP")
   2) Stratejik Durum (lojistik/teknolojik engel? Critical News tabani)
   3) 10y Confidence Score (Teknik / Temel / Haber ortalamasi)
-  4) Verdict (TUT / EKLE / BEKLE / DIKKAT)
+  4) Karar (KRITIK ALIM / GUCLU AL / AL / BEKLE / DIKKAT / SAT) — verdict_rules
 
 Ek olarak:
   - Foundry Capex (TSMC / Intel) korelasyon skoru
@@ -160,21 +160,19 @@ def _confidence_10y(r: dict) -> float:
 def _verdict(confidence: float, master_score: float,
                cash_unsustainable: bool, critical_alert: bool) -> str:
     """
-    Verdict cikarimi:
-      TUT  -> mevcut pozisyon koru (confidence yuksek + master orta-yuksek)
-      EKLE -> pozisyon arttir (confidence + master cok yuksek)
-      BEKLE-> kenarda izle (orta)
-      DIKKAT/SAT -> azalt veya sat
+    Verdict = TEK KAYNAK kural (verdict_rules.verdict_for).
+
+    Master Score birincil suruculdur; tabloda gozuken etiket ile
+    Master Score rating'i ve Telegram bildirimleri ARTIK ayni dili konusur.
+    confidence sadece ayri bir bilgi sutunudur, karari degistirmez.
     """
-    if critical_alert or cash_unsustainable:
-        return "DIKKAT"
-    if confidence >= 70 and master_score >= 75:
-        return "EKLE"
-    if confidence >= 55 and master_score >= 55:
-        return "TUT"
-    if confidence >= 40:
-        return "BEKLE"
-    return "AZALT"
+    from verdict_rules import verdict_for
+    return verdict_for(
+        master_score,
+        cash_unsustainable=cash_unsustainable,
+        critical_alert=critical_alert,
+        confidence=confidence,
+    )
 
 
 def build_investor_overview(results: dict) -> pd.DataFrame:
@@ -233,16 +231,11 @@ def build_investor_overview(results: dict) -> pd.DataFrame:
             "Foundry Capex Korelasyon": cx.get("avg_capex_corr", "-"),
             "Capex Bagimliligi": cx.get("label", "-"),
         })
-    df = pd.DataFrame(rows).sort_values("10y Confidence Score", ascending=False)
+    df = pd.DataFrame(rows).sort_values("Master Score", ascending=False)
     return df
 
 
 def get_verdict_color(verdict: str) -> str:
-    """Verdict renk kodu (UI rozetler icin)."""
-    return {
-        "EKLE":   "#00c853",
-        "TUT":    "#64dd17",
-        "BEKLE":  "#ffc107",
-        "AZALT":  "#ff6e40",
-        "DIKKAT": "#d50000",
-    }.get(verdict, "#888")
+    """Verdict renk kodu (UI rozetler icin) - TEK KAYNAK."""
+    from verdict_rules import color_for
+    return color_for(verdict)

@@ -1,50 +1,106 @@
 {
   "WOLF_ML_OVERFIT": {
-    "last_fired": "2026-05-27T21:50:19.445746",
-    "severity": "UYARI"
+    "last_fired": "2026-06-11T21:47:29.029431",
+    "severity": "UYARI",
+    "ticker": "WOLF",
+    "title": "⚠️ WOLF ML Modeli Overfit",
+    "message": "Lopez de Prado Purged CV: overfit gap +0.53 - ML olasiligina guvenme.",
+    "telegram_sent": false
   },
   "IONQ_ML_OVERFIT": {
-    "last_fired": "2026-05-27T21:50:34.587946",
-    "severity": "UYARI"
+    "last_fired": "2026-06-11T21:47:29.504367",
+    "severity": "UYARI",
+    "ticker": "IONQ",
+    "title": "⚠️ IONQ ML Modeli Overfit",
+    "message": "Lopez de Prado Purged CV: overfit gap +0.43 - ML olasiligina guvenme.",
+    "telegram_sent": false
   },
   "RGTI_ML_OVERFIT": {
-    "last_fired": "2026-05-27T21:50:38.206765",
-    "severity": "UYARI"
+    "last_fired": "2026-06-11T21:47:29.928099",
+    "severity": "UYARI",
+    "ticker": "RGTI",
+    "title": "⚠️ RGTI ML Modeli Overfit",
+    "message": "Lopez de Prado Purged CV: overfit gap +0.44 - ML olasiligina guvenme.",
+    "telegram_sent": false
   },
   "ATOM_FOUNDRY_JDA": {
-    "last_fired": "2026-05-27T21:50:46.003222",
-    "severity": "KRITIK"
+    "last_fired": "2026-06-11T21:47:30.374058",
+    "severity": "KRITIK",
+    "ticker": "ATOM",
+    "title": "📜 ATOM Foundry JDA Imzasi",
+    "message": "Tier-1 Foundry JDA tetiklendi - 'Royalty per Wafer' EXPONENTIAL CAGR moduna gecildi.",
+    "telegram_sent": false
   },
   "ATOM_ML_OVERFIT": {
-    "last_fired": "2026-05-27T21:50:46.003222",
-    "severity": "UYARI"
+    "last_fired": "2026-06-11T21:47:30.374058",
+    "severity": "UYARI",
+    "ticker": "ATOM",
+    "title": "⚠️ ATOM ML Modeli Overfit",
+    "message": "Lopez de Prado Purged CV: overfit gap +0.43 - ML olasiligina guvenme.",
+    "telegram_sent": false
   },
   "LAES_NIST_PQC_INTEGRATION": {
-    "last_fired": "2026-05-27T21:50:54.761921",
-    "severity": "KRITIK"
+    "last_fired": "2026-06-11T21:47:30.829303",
+    "severity": "KRITIK",
+    "ticker": "LAES",
+    "title": "🔐 LAES NIST PQC HW Onayi",
+    "message": "CRYSTALS-Kyber/Dilithium QS7001'e donanim entegrasyon haberi DOĞRULANDI - Q-Day katalisti.",
+    "telegram_sent": false
   },
   "LAES_ML_OVERFIT": {
-    "last_fired": "2026-05-27T21:50:54.761921",
-    "severity": "UYARI"
+    "last_fired": "2026-06-11T21:47:30.829303",
+    "severity": "UYARI",
+    "ticker": "LAES",
+    "title": "⚠️ LAES ML Modeli Overfit",
+    "message": "Lopez de Prado Purged CV: overfit gap +0.45 - ML olasiligina guvenme.",
+    "telegram_sent": false
   },
   "NVTS_ML_OVERFIT": {
-    "last_fired": "2026-05-27T21:51:06.916900",
-    "severity": "UYARI"
+    "last_fired": "2026-06-11T21:47:31.287250",
+    "severity": "UYARI",
+    "ticker": "NVTS",
+    "title": "⚠️ NVTS ML Modeli Overfit",
+    "message": "Lopez de Prado Purged CV: overfit gap +0.48 - ML olasiligina guvenme.",
+    "telegram_sent": false
   },
   "QBTS_ML_OVERFIT": {
-    "last_fired": "2026-05-27T21:51:11.827646",
-    "severity": "UYARI"
+    "last_fired": "2026-06-11T21:47:31.711939",
+    "severity": "UYARI",
+    "ticker": "QBTS",
+    "title": "⚠️ QBTS ML Modeli Overfit",
+    "message": "Lopez de Prado Purged CV: overfit gap +0.43 - ML olasiligina guvenme.",
+    "telegram_sent": false
   },
   "POET_ML_OVERFIT": {
-    "last_fired": "2026-05-27T21:51:20.492702",
-    "severity": "UYARI"
+    "last_fired": "2026-06-11T21:47:32.128135",
+    "severity": "UYARI",
+    "ticker": "POET",
+    "title": "⚠️ POET ML Modeli Overfit",
+    "message": "Lopez de Prado Purged CV: overfit gap +0.36 - ML olasiligina guvenme.",
+    "telegram_sent": false
   },
   "ARQQ_ML_OVERFIT": {
-    "last_fired": "2026-05-27T21:51:28.652969",
-    "severity": "UYARI"
+    "last_fired": "2026-06-11T21:47:32.563145",
+    "severity": "UYARI",
+    "ticker": "ARQQ",
+    "title": "⚠️ ARQQ ML Modeli Overfit",
+    "message": "Lopez de Prado Purged CV: overfit gap +0.41 - ML olasiligina guvenme.",
+    "telegram_sent": false
   },
   "SMCI_ML_OVERFIT": {
-    "last_fired": "2026-05-27T21:51:36.504836",
-    "severity": "UYARI"
+    "last_fired": "2026-06-11T21:47:32.974481",
+    "severity": "UYARI",
+    "ticker": "SMCI",
+    "title": "⚠️ SMCI ML Modeli Overfit",
+    "message": "Lopez de Prado Purged CV: overfit gap +0.48 - ML olasiligina guvenme.",
+    "telegram_sent": false
+  },
+  "NVTS_NVDA_DC_POWER": {
+    "last_fired": "2026-06-05T22:04:34.345653",
+    "severity": "GUCLU",
+    "ticker": "NVTS",
+    "title": "🖥️ NVTS DC Power Tailwind",
+    "message": "NVIDIA Blackwell/rack-scale 48V power haberi aktif - NVTS AI DC ruzgari proxy katalisti tetiklendi.",
+    "telegram_sent": false
   }
 }

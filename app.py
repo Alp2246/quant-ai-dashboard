@@ -22,6 +22,7 @@ from plotly.subplots import make_subplots
 import streamlit as st
 
 from alerts import check_buy_opportunity
+from alpha_engine_panel import render_alpha_engine_panel
 from backtest import backtest_strategy
 from capex_watch import derive_ticker_capex_weight, scan_sector
 from config import ALL_WATCHLIST_DEFAULTS, CHINA_TICKERS, REFRESH_MINUTES, TICKERS
@@ -533,6 +534,15 @@ def analyze_ticker(ticker: str, df: pd.DataFrame) -> dict:
 
     durab = cached_durability(ticker)
 
+    from verdict_rules import verdict_for
+    _geo = geo_risk or {}
+    _verdict = verdict_for(
+        float(master.get("master_score", 0)),
+        cash_unsustainable=bool(runway.get("is_unsustainable")),
+        critical_alert=bool(_geo.get("critical_alert")),
+    )
+    master["verdict"] = _verdict
+
     return {
         "ticker": ticker, "df": df, "sentiment": sent,
         "fundamental": fund, "technical": tech, "ml": ml,
@@ -553,6 +563,7 @@ def analyze_ticker(ticker: str, df: pd.DataFrame) -> dict:
         "atom_exponential_mode": bool(
             strategic.get("details", {}).get("exponential_mode", False)),
         "triggered_events": triggered,
+        "verdict": _verdict,
     }
 
 
@@ -2857,7 +2868,8 @@ def sidebar():
 def render_investor_overview(results: dict):
     """Yatirimci icin TEK-BAKIS overview. Kullanici talebi: 4 sutun."""
     st.markdown("## 🏆 Investor Executive Summary")
-    st.caption("Hisse & Vizyon  •  Stratejik Durum  •  10y Confidence Score  •  Verdict")
+    st.caption("Hisse & Vizyon  •  Stratejik Durum  •  10y Confidence  •  "
+               "Karar = Master Score (verdict_rules — PC ile Telegram ayni)")
     st.caption("Apple piyasa degeri ($3.5T) hard ceiling | Lopez de Prado Purged CV "
                 "ile overfitting korumasi | Fisher Scuttlebutt yontemiyle Ar-Ge "
                 "yogun hisselerde kulis arastirmasi")
@@ -2901,14 +2913,15 @@ def render_investor_overview(results: dict):
                    "backlog patlaması ve gelir çarpanı izlenir. "
                    "Onaylı J-Curve = +20 Master Score 'Sıçrama Potansiyeli'.")
 
-    # Sayilarin ozeti
-    c1, c2, c3, c4, c5 = st.columns(5)
+    # Sayilarin ozeti (verdict_rules ile ayni vocabulary)
+    c1, c2, c3, c4, c5, c6 = st.columns(6)
     counts = df["Verdict"].value_counts().to_dict()
-    c1.metric("🟢 EKLE", counts.get("EKLE", 0))
-    c2.metric("✅ TUT",  counts.get("TUT",  0))
-    c3.metric("⏸️ BEKLE",counts.get("BEKLE",0))
-    c4.metric("⚠️ AZALT",counts.get("AZALT",0))
-    c5.metric("🚨 DIKKAT",counts.get("DIKKAT",0))
+    c1.metric("🚨 KRITIK ALIM", counts.get("KRITIK ALIM", 0))
+    c2.metric("✅ GUCLU AL", counts.get("GUCLU AL", 0))
+    c3.metric("🟢 AL", counts.get("AL", 0))
+    c4.metric("🟡 BEKLE", counts.get("BEKLE", 0))
+    c5.metric("🟠 DIKKAT", counts.get("DIKKAT", 0))
+    c6.metric("🔴 SAT", counts.get("SAT", 0))
 
     # Foundry Capex korelasyon ozeti
     st.markdown("**Foundry Capex (TSM/INTC) Korelasyon - Sektorel Bagimlilik**")
@@ -2958,10 +2971,11 @@ def render_executive_brief(results: dict):
     c2.metric("Ortalama Master", f"{summary['avg_master_score']:.1f}")
     c3.metric("Ort. 10y Confidence",
                 f"{summary['avg_confidence_10y']:.0f}/100")
-    c4.metric("🟢 EKLE", summary["counts"].get("EKLE", 0))
-    c5.metric("✅ TUT",  summary["counts"].get("TUT", 0))
-    c6.metric("🚨 DIKKAT", summary["counts"].get("DIKKAT", 0)
-                + summary["counts"].get("AZALT", 0))
+    c4.metric("🚨 KRITIK ALIM", summary["counts"].get("KRITIK ALIM", 0)
+                + summary["counts"].get("GUCLU AL", 0))
+    c5.metric("🟢 AL", summary["counts"].get("AL", 0))
+    c6.metric("🟠 RISK", summary["counts"].get("DIKKAT", 0)
+                + summary["counts"].get("SAT", 0))
     if summary.get("strongest"):
         s = summary["strongest"]; w = summary["weakest"]
         st.caption(
@@ -2974,12 +2988,9 @@ def render_executive_brief(results: dict):
     st.divider()
 
     # ---- HISSE BAZLI BRIEF KARTLARI ----
-    verdict_color = {
-        "EKLE":   "#00c853", "TUT": "#64dd17", "BEKLE": "#ffc107",
-        "AZALT":  "#ff6e40", "DIKKAT": "#d50000",
-    }
+    from verdict_rules import color_for
     for b in briefs:
-        col_c = verdict_color.get(b["verdict"], "#888")
+        col_c = color_for(b["verdict"])
         with st.container(border=True):
             top1, top2, top3 = st.columns([3, 1, 1])
             with top1:
@@ -3518,6 +3529,7 @@ def main():
     st.divider()
 
     tabs = st.tabs([
+        "🚨 Erken Uyari",
         "💸 Sanal Portfoy",
         "🎯 Ozet", "📊 Detay", "🌟 Vision", "💼 Portfoy", "🛰 HIA", "🔬 Research",
         "🏭 Sektorel Zeka", "📈 Backtest", "🔮 Forecast", "💰 Temel",
@@ -3525,52 +3537,55 @@ def main():
     ])
 
     with tabs[0]:
+        try: render_alpha_engine_panel()
+        except Exception as e: st.error(f"Alpha Engine paneli hatasi: {e}")
+    with tabs[1]:
         try: render_paper_portfolio(results)
         except Exception as e: st.error(f"Sanal Portfoy hatasi: {e}")
-    with tabs[1]:
+    with tabs[2]:
         try: render_overview(results)
         except Exception as e: st.error(f"Ozet hatasi: {e}")
-    with tabs[2]:
+    with tabs[3]:
         try: render_detail(results)
         except Exception as e: st.error(f"Detay hatasi: {e}")
-    with tabs[3]:
+    with tabs[4]:
         try: render_vision(results)
         except Exception as e: st.error(f"Vision hatasi: {e}")
-    with tabs[4]:
+    with tabs[5]:
         try: render_portfolio(results)
         except Exception as e: st.error(f"Portfoy hatasi: {e}")
-    with tabs[5]:
+    with tabs[6]:
         try: render_hardware_intel(results)
         except Exception as e: st.error(f"HIA hatasi: {e}")
-    with tabs[6]:
+    with tabs[7]:
         try: render_research_agent(results)
         except Exception as e: st.error(f"Research Agent hatasi: {e}")
-    with tabs[7]:
+    with tabs[8]:
         try:
             histories_for_sector = {t: r["df"] for t, r in results.items()
                                       if r.get("df") is not None}
             render_sector(results, histories_for_sector)
         except Exception as e:
             st.error(f"Sektorel Zeka hatasi: {e}")
-    with tabs[8]:
+    with tabs[9]:
         try: render_backtest(results)
         except Exception as e: st.error(f"Backtest hatasi: {e}")
-    with tabs[9]:
+    with tabs[10]:
         try: render_forecast(results)
         except Exception as e: st.error(f"Forecast hatasi: {e}")
-    with tabs[10]:
+    with tabs[11]:
         try: render_fundamentals(results)
         except Exception as e: st.error(f"Temel analiz hatasi: {e}")
-    with tabs[11]:
+    with tabs[12]:
         try: render_radar(results)
         except Exception as e: st.error(f"Radar hatasi: {e}")
-    with tabs[12]:
+    with tabs[13]:
         try: render_milestones(results)
         except Exception as e: st.error(f"Milestone hatasi: {e}")
-    with tabs[13]:
+    with tabs[14]:
         try: render_dca(results)
         except Exception as e: st.error(f"DCA hatasi: {e}")
-    with tabs[14]:
+    with tabs[15]:
         try: render_logs()
         except Exception as e: st.error(f"Log hatasi: {e}")
 

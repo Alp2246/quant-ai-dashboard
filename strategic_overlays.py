@@ -186,9 +186,15 @@ def quantum_basket_signal(ticker: str,
 # =============================================================================
 
 # 'JDA / Standard Process Flow' - Foundry kabulu -> 10y EXPONENTIAL mod
+# NOT: JDA tek basina cok genel; sadece "SIGNED/EXECUTED/ANNOUNCED JDA" gibi
+# kesin commit ifadeleriyle tetiklensin. "Progress on JDA", "JDA discussions"
+# gibi belirsiz cumleler artik tetiklemez.
 ATOM_FOUNDRY_INTEGRATION_PATTERNS = [
-    r"\bJDA\b",
-    r"\bjoint\s+development\s+agreement\b",
+    # POZITIF: yalnizca kesin imza/uygulama ifadeleriyle JDA
+    r"\b(sign(ed|s)?|execut(ed|es)?|announc(ed|es)?|enter(ed|s)?\s+into|finaliz(ed|es)?)\s+"
+    r"(a\s+|the\s+)?(joint\s+development\s+agreement|JDA)\b",
+    r"\b(joint\s+development\s+agreement|JDA)\s+(with|between)\s+(?!(?:any|some|discussions|talks)\b)",
+    r"\b(joint\s+development\s+agreement|JDA)\s+(signed|executed|announced|effective|in\s+force)\b",
     r"\bintegration\s+into\s+(standard\s+process\s+flow|production\s+line)",
     r"\bmst\s+(qualified|certified|approved)\s+for\s+production\b",
     r"\bproduction\s+(qualified|release|qualification)\b",

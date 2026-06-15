@@ -170,18 +170,8 @@ def compute_master_score(
 
     master = max(0, min(100, round(base_scaled + total_modifier, 1)))
 
-    if master >= 85:
-        rating = "KRITIK ALIM"
-    elif master >= 70:
-        rating = "GUCLU AL"
-    elif master >= 55:
-        rating = "AL"
-    elif master >= 40:
-        rating = "BEKLE"
-    elif master >= 25:
-        rating = "DIKKAT"
-    else:
-        rating = "SAT"
+    from verdict_rules import verdict_for
+    rating = verdict_for(master)
 
     ci = _confidence_interval(prob_up, ml_result.get("train_samples", 100))
 

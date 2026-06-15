@@ -46,13 +46,14 @@ def desktop_notify(title: str, message: str, app_name: str = "Quant AI"):
 def handle_master_score(ticker: str, score: float, rating: str,
                         details: dict | None = None) -> dict:
     """
-    Master Score'a gore karar al:
-      >= 85 -> KRITIK ALIM (toast + log)
-      >= 70 -> Guclu sinyal (sadece log)
+    Master Score'a gore karar al (verdict_rules ile uyumlu):
+      KRITIK ALIM / GUCLU AL -> toast + log + Telegram
     """
+    from verdict_rules import is_push_worthy, verdict_for
+    rating = rating or verdict_for(score)
     result = {"notified": False, "logged": False, "rating": rating}
 
-    if score >= CRITICAL_THRESHOLD:
+    if is_push_worthy(rating) or score >= CRITICAL_THRESHOLD:
         msg = (f"{ticker}: Master Score {score}/100 - {rating}"
                + (f"  (tech={details.get('technical')} sent={details.get('sentiment')} "
                   f"fund={details.get('fundamental')})" if details else ""))

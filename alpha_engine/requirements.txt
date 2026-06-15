@@ -1,0 +1,9 @@
+# Adim 1 - sadece stdlib yeterli (asyncio + logging + json + pathlib)
+# Asagidakiler Adim 2+ icin onceden listelendi; suan kurmaya gerek yok.
+
+aiohttp>=3.9
+asyncpraw>=7.7
+tenacity>=8.2
+pytrends>=4.9
+
+# Opsiyonel: Reddit onayi yoksa stocktwits + google_trends yeterli

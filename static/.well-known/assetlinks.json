@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.quantai.dashboard",
+    "sha256_cert_fingerprints": ["91:87:DB:E7:68:3A:99:A9:DC:35:B5:72:1D:F4:A7:78:F8:3D:DD:67:2B:D8:19:F8:5E:74:A4:F3:0E:73:32:13"]
+  }
+}]
