@@ -198,9 +198,21 @@ def build_investor_overview(results: dict) -> pd.DataFrame:
         master = r.get("master", {}) or {}
         cr = r.get("cash_runway", {}) or {}
         geo = r.get("geo_risk", {}) or {}
-        verdict = _verdict(conf, master.get("master_score", 0),
-                              cr.get("is_unsustainable", False),
-                              geo.get("critical_alert", False))
+        # KAPILAR (score_gate) hesaplanmissa ONLARI kullan — bu tablo eskiden
+        # HAM master_score'dan verdict'i YENIDEN hesapliyordu ve carpimsal
+        # vetoyu atliyordu. Olculmus vaka (03.08.2026): LAES kapilardan
+        # gecince final=42.0/BEKLE oluyordu ama bu tablo hala ham 100.0 ile
+        # "KRITIK ALIM" gosteriyordu.
+        gates = master.get("gates") or {}
+        if gates.get("verdict"):
+            verdict = gates["verdict"]
+            gosterilecek_skor = gates.get("final_score",
+                                          master.get("master_score", 0))
+        else:
+            gosterilecek_skor = master.get("master_score", 0)
+            verdict = _verdict(conf, gosterilecek_skor,
+                                  cr.get("is_unsustainable", False),
+                                  geo.get("critical_alert", False))
         cx = _foundry_capex_correlation(t, results, histories)
         ex_factor = get_explosive_factor(t)
         is_moonshot = t.upper() in MOONSHOT_CANDIDATES
@@ -226,7 +238,12 @@ def build_investor_overview(results: dict) -> pd.DataFrame:
             "Stratejik Durum": status,
             "Bayraklar": ", ".join(flags) if flags else "-",
             "10y Confidence Score": conf,
-            "Master Score": master.get("master_score", 0),
+            # Kapilardan gecmis skor (kapi yoksa ham skor)
+            "Master Score": gosterilecek_skor,
+            "Ham Skor": master.get("master_score", 0),
+            "Kapi": (f"M_mkt={gates.get('M_market')} "
+                     f"M_of={gates.get('M_overfit')} "
+                     f"M_fund={gates.get('M_fund')}") if gates else "-",
             "Verdict": verdict,
             "Foundry Capex Korelasyon": cx.get("avg_capex_corr", "-"),
             "Capex Bagimliligi": cx.get("label", "-"),

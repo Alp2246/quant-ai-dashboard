@@ -177,7 +177,14 @@ def simulate_paths(inp: MCInputs, seed: int = 42) -> MCResults:
     }
 
     # Istatistikler
-    stats = summarize(terminal, S0, mu_adj=mu, sigma_adj=sigma)
+    stats = summarize(
+        terminal,
+        S0,
+        mu_adj=mu,
+        sigma_adj=sigma,
+        horizon_years=inp.horizon_years,
+        fat_tail_cap_multiplier=inp.fat_tail_cap_multiplier,
+    )
 
     return MCResults(
         ticker=inp.ticker,
@@ -192,8 +199,14 @@ def simulate_paths(inp: MCInputs, seed: int = 42) -> MCResults:
 # ---------------------------------------------------------------------------
 # Istatistik ozeti (VaR, CVaR, P-bust, P-10x...)
 # ---------------------------------------------------------------------------
-def summarize(terminal: np.ndarray, S0: float,
-              mu_adj: float, sigma_adj: float) -> dict:
+def summarize(
+    terminal: np.ndarray,
+    S0: float,
+    mu_adj: float,
+    sigma_adj: float,
+    horizon_years: float = 10.0,
+    fat_tail_cap_multiplier: float = 20.0,
+) -> dict:
     """
     Terminal fiyat dagiliminin asimetrik istatistikleri.
     Gaussian fit + Bessembinder fat-tail metrikleri.
@@ -220,12 +233,12 @@ def summarize(terminal: np.ndarray, S0: float,
     p_loss = float((terminal < S0).mean())             # negatif PnL
     p_double = float((terminal >= 2.0 * S0).mean())    # 2x+
     p_10x = float((terminal >= 10.0 * S0).mean())      # 10x+
-    p_20x_cap = float((terminal >= 19.9 * S0).mean())  # cap'e dayanma orani
+    cap_hit_threshold = max(0.01, 0.995 * S0 * fat_tail_cap_multiplier)
+    p_20x_cap = float((terminal >= cap_hit_threshold).mean())  # cap'e dayanma orani
 
     # Implied annual CAGR (median)
-    horizon = mu_adj if mu_adj else 0.10
     try:
-        cagr_median = ((median_T / S0) ** (1 / 10.0) - 1) * 100  # 10y default
+        cagr_median = ((median_T / S0) ** (1 / horizon_years) - 1) * 100
     except Exception:
         cagr_median = 0.0
 
@@ -256,6 +269,7 @@ def summarize(terminal: np.ndarray, S0: float,
         "p_double": round(p_double * 100, 2),
         "p_10x": round(p_10x * 100, 2),
         "p_20x_cap_hit": round(p_20x_cap * 100, 2),
+        "cap_hit_threshold": round(cap_hit_threshold, 2),
         "cagr_median_pct": round(cagr_median, 2),
         "worst_5": [round(x, 2) for x in worst_5],
         "best_5": [round(x, 2) for x in best_5],

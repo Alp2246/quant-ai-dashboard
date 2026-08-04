@@ -10,7 +10,9 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
-from config import RSI_OVERBOUGHT, RSI_OVERSOLD
+from config import (BACKTEST_COMMISSION_BPS, BACKTEST_HOLDING_DAYS,
+                    BACKTEST_LOOKBACK_YEARS, BACKTEST_SLIPPAGE_BPS,
+                    RSI_OVERBOUGHT, RSI_OVERSOLD)
 
 logger = logging.getLogger(__name__)
 
@@ -95,10 +97,14 @@ def _max_drawdown(equity_curve: np.ndarray) -> dict:
 
 def backtest_strategy(
     df: pd.DataFrame,
-    holding_days: int = 20,
-    years: float = 2,
+    holding_days: int = BACKTEST_HOLDING_DAYS,
+    years: float = BACKTEST_LOOKBACK_YEARS,
     atr_sl_mult: float = 2.0,
     atr_tp_mult: float = 3.0,
+    entry_execution: str = "next_open",
+    signal_exit_execution: str = "next_open",
+    commission_bps: float = BACKTEST_COMMISSION_BPS,
+    slippage_bps: float = BACKTEST_SLIPPAGE_BPS,
 ) -> dict:
     """Triple Barrier Method backtest.
 
@@ -117,12 +123,15 @@ def backtest_strategy(
     Her trade etiket: TP / SL / TIME / SAT.
     Risk metrikleri: Sharpe Ratio, Maximum Drawdown, Calmar Ratio.
     """
+    if commission_bps < 0 or slippage_bps < 0:
+        raise ValueError("commission_bps and slippage_bps must be non-negative")
+
     data = df.copy()
     if len(data) < 60:
         return _empty_result()
 
     # Son N yil
-    cutoff = data.index[-1] - pd.DateOffset(years=int(years))
+    cutoff = data.index[-1] - pd.Timedelta(days=max(1, int(round(years * 365.25))))
     data = data[data.index >= cutoff]
     if len(data) < 30:
         return _empty_result()
@@ -136,44 +145,104 @@ def backtest_strategy(
     pos_open = False
     entry_idx = None
     entry_price = None
+    entry_price_raw = None
     sl_level = None
     tp_level = None
     entry_atr = None
     entry_date = None
+    pending_entry = None
+    pending_exit = None
+    roundtrip_cost_bps = 2.0 * (commission_bps + slippage_bps)
 
     indices = list(data.index)
     for i, ts in enumerate(indices):
         sig = signals.loc[ts]
         price = float(data["Close"].iloc[i])
+        open_price = float(data["Open"].iloc[i]) if "Open" in data.columns else price
         high = float(data["High"].iloc[i]) if "High" in data.columns else price
         low = float(data["Low"].iloc[i]) if "Low" in data.columns else price
 
-        if not pos_open and sig == "AL":
+        # Execute prior-bar signal on the next bar's open to avoid using the
+        # same closing price both for signal discovery and entry fill.
+        if not pos_open and pending_entry is not None and pending_entry["entry_idx"] == i:
             pos_open = True
             entry_idx = i
-            entry_price = price
-            entry_atr = float(atr.iloc[i]) if not pd.isna(atr.iloc[i]) else price * 0.03
+            entry_price_raw = open_price if entry_execution == "next_open" else price
+            entry_price = _apply_entry_cost(entry_price_raw, commission_bps, slippage_bps)
+            entry_atr = pending_entry["entry_atr"]
             sl_level = entry_price - atr_sl_mult * entry_atr
             tp_level = entry_price + atr_tp_mult * entry_atr
             entry_date = ts
+            pending_entry = None
+
+        if pos_open and pending_exit is not None and pending_exit["exit_idx"] == i:
+            exit_reason = pending_exit["exit_reason"]
+            raw_exit_price = open_price
+            exit_price = _apply_exit_cost(raw_exit_price, commission_bps, slippage_bps)
+            held = i - entry_idx
+            ret = (exit_price / entry_price - 1) * 100
+            trades.append({
+                "entry_date": entry_date,
+                "exit_date": ts,
+                "days_held": held,
+                "entry_price": round(entry_price, 2),
+                "entry_price_raw": round(entry_price_raw, 2),
+                "exit_price": round(exit_price, 2),
+                "exit_price_raw": round(raw_exit_price, 2),
+                "stop_loss": round(sl_level, 2),
+                "take_profit": round(tp_level, 2),
+                "atr_at_entry": round(entry_atr, 3),
+                "return_pct": round(ret, 2),
+                "gross_return_pct": round((raw_exit_price / entry_price_raw - 1) * 100, 2),
+                "cost_bps_roundtrip": round(roundtrip_cost_bps, 2),
+                "exit_reason": exit_reason,
+            })
+            pos_open = False
+            pending_exit = None
+            entry_price_raw = None
+            sl_level = tp_level = entry_atr = None
+            continue
+
+        if not pos_open and sig == "AL":
+            if entry_execution == "same_close":
+                pos_open = True
+                entry_idx = i
+                entry_price_raw = price
+                entry_price = _apply_entry_cost(entry_price_raw, commission_bps, slippage_bps)
+                entry_atr = float(atr.iloc[i]) if not pd.isna(atr.iloc[i]) else price * 0.03
+                sl_level = entry_price - atr_sl_mult * entry_atr
+                tp_level = entry_price + atr_tp_mult * entry_atr
+                entry_date = ts
+            elif i < len(indices) - 1:
+                entry_atr_val = float(atr.iloc[i]) if not pd.isna(atr.iloc[i]) else price * 0.03
+                pending_entry = {"entry_idx": i + 1, "entry_atr": entry_atr_val}
         elif pos_open:
             held = i - entry_idx
             exit_reason = None
-            exit_price = price
+            raw_exit_price = price
+            exit_price = _apply_exit_cost(raw_exit_price, commission_bps, slippage_bps)
 
             # 1) Alt Bariyer (SL) - intraday low'a vurdu mu?
             if low <= sl_level:
                 exit_reason = "SL"
-                exit_price = sl_level
+                raw_exit_price = sl_level
+                exit_price = _apply_exit_cost(raw_exit_price, commission_bps, slippage_bps)
             # 2) Ust Bariyer (TP) - intraday high'a vurdu mu?
             elif high >= tp_level:
                 exit_reason = "TP"
-                exit_price = tp_level
+                raw_exit_price = tp_level
+                exit_price = _apply_exit_cost(raw_exit_price, commission_bps, slippage_bps)
             # 3) Zaman Bariyeri (paranin zaman maliyeti - de Prado)
             elif held >= holding_days:
+                if signal_exit_execution == "next_open" and i < len(indices) - 1:
+                    pending_exit = {"exit_idx": i + 1, "exit_reason": "TIME"}
+                    continue
                 exit_reason = "TIME"
             # 4) Signal-based exit
             elif sig == "SAT":
+                if signal_exit_execution == "next_open" and i < len(indices) - 1:
+                    pending_exit = {"exit_idx": i + 1, "exit_reason": "SAT"}
+                    continue
                 exit_reason = "SAT"
             # 5) Son bar
             elif i == len(indices) - 1:
@@ -186,14 +255,19 @@ def backtest_strategy(
                     "exit_date": ts,
                     "days_held": held,
                     "entry_price": round(entry_price, 2),
+                    "entry_price_raw": round(entry_price_raw, 2),
                     "exit_price": round(exit_price, 2),
+                    "exit_price_raw": round(raw_exit_price, 2),
                     "stop_loss": round(sl_level, 2),
                     "take_profit": round(tp_level, 2),
                     "atr_at_entry": round(entry_atr, 3),
                     "return_pct": round(ret, 2),
+                    "gross_return_pct": round((raw_exit_price / entry_price_raw - 1) * 100, 2),
+                    "cost_bps_roundtrip": round(roundtrip_cost_bps, 2),
                     "exit_reason": exit_reason,
                 })
                 pos_open = False
+                entry_price_raw = None
                 sl_level = tp_level = entry_atr = None
 
     if not trades:
@@ -209,6 +283,11 @@ def backtest_strategy(
             "sharpe_ratio": 0, "max_drawdown_pct": 0,
             "buy_hold_drawdown_pct": bh_mdd["max_dd_pct"],
             "calmar_ratio": 0, "avg_holding_days": 0,
+            "commission_bps": commission_bps,
+            "slippage_bps": slippage_bps,
+            "roundtrip_cost_bps": round(roundtrip_cost_bps, 2),
+            "entry_execution": entry_execution,
+            "signal_exit_execution": signal_exit_execution,
             "exit_counts": {"TP": 0, "SL": 0, "TIME": 0, "SAT": 0, "END": 0},
             "trades_df": pd.DataFrame(),
         }
@@ -258,6 +337,11 @@ def backtest_strategy(
         "buy_hold_drawdown_pct": bh_mdd["max_dd_pct"],
         "calmar_ratio": round(calmar, 2),
         "avg_holding_days": round(float(avg_held), 1),
+        "commission_bps": commission_bps,
+        "slippage_bps": slippage_bps,
+        "roundtrip_cost_bps": round(roundtrip_cost_bps, 2),
+        "entry_execution": entry_execution,
+        "signal_exit_execution": signal_exit_execution,
         "exit_counts": exit_counts,
         "trades_df": pd.DataFrame(trades),
     }
@@ -271,6 +355,21 @@ def _empty_result() -> dict:
         "sharpe_ratio": 0, "max_drawdown_pct": 0,
         "buy_hold_drawdown_pct": 0, "calmar_ratio": 0,
         "avg_holding_days": 0,
+        "commission_bps": BACKTEST_COMMISSION_BPS,
+        "slippage_bps": BACKTEST_SLIPPAGE_BPS,
+        "roundtrip_cost_bps": 2.0 * (BACKTEST_COMMISSION_BPS + BACKTEST_SLIPPAGE_BPS),
+        "entry_execution": "next_open",
+        "signal_exit_execution": "next_open",
         "exit_counts": {"TP": 0, "SL": 0, "TIME": 0, "SAT": 0, "END": 0},
         "trades_df": pd.DataFrame(),
     }
+
+
+def _apply_entry_cost(price: float, commission_bps: float, slippage_bps: float) -> float:
+    """For long entries, both commission and slippage worsen the fill upward."""
+    return float(price * (1 + (commission_bps + slippage_bps) / 10_000.0))
+
+
+def _apply_exit_cost(price: float, commission_bps: float, slippage_bps: float) -> float:
+    """For long exits, both commission and slippage worsen the fill downward."""
+    return float(price * (1 - (commission_bps + slippage_bps) / 10_000.0))

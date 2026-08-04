@@ -132,18 +132,61 @@ def analyze_ticker_core(ticker: str, df: pd.DataFrame | None = None) -> dict[str
 
     ms = float(master.get("master_score", 0))
     geo = {"critical_alert": False}
-    verdict = verdict_for(
+
+    # ---- CARPIMSAL KAPILAR (score_gate.py) --------------------------------
+    # compute_master_score'un additive ciktisi KORUNUR; karar ve push bu
+    # kapilardan gecen final skora baglanir. Gerekce: LAES'te additive
+    # toplam 94.5 "KRITIK ALIM" uretirken ayni pakette SIDDETLI OVERFIT,
+    # fiyat<SMA20<SMA50 ve marj -%187 vardi (olculdu 02.08.2026).
+    from score_gate import apply_gates
+    from verdict_rules import allow_push, gated_verdict
+
+    gates = apply_gates(
         ms,
+        technical=tech,
+        ml_result=ml,
+        fundamental=fund,
+        overlay_bonus=master.get("strategic_overlay_bonus", 0),
+        moonshot_bonus=master.get("modifiers", {}).get("moonshot", 0),
+        base_score=master.get("base_score"),
+        pr_only=bool(strategic.get("pr_only")),
+        binding=bool(strategic.get("binding_evidence")),
+    )
+
+    verdict, gate_reasons = gated_verdict(
+        gates["final_score"],
+        market_status=gates["market_status"],
+        is_overfit=gates["is_overfit"],
+        fund_status=gates["fund_status"],
+        pr_only=gates["pr_only"],
         cash_unsustainable=bool(runway.get("is_unsustainable")),
         critical_alert=bool(geo.get("critical_alert")),
     )
-    master["rating"] = master.get("rating") or verdict
+    push_ok, push_red = allow_push(
+        verdict,
+        market_status=gates["market_status"],
+        is_overfit=gates["is_overfit"],
+    )
+    gates["reasons"].extend(gate_reasons)
+    if push_red:
+        gates["reasons"].append(push_red)
+    gates["verdict"] = verdict
+    gates["allow_push"] = push_ok
+
+    # Additive kirilim panelde gorunmeye devam etsin diye master_score
+    # ham haliyle korunur; karar final_score uzerinden verilir.
+    master["score_raw"] = gates["score_raw"]
+    master["final_score"] = gates["final_score"]
+    master["gates"] = gates
+    master["rating"] = verdict
     master["verdict"] = verdict
 
     return {
         "ticker": ticker,
         "df": df,
         "master": master,
+        "gates": gates,
+        "allow_push": push_ok,
         "sentiment": sent,
         "fundamental": fund,
         "technical": tech,
@@ -164,9 +207,22 @@ def score_summary(ticker: str) -> dict[str, Any]:
     if r.get("error"):
         return {"ticker": ticker, "error": r["error"]}
     m = r["master"]
+    g = r.get("gates") or {}
     return {
         "ticker": ticker,
-        "master_score": r["master_score"],
+        # master_score artik KAPILARDAN GECMIS skordur; score_raw additive
+        # kirilimi panelde gostermek icin ayrica tasinir.
+        "master_score": g.get("final_score", r["master_score"]),
+        "score_raw": g.get("score_raw", r["master_score"]),
         "rating": m.get("rating"),
         "verdict": r["verdict"],
+        "allow_push": r.get("allow_push", True),
+        "gates": {
+            "M_market": g.get("M_market"), "M_overfit": g.get("M_overfit"),
+            "M_fund": g.get("M_fund"), "market_status": g.get("market_status"),
+            "fund_status": g.get("fund_status"), "pr_only": g.get("pr_only"),
+            "binding": g.get("binding"), "is_overfit": g.get("is_overfit"),
+            "overfit_verdict": g.get("overfit_verdict"),
+            "reasons": g.get("reasons", []),
+        },
     }

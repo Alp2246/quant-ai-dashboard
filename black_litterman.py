@@ -180,9 +180,21 @@ def portfolio_optimization(
     annual_cov = log_ret.cov() * 252
     annual_mean = log_ret.mean() * 252
 
-    # Market caps default = esit agirlik
+    # Market caps default = esit agirlik.
+    # DIKKAT: bu durumda Pi "piyasa dengesi implied getirisi" DEGILDIR —
+    # esit agirlikli uydurma bir prior'dur ve posterior yorumlanamaz.
+    # Cagiran taraf bunu bilsin diye kaynagi raporluyoruz.
+    caps_source = "marketcap"
     if not market_caps:
         market_caps = {t: 1.0 for t in aligned.columns}
+        caps_source = "equal_weight_fallback"
+    else:
+        usable = [t for t in aligned.columns
+                  if isinstance(market_caps.get(t), (int, float))
+                  and market_caps.get(t)]
+        if len(usable) < len(aligned.columns):
+            caps_source = ("equal_weight_fallback" if not usable
+                           else "partial_marketcap")
 
     pi = implied_returns(market_caps, annual_cov, risk_aversion=risk_aversion)
 
@@ -208,4 +220,7 @@ def portfolio_optimization(
         "views_applied": views or [],
         "n_tickers": len(aligned.columns),
         "n_observations": len(log_ret),
+        # Prior'un kaynagi: "marketcap" ise Pi gercekten piyasa dengesi;
+        # "equal_weight_fallback" ise POSTERIOR YORUMLANAMAZ.
+        "source": caps_source,
     }

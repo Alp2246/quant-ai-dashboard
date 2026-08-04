@@ -47,14 +47,6 @@
         "bearish": 0,
         "headlines": [
           {
-            "title": "IonQ Achieves Industry Breakthrough – First Trapped Ion Quantum System to Surpass 99.9% Fidelity on Barium - IonQ",
-            "summary": "IonQ Achieves Industry Breakthrough – First Trapped Ion Quantum System to Surpass 99.9% Fidelity on Barium&nbsp;&nbsp;IonQ",
-            "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxOaTF6cGkxa002YmVlelVKSktBaDV2ZkVSb1hrdURwWVlOdXNaZDhRZlltdGlrNHFxYlNraVN0UElRQWlOTGdfTEFJWmNzU2FSZnlwblR6T1lPM3g1QUVRYnJBM3p1VTNEeXRxcXJubzU0OThkRV9EV0NIbWppOEw4Z0dUMjdnZ2E3WFJPSUQ3eHlvaHdCUXlRNU1GX2M3dw?oc=5",
-            "query": "IONQ Barium trap reliability",
-            "classification": "bullish",
-            "published": "Thu, 12 Sep 2024 07:00:00 GMT"
-          },
-          {
             "title": "IonQ Announces Partnership with NKT Photonics for Next-Generation Laser Systems to Power Future Quantum Computers - IonQ",
             "summary": "IonQ Announces Partnership with NKT Photonics for Next-Generation Laser Systems to Power Future Quantum Computers&nbsp;&nbsp;IonQ",
             "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQbmUxbmZLMjdLU3lnRHBFakNHSE9aLVByMWRTZGs0RXhla3puMmFXVlJEMG9FSHg4ZXRQWkExX1prTnN1OF9NNmEtU0FjRE56aFRnMEk2cFNuUzdUTldLMHBSLTY5emdwQUVubVk5dFUyc19QR0ZEcFhXWDJXRDVFMEVEUHdLQWRkX2xmZzNyQmJ6b05XQllNb29MNV9zdw?oc=5",
@@ -63,19 +55,27 @@
             "published": "Thu, 07 Nov 2024 08:00:00 GMT"
           },
           {
-            "title": "In Industry First, IonQ to Use Barium Ions for Computation - IonQ",
-            "summary": "In Industry First, IonQ to Use Barium Ions for Computation&nbsp;&nbsp;IonQ",
-            "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1TVWxJc1BCUFlqcktUQ09EZEFqaWJRTlV2TVhJR2lETkQ2T0M4TjA3N3I3Q0hnLU96WWxsTTZlYi1KZlJaNFlXbEVXa3h1amw4OURyN3RmbU82SEpYYk04NjVKakVacWlxaDdzRWlB?oc=5",
-            "query": "IONQ Barium trap reliability",
+            "title": "IonQ and QuantumBasel Expand Long-Term Partnership in Next-Generation Quantum Systems - IonQ",
+            "summary": "IonQ and QuantumBasel Expand Long-Term Partnership in Next-Generation Quantum Systems&nbsp;&nbsp;IonQ",
+            "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQeE5UOW5wNFA0cFRadWxNdVkxYVZDbHhpOUEzelpBenJIejhGb3dDNVgtb2ZGNzAzNExjd3R5NW1DN3FnYWpMMWVLemROUnJJM2ZzOHRDZEhJd21OS1RZa1J1d2l0OG04ZzNHUlZBWGNRSTZRcHhvVWtKdTBFSHVsTHVuQ0dkX1hjb1dSTldLY2JWMlcyRk5QME1ZMUtZNjA5NnFBdGs0eUtqb3FwWGU3eA?oc=5",
+            "query": "IONQ enterprise quantum delivery",
             "classification": "bullish",
-            "published": "Fri, 10 Dec 2021 08:00:00 GMT"
+            "published": "Wed, 17 Dec 2025 08:00:00 GMT"
+          },
+          {
+            "title": "IonQ, KISTI finalize deal to deliver 100-qubit quantum system - Evertiq",
+            "summary": "IonQ, KISTI finalize deal to deliver 100-qubit quantum system&nbsp;&nbsp;Evertiq",
+            "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPUFpzSkppa1JzenpTbGVjVmdlN1czNW9paFRmb1gxQVJlekJwVkhJeWRPc0s0ZkgwNklwdDZOZEJEZmQzaV9ueHBUWlVLNUl5bjBlQkFRVkR4T2V5Rkc3MGVHMW1EcVozNmdpWE03SlNNTTBjSlVoZkJnQnhTdU1laFFGaFVaRmU2Y1VldUhOcXBsOVd6LTU0RWozRmhGQlU?oc=5",
+            "query": "IONQ enterprise quantum delivery",
+            "classification": "bullish",
+            "published": "Fri, 16 Jan 2026 08:00:00 GMT"
           }
         ],
-        "timestamp": "2026-05-26T15:32:02.907242+00:00"
+        "timestamp": "2026-07-04T09:17:12.404023+00:00"
       }
     ],
     "last_research": "2026-05-26T15:08:06.709783+00:00",
-    "last_research_agent": "2026-05-26T15:32:02.907242+00:00",
+    "last_research_agent": "2026-07-04T09:17:12.404023+00:00",
     "strategic_overlays": {
       "type": "QUANTUM_BASKET",
       "sibling": "RGTI",
@@ -169,20 +169,12 @@
       {
         "type": "RESEARCH_AGENT",
         "tag": "Confirmed by Web Research",
-        "intensity": 6,
+        "intensity": 10,
         "net_score": 0.0,
         "dynamic_coef": 1.0,
         "bullish": 0,
         "bearish": 0,
         "headlines": [
-          {
-            "title": "Wolfspeed Reports Financial Results for the First Quarter of Fiscal 2026 - Business Wire",
-            "summary": "Wolfspeed Reports Financial Results for the First Quarter of Fiscal 2026&nbsp;&nbsp;Business Wire",
-            "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQc1FDdF9LOWJIVkYwWFUtMFZHMWlDY0RBdkJfZ2daU3ZZdThlYUVsVmFDNkNXM3JnYzNwZW9NNWRuNHc4QlpqT3oxLUdaMlltTmtIZ3FZSU43cmJiTWxHenl4b3c3MlZaZkMycmpQaVN0WFhFd0VBbVJ0RFU5VmY0LUFwTFd2TVNlOExNbVZRdXZxcFc1LThXaXVUaWdIb014VW1qa1BOY3FYREVkdjZTVmZTZmlNaEduX3Z6VDkzODNET1VhVUlNUg?oc=5",
-            "query": "Mohawk Valley fab yield percentage",
-            "classification": "bullish",
-            "published": "Wed, 29 Oct 2025 07:00:00 GMT"
-          },
           {
             "title": "Wolfspeed: Full Production Ramp Ripe For Automotive Scaling (NYSE:WOLF) - Seeking Alpha",
             "summary": "Wolfspeed: Full Production Ramp Ripe For Automotive Scaling (NYSE:WOLF)&nbsp;&nbsp;Seeking Alpha",
@@ -192,19 +184,27 @@
             "published": "Mon, 22 Dec 2025 08:00:00 GMT"
           },
           {
-            "title": "Has Wolfspeed Truly Turned the Corner After Bankruptcy - Kavout",
-            "summary": "Has Wolfspeed Truly Turned the Corner After Bankruptcy&nbsp;&nbsp;Kavout",
-            "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQQjV3OWZudmkxOEk1TWpSekFpQ2k4SWVHSThZMVlPcDg4U0pxcE5iVGNLVWEtU1ZLTWh1XzVJc0pFYzdRdy1IcUJfUUQyZ3hoVVlQN2dhYi1zRENyR243eTRzS3BraFZHaWlmdUJOQmdla1JIYVRtWHBpa1pqSi1WdWdhc1htQjM2SDB1MFQ3Nk1hUm8?oc=5",
-            "query": "Mohawk Valley fab yield percentage",
+            "title": "Wolfspeed to layoff 73 Siler City employees to adjust for soft demand - WRAL",
+            "summary": "Wolfspeed to layoff 73 Siler City employees to adjust for soft demand&nbsp;&nbsp;WRAL",
+            "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE50aVZlMzBSUE9nVU9HRkVnb19FcjdMQnJCWG5tNHdBdkZ3dTZaTGJnd08zeXJWS2E2LWZ1UVNwbVp6djRWNmkyVVBhRWZvdEU?oc=5",
+            "query": "Wolfspeed Mohawk Valley employee review",
+            "classification": "bearish",
+            "published": "Wed, 11 Jun 2025 07:00:00 GMT"
+          },
+          {
+            "title": "Wolfspeed Unveils the Industry’s Lowest RDS(ON) Silicon Carbide (SiC) MOSFETs in New Technology Generation - Business Wire",
+            "summary": "Wolfspeed Unveils the Industry’s Lowest RDS(ON) Silicon Carbide (SiC) MOSFETs in New Technology Generation&nbsp;&nbsp;Business Wire",
+            "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxPSGZ0aE1Mc0RibkhQeW5EYkZUZ1lWV09LT2pBVDVqSTNwNHhzWnJhU1F5MUFlam5UbDhmUndLeFIyd0JtU1JmMUgtVV9PcDNRa2hOS0JHTUxZWWxTc0dYdjYzWk5jNmpFUWFTYUhhSnEwaDJHSTFlQ1o3SEt3VHgwdXpXd1hsTTlIcDZ2eFk2SUJuekYzWWZlV2s1ZVRSYXIzZTQwMkkxWjJDRWpNeWg2VzA4NldWMTUwLXBuZllfZ3EtODlycWxyanFHZm81NVFuNjB5dlBqYlg0NEx4cnVIb2tycGJhS1hCYm1FLXA1RQ?oc=5",
+            "query": "Wolfspeed EV power module ramp",
             "classification": "neutral",
-            "published": "Tue, 26 May 2026 13:09:44 GMT"
+            "published": "Tue, 09 Jun 2026 07:00:00 GMT"
           }
         ],
-        "timestamp": "2026-05-26T15:32:02.907242+00:00"
+        "timestamp": "2026-07-04T09:17:12.404023+00:00"
       }
     ],
     "last_research": "2026-05-26T15:08:06.709783+00:00",
-    "last_research_agent": "2026-05-26T15:32:02.907242+00:00"
+    "last_research_agent": "2026-07-04T09:17:12.404023+00:00"
   },
   "ASML": {
     "name": "ASML Holding",
@@ -249,42 +249,42 @@
       {
         "type": "RESEARCH_AGENT",
         "tag": "Confirmed by Web Research",
-        "intensity": 2,
-        "net_score": 0.0,
-        "dynamic_coef": 1.0,
-        "bullish": 0,
+        "intensity": 16,
+        "net_score": 1.0,
+        "dynamic_coef": 1.08,
+        "bullish": 1,
         "bearish": 0,
         "headlines": [
           {
-            "title": "ASML ships first high-NA EUV production scanner - Bits&Chips",
-            "summary": "ASML ships first high-NA EUV production scanner&nbsp;&nbsp;Bits&amp;Chips",
-            "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNbzdRdnVUMGxxNWZ0VWxZMFVBUkdZTVdVVElyQWwxSDhXR3B1aWRWVktkVkpodjJiSXZ5N29OTWszOVNyZjYyLWtPME5iZTRGSXh1Q2tlZXE4ZmxvSUhSakFoSDdydnNUc2xEVWpIYVFzdzRGRFZTaU04VkdiRXNFYUgtc0c0QQ?oc=5",
-            "query": "ASML High-NA EUV shipping status",
+            "title": "ASML's record run still leaves investors arguing it looks cheap - Startup Fortune",
+            "summary": "ASML's record run still leaves investors arguing it looks cheap&nbsp;&nbsp;Startup Fortune",
+            "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNcE1SekplOWJ3OTZBVExSMWpKSm1UVEdOTVpjdmlNT2gzR3pQZktHZlFSZTVyallIS2dLSkZaaGxTQ3JPWm96cHQ3TUNVZ2hoSE50RXlhUEIwc055dTZINS1DT0NIZEtaU0VSaWF0VmQ0eVhpaldPMTZoWlRyM1ZvUzZmQlV1OERBYUVmdzBJeVhvc2RB?oc=5",
+            "query": "ASML High-NA customer delivery delay",
             "classification": "bullish",
-            "published": "Wed, 23 Jul 2025 07:00:00 GMT"
+            "published": "Tue, 09 Jun 2026 07:00:00 GMT"
           },
           {
-            "title": "ASML's roadmap for chipmaking lithography tools examined — from DUV to Low-NA, High-NA, Hyper-NA, and beyond - Tom's Hardware",
-            "summary": "ASML's roadmap for chipmaking lithography tools examined — from DUV to Low-NA, High-NA, Hyper-NA, and beyond&nbsp;&nbsp;Tom's Hardware",
-            "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPQWRrdktnTGlac1U4ZHp0OVFIRzFFM2JEQ3V3d2g4MVZQWUtteEY1YUVReTJhVGhiOE9NNnJuVjR6eVRfdnJUM2hiQlZWeF9qN1pCUm5pN3pmTmh3U1hiZlQ0M0tndXVGYnU2ZmV6S1l1SEo4RjBCeVpqekVuOGFwRC0wRHRtUkp2NWxIdDdQUTVuNUhERU5KR0E3VjJsYXhEUnhJSkNuS2VjMWEwZVVSVw?oc=5",
-            "query": "ASML High-NA EUV shipping status",
-            "classification": "neutral",
-            "published": "Fri, 01 May 2026 07:00:00 GMT"
+            "title": "ASML says first chips made with High-NA machines to arrive in months - Reuters",
+            "summary": "ASML says first chips made with High-NA machines to arrive in months&nbsp;&nbsp;Reuters",
+            "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQcWtoU21oSDd3a3lXWnY2VHpJeVd4TUFTOVlCaUR1dE1rWkxpRjB0MXItWUR2TVpHTU94ckNqZm10WFBTck8yaXBHZ1lVV1dpaTBUbVRwb21rUXJrZVEzSFJKdGh6NGhzTlVfRTNBdlZPamd5QU41QTliZktBMEZpdE1yeU1uWmhuYnpDb1diWVFSdGFPQTA5T09yUC1OTUVYcmVZ?oc=5",
+            "query": "ASML High-NA customer delivery delay",
+            "classification": "bullish",
+            "published": "Tue, 19 May 2026 07:00:00 GMT"
           },
           {
-            "title": "ASML extends Low NA EUV to 2031, ramps up High NA production - digitimes",
-            "summary": "ASML extends Low NA EUV to 2031, ramps up High NA production&nbsp;&nbsp;digitimes",
-            "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQSlFDY2xEN3FCcmpRVV9HRVVzNVVRMVM3NHFtc0xqdUNSa3JVbDFoZDdOUUdqSk5pRkxjTnE1YnlHeHZlTTlKaU1wWnJDdTFSY3l6UmlKSmkzZ0FIbWtTa19CaENqNDluSHBnY3I2VkpGem95TlZFTVEwbmY3dHVTWnB5NnpESEdUVlE?oc=5",
-            "query": "ASML High-NA EUV shipping status",
-            "classification": "neutral",
-            "published": "Fri, 17 Apr 2026 07:00:00 GMT"
+            "title": "ASML EUV Breakthrough Reshapes AI Chip Output And Investor Expectations - Yahoo Finance",
+            "summary": "ASML EUV Breakthrough Reshapes AI Chip Output And Investor Expectations&nbsp;&nbsp;Yahoo Finance",
+            "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPN2hsdkM0OWxGTkYwQTNkRWJOYWUyOEFtTlhsZzlESnliWUhiVmhXcWVrSUZnUE9OQlM3MzFOZTdVaVlERm9Iakw2QUJQemtJcFV4RVVPTmZGRzRZY3RBLWNYQmtTMG56dHMwY0g0dlhzdDk4ekRTVkpMLUpYLW1rc1N4bFpFUQ?oc=5",
+            "query": "ASML High-NA customer delivery delay",
+            "classification": "bullish",
+            "published": "Tue, 24 Feb 2026 08:00:00 GMT"
           }
         ],
-        "timestamp": "2026-05-26T15:32:02.907242+00:00"
+        "timestamp": "2026-07-04T09:17:12.404023+00:00"
       }
     ],
     "last_research": "2026-05-26T15:08:06.709783+00:00",
-    "last_research_agent": "2026-05-26T15:32:02.907242+00:00"
+    "last_research_agent": "2026-07-04T09:17:12.404023+00:00"
   },
   "ATOM": {
     "name": "Atomera",
@@ -320,6 +320,42 @@
         "phase": "🔥 PEAK (Asiri Isinma)",
         "cycle_score": 90.4,
         "timestamp": "2026-05-26T15:08:06.709783+00:00"
+      },
+      {
+        "type": "RESEARCH_AGENT",
+        "tag": "Confirmed by Web Research",
+        "intensity": 0,
+        "net_score": 0.0,
+        "dynamic_coef": 1.0,
+        "bullish": 0,
+        "bearish": 0,
+        "headlines": [
+          {
+            "title": "Could Atomera’s Expanded Synopsys GaN Partnership Quietly Reshape Its Licensing Power Story (ATOM)? - simplywall.st",
+            "summary": "Could Atomera’s Expanded Synopsys GaN Partnership Quietly Reshape Its Licensing Power Story (ATOM)?&nbsp;&nbsp;simplywall.st",
+            "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNdDVpaTZBNFkyZ0NrTmpzU3YzZk1qR01iMEF5eDE5aS01VFJDNkFXRW5VZ1V5aW5seXV6ZDgzNVk2dnBVWUU4QU1mZDQ5SVhnUmJYY1hTZ2g1TnZVbktWVUxTOUJ6RmZnNHZnZ1FiMUdzdG9CTDhmcXBQaU1TcGVEdDhYZnlaMWR5YUcyNGhWemotSDN1Ry1NWmxPQnVQSktKN2pfYzk3Z3JuLXQtazI2Wnp5WklCMU1UQnhzd256V1lQb3FMcGVrQWRKY1jSAdIBQVVfeXFMTy1aX3Z0U3BOSXRlOHlHTTcxNkNLbGhLM1V4M3k1RnFKLV81VjhiaHYwMVdycGJzOFpVZ0pvZm9jeTVhdkNTNVFuRFN4b3JVQy1KaFd2dFBUaUZrWHlINkdsWjNHLVlTSXFLSWpGTlhRS0dtSjBSbkNWZzE1QWFVSUNpNVQ1NVEzcEhvQ1F3VjlvQUVBakZRa0tydGRZWmF4VC1rczRlMnJsUmZmN0QxU1lLQmFTMTJjT2NHOEtKRDdkUUhlNk4xUzNMZnYxbktuRW9B?oc=5",
+            "query": "Atomera MST licensing agreement",
+            "classification": "bullish",
+            "published": "Sat, 25 Apr 2026 07:00:00 GMT"
+          },
+          {
+            "title": "Earnings call transcript: Atomera Q4 2025 revenue miss, stock fluctuates - Investing.com",
+            "summary": "Earnings call transcript: Atomera Q4 2025 revenue miss, stock fluctuates&nbsp;&nbsp;Investing.com",
+            "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOVE1LWmk3UC1jRmFDejlaRlBxQTFDaVRwY3kxY1B3WFRiaEpJYXJhMU9WcF9BTllqc2VZcTA3QUp5YmU4V3NscndWRDNhRHBOenZtY0RBdHAtZU51N2pCNGFuSjZEc19NdUJSWEhjZkJCNkxkREtnWDZRSnVERFdSelU2cXhrZlBXWmpWd1BLc1NSY2pEb19FNGpDb2JjcmVrVnBMTlo3VkJLRElfR1JrMlBnSUN3Y1d2Z190X1dIMC0zRXlk?oc=5",
+            "query": "Atomera MST customer testimonial",
+            "classification": "bearish",
+            "published": "Thu, 12 Feb 2026 08:00:00 GMT"
+          },
+          {
+            "title": "Atomera and Synopsys expand partnership to advance GaN device modelling - New Electronics",
+            "summary": "Atomera and Synopsys expand partnership to advance GaN device modelling&nbsp;&nbsp;New Electronics",
+            "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNR3FyRk8xM2RSc0VrTE9ON1p2RjdSY0pPZFRzR29VQ0lheS1CZ3lrOFFYcWJHR0xxRUhJWXFLdDZPdldsUHQ4WWpZbXpibHk1VU1WYlNDM192Tko1WndCTU5yV0VoUlR3eURZNjJpa1FBSHFQalUwTElsbXZ1bld2WnRwN0FqY1l3bXQ2NjZCZmZvMW1KbURDemNBSFZnNkRJWDhlcnFtQW9JY2JvZmwtMDlSa2NXWl8y?oc=5",
+            "query": "Atomera MST customer testimonial",
+            "classification": "bullish",
+            "published": "Mon, 27 Apr 2026 07:00:00 GMT"
+          }
+        ],
+        "timestamp": "2026-07-04T09:17:12.404023+00:00"
       }
     ],
     "last_research": "2026-05-26T15:08:06.709783+00:00",
@@ -362,7 +398,8 @@
         }
       ],
       "speculative_risk": true
-    }
+    },
+    "last_research_agent": "2026-07-04T09:17:12.404023+00:00"
   },
   "0981.HK": {
     "name": "SMIC (Semiconductor Manufacturing Intl)",
@@ -399,9 +436,46 @@
         "phase": "🔥 PEAK (Asiri Isinma)",
         "cycle_score": 90.4,
         "timestamp": "2026-05-26T15:08:06.709783+00:00"
+      },
+      {
+        "type": "RESEARCH_AGENT",
+        "tag": "Confirmed by Web Research",
+        "intensity": 2,
+        "net_score": 0.0,
+        "dynamic_coef": 1.0,
+        "bullish": 0,
+        "bearish": 0,
+        "headlines": [
+          {
+            "title": "China’s Huawei reveals chip design breakthrough amid US sanctions - The Business Times",
+            "summary": "China’s Huawei reveals chip design breakthrough amid US sanctions&nbsp;&nbsp;The Business Times",
+            "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPZWJsQzlaTHV2TmdxVzBDSGFJa1pwd3VoZVZSbUtYRnN1ZHpEMGZ2NlZidFlrWGRucml2V2Y3bi1VMERMMlBjOFJmWTVyUzBsZFpSUWMzZXR5R3FPMzllVTJNMFczRjlobWh2TjItMEZHVzE5RFY4MXBMYkpINnVmWHJqWVpaTTVhelRkdHdNM2hhUXppd1VVN05DdkVKRjlqMGdram9LbEdnWjNjTE9rZWxhYjRPQllGRUZfT1VpZGdfZWVjaEhETnF3VjFJdw?oc=5",
+            "query": "SMIC 7nm mass production 2026",
+            "classification": "bullish",
+            "published": "Mon, 25 May 2026 07:00:00 GMT"
+          },
+          {
+            "title": "Chinese chip firms hit record high revenue driven by the AI boom and U.S. curbs - CNBC",
+            "summary": "Chinese chip firms hit record high revenue driven by the AI boom and U.S. curbs&nbsp;&nbsp;CNBC",
+            "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOZHhtMTlURkRvTDZaemlmTHpERlJQckhXTXFtR3g5NjFTdTNmUlBHTV9VOVpPLW1SOTlpdUR5cnl3Y1RrWWtuZlloVk14d1RZRnh5Vm5TMWFldFA5cmZsZ3ZIZ2NqaVVpemtOaEhHdDB0WlJFWUM3a2duYkY5WlMtajRkSjh5NXpFU0lfSi05bFPSAZYBQVVfeXFMTU5LVFhBWmg0YUFhWFR6NzAyVUVwXy1PQmdQZDVhS20tMC1SdWtFNkNrT0Z6d3A4UXctdDBpOTBvTHYwRk5VRXpnY0w5T0tHMi1jc0VIaWJCVW5lR1pvV0R0REc2Wnh6Y3VOQVhEUWlXc1VPWGNQMzlkSEplOHVHd19zZVpMWVhpNGRWa0FRYzdTbWUybTZB?oc=5",
+            "query": "SMIC self-sufficiency ratio China",
+            "classification": "bullish",
+            "published": "Fri, 03 Apr 2026 07:00:00 GMT"
+          },
+          {
+            "title": "Chinese Semiconductor Firms Post Record Sales Across Sectors - 조선일보",
+            "summary": "Chinese Semiconductor Firms Post Record Sales Across Sectors&nbsp;&nbsp;조선일보",
+            "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNUF8td3gyVk55NTNLNHRhclhKXzR3aVFDWjBuTU5NaGFLVkNNWm92OG11Q0hjZWZndEZaS2k0VGtZMlFORmVVNHNEajNyOUtRSEFzS3dSWkEwRVFybEFLSDZ2V1VoRjB0VjI0N0VzSnpRWlFCcEM0YUJPVmt0Q3RrNEFsR1NiRkZj?oc=5",
+            "query": "SMIC self-sufficiency ratio China",
+            "classification": "bullish",
+            "published": "Mon, 06 Apr 2026 07:00:00 GMT"
+          }
+        ],
+        "timestamp": "2026-07-04T09:17:12.404023+00:00"
       }
     ],
-    "last_research": "2026-05-26T15:08:06.709783+00:00"
+    "last_research": "2026-05-26T15:08:06.709783+00:00",
+    "last_research_agent": "2026-07-04T09:17:12.404023+00:00"
   },
   "RGTI": {
     "name": "Rigetti Computing",
@@ -434,6 +508,42 @@
         "phase": "🔥 PEAK (Asiri Isinma)",
         "cycle_score": 90.4,
         "timestamp": "2026-05-26T15:08:06.709783+00:00"
+      },
+      {
+        "type": "RESEARCH_AGENT",
+        "tag": "Confirmed by Web Research",
+        "intensity": 6,
+        "net_score": 0.0,
+        "dynamic_coef": 1.0,
+        "bullish": 0,
+        "bearish": 0,
+        "headlines": [
+          {
+            "title": "Rigetti Stock Pulls Back to $25: Is Its Cloud-First Ecosystem the Ideal Re-Entry Point for RGTI? - TradingKey",
+            "summary": "Rigetti Stock Pulls Back to $25: Is Its Cloud-First Ecosystem the Ideal Re-Entry Point for RGTI?&nbsp;&nbsp;TradingKey",
+            "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxPVUh1ajh2Vlg2bDQyUnJuX2s3NFBZNWl5dkVTb2dxR2VVMXFOZUM4YlFsVWs3YW10UThnenJaTXRqaXRrbHVSVUJJdHpvWjR0MHNrd2ZnaXZVWi1vNTRvVVcwRVdSRFVSX2h6eHQtbno2X1RSajc2YWRNcDdVTXNXeW5uLXNaR2oxQ1ZySFR5ZllwT2lFcEJjWDIyeFJ6ZURLN2V1UnkzX2ZYd2JRQVpORVd2UkpqR2k0Z2t2Ulg2N2hZbFBtcHkzVXNtSjJ3UmVlOHdQeklnRXRrcFQ4UzNuTWtzUERULXZJ?oc=5",
+            "query": "Rigetti customer pilot result",
+            "classification": "bullish",
+            "published": "Sun, 31 May 2026 07:00:00 GMT"
+          },
+          {
+            "title": "Rigetti stock may be overreacting to 36-qubit breakthrough: here’s why - TradingView",
+            "summary": "Rigetti stock may be overreacting to 36-qubit breakthrough: here’s why&nbsp;&nbsp;TradingView",
+            "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOV192bTh3VERkVlp1WFRubFd2Y2txSVQ5WjZCaTdFbkJJeXRaYkxwMDBHdTVPWkxTeW9qR21EOGVuTEczaXM3MkptcDlDNUFmZFlQTmgxLVpTbWkxSUxYejZ2SE9hUjFwSW9DTTlUdk5xV3I5dHdEaHh5WTcycEFSRUJyczRub1hzb0hGMk82RGxzZmp3QnBYZmhObE52dkZqQ2h6eG9mYnFtakp2OFVyaUJwa2NBQm94ZklmZEpyN2VlSExm?oc=5",
+            "query": "Rigetti customer pilot result",
+            "classification": "bullish",
+            "published": "Wed, 16 Jul 2025 07:00:00 GMT"
+          },
+          {
+            "title": "Top Superconducting Quantum Computing Companies 2026: Complete Vendor Guide - Quantum Zeitgeist",
+            "summary": "Top Superconducting Quantum Computing Companies 2026: Complete Vendor Guide&nbsp;&nbsp;Quantum Zeitgeist",
+            "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNeGhyMC1CR214NzRrbFplemlxUkpKN0NxWEE0bEwxSmtNOW96R19CUi05VWhEb25zUkp1Q1dyUVh5WjdGQzRWNi1VX0ZYZjNnaWFwc0hFSkl6U1Q1WmxZTE5DV0RncExNT1NsTnhFT0pSYml5cXVfUlEyTmIxRmxpM3h0RQ?oc=5",
+            "query": "Rigetti vs Google quantum benchmark",
+            "classification": "bullish",
+            "published": "Wed, 27 May 2026 07:00:00 GMT"
+          }
+        ],
+        "timestamp": "2026-07-04T09:17:12.404023+00:00"
       }
     ],
     "last_research": "2026-05-26T15:08:06.709783+00:00",
@@ -472,7 +582,8 @@
         }
       ],
       "speculative_risk": true
-    }
+    },
+    "last_research_agent": "2026-07-04T09:17:12.404023+00:00"
   },
   "LAES": {
     "name": "SEALSQ Corp",
@@ -518,6 +629,42 @@
         "type": "CATEGORY_UPDATE",
         "tag": "Renamed from Laser Photonics to SEALSQ Corp (Post-Quantum Hardware Security)",
         "timestamp": "2026-05-27T09:50:00+00:00"
+      },
+      {
+        "type": "RESEARCH_AGENT",
+        "tag": "Confirmed by Web Research",
+        "intensity": 42,
+        "net_score": 0.0,
+        "dynamic_coef": 1.0,
+        "bullish": 0,
+        "bearish": 0,
+        "headlines": [
+          {
+            "title": "NIST Releases First 3 Finalized Post-Quantum Encryption Standards - National Institute of Standards and Technology (.gov)",
+            "summary": "NIST Releases First 3 Finalized Post-Quantum Encryption Standards&nbsp;&nbsp;National Institute of Standards and Technology (.gov)",
+            "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxON3ZUYVh0dmhaN3pNZ0tubEQxNHhVNHR6YmpPVG1fZ3NwZ28xRGN3TUpaZ0RaNE94U0ZnMHJKU280WjV6UGVob0RDemdra1VHWmpwQUZXU1BDT1JJM2dTai1CaDNuTllnZERaZ1MxektmR2dwWlRXS3BSX2hvRmtMdHE4YVllMWFQNEdfRURFTlgtbWhPaEhzNFRkcHk1bkNma0VISnUxMGJJTTA0WHFOQQ?oc=5",
+            "query": "NIST FIPS 203 204 205 finalized post-quantum",
+            "classification": "bullish",
+            "published": "Tue, 13 Aug 2024 07:00:00 GMT"
+          },
+          {
+            "title": "SEALSQ Unveils Quantum Shield QS7001, First Chip with Hardware-Embedded NIST PQC Algorithms - Quantum Computing Report",
+            "summary": "SEALSQ Unveils Quantum Shield QS7001, First Chip with Hardware-Embedded NIST PQC Algorithms&nbsp;&nbsp;Quantum Computing Report",
+            "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQU3BXRDBsZnloWWl5cW56ZWNQS0lIVDJSU3ZQaER3NVRBbFp6bkE0NEl1SmRIYUVjVkR2aDFpYlB6UzE1aFpzWG8xRkZpNHBnRk94aDI2WVdnQWdmVmdYWkdRZUg4WnNkZTRTcDZpa1VBY3RDNW1jUWk5Zk94N0ZSb2xTS1hmeU5pc2Y5aE5YT2ZNdzQ3cjQ3TkUybHhBendMNUt4TDN3bTJhRTJWV3VUcTJzWmhtU3ZjaEVrYTU0OXowb0JC0gHKAUFVX3lxTE5zT3NiZlpxQTA5d0Z5Y1NmRENXRl83ejVlMXd2Q2w5Mk5yeENRRzhZTy1HNzdwQldlakF4VF9IT19zeG5mdTBreUMxMUVLQmMwcHpUb0p3bzR1MUZ0WWxrYTdkWURnWnRMNWFMNE1HM1VXbmlEMWRoSXk3VXE3RjJCaHRTRFVVUTJOWVZNYmFlclBPckp5YTlXLXdMRGU4VFNGM2VmQ1VFTFczRmFudjBlUkt0S2I2eHBLeGt2cXZLMy1CR0ZHSTF5U0E?oc=5",
+            "query": "SEALSQ NIST PQC chip integration 2026",
+            "classification": "bullish",
+            "published": "Mon, 20 Oct 2025 07:00:00 GMT"
+          },
+          {
+            "title": "SEALSQ and IC'Alps Achieve Key Common Criteria - GlobeNewswire",
+            "summary": "SEALSQ and IC'Alps Achieve Key Common Criteria&nbsp;&nbsp;GlobeNewswire",
+            "link": "https://news.google.com/rss/articles/CBMimwJBVV95cUxPUHNoQ0Q1Q3RtNC0wd1k3U3oxOG4zbnliSHdUMGtlZGMxLWYwYXUyalVHSW84VVNmOXVoRnA4OEVYNmx2ZlFUaVo2VGZVa0lTR3AwM3RSRTdaSGZmZ2dNX2UwclZtLUpHcVN3cTRoZUpJOVl0N3l1MVI5X3JSMkp6VnhJZWtqaExFLXk4RjlSWHY2bDlKTXM1ZkNGSWdHWUc0UkpQZy13ODFUeTU0ZnIxQ1haSDFXZkxKN3htd0wxVXYzbTVDY0dFdXlCQnVvQzdUZVpqSzE5M3ZIdXVpQkxNajNZNnVMNHFzT3VvWHVCUGpUOVdPVHZDM3cwaV9veEtMQzRyU19zLUJ1X2tpUWdPQ0V4VGJuRTNuRl9F?oc=5",
+            "query": "SEALSQ QS7001 Common Criteria EAL5 certification",
+            "classification": "bullish",
+            "published": "Thu, 02 Apr 2026 07:00:00 GMT"
+          }
+        ],
+        "timestamp": "2026-07-04T09:17:12.404023+00:00"
       }
     ],
     "last_research": "2026-05-27T09:50:00+00:00",
@@ -583,7 +730,8 @@
       ],
       "speculative_risk": true,
       "demand_spike_window": "2027-2030 (Q-Day yaklasimi)"
-    }
+    },
+    "last_research_agent": "2026-07-04T09:17:12.404023+00:00"
   },
   "NVTS": {
     "name": "Navitas Semiconductor",
@@ -625,7 +773,44 @@
       "navitas.{0,40}(delay|miss|setback|guidance\\s+cut)",
       "GaN.{0,40}(reliability\\s+(issue|concern)|recall)"
     ],
-    "evidence": [],
+    "evidence": [
+      {
+        "type": "RESEARCH_AGENT",
+        "tag": "Confirmed by Web Research",
+        "intensity": 30,
+        "net_score": 0.0,
+        "dynamic_coef": 1.0,
+        "bullish": 0,
+        "bearish": 0,
+        "headlines": [
+          {
+            "title": "Navitas/Cyient partnership to boost GaN adoption in India - Compound Semiconductor",
+            "summary": "Navitas/Cyient partnership to boost GaN adoption in India&nbsp;&nbsp;Compound Semiconductor",
+            "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOOTRoQjlvV0ljQkJST2p5ZVdfRFh2bzZXZEJlM1RsaGozR2N2QXdvY2xYcTdES3JYZ2t1c0JpcHB4Y1RUTWtENHJpSWVnOGFfY1RMOFhqZmhrVW5GNE9ra2VOTGVMUEw2SzhYYU9lRThQcFh5Qm1GXzhZM01rZF83Z3lXWjRJN0thZUZleHRIS09hN21qWklXT0V1QXB4Rk5TcFpJVjhNMm5EQQ?oc=5",
+            "query": "Navitas GaN power IC adoption",
+            "classification": "bullish",
+            "published": "Tue, 09 Dec 2025 08:00:00 GMT"
+          },
+          {
+            "title": "Cyient Semiconductors Launches India's First GaN Power IC Family Leveraging Navitas Technology - The Manila Times",
+            "summary": "Cyient Semiconductors Launches India's First GaN Power IC Family Leveraging Navitas Technology&nbsp;&nbsp;The Manila Times",
+            "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxPT2tLWEhXYVhhM1JCN0lJTk16YWo0OURqS0VucmhTSlZJQm01akN2NUdZdDdFTndKTDdnSVU1UFl1WTl4SDFiWDh1TDFhejM1akt4TFlFRkVjdHVOYXNyZUtmSm9oSkJ5Vk5rUjZpRFpBM1cxMTA2QjlTaXN4NWVTN0J0YjhzeDd3TWppUWR0d2c1SUNLQ1N3MGxMdUJxZFNqMEZtRk1Vd1hFb3R5UkNSQVVqQ1hWNURTX1Vxak1VRDRBOUh6WFRZVFNDVldVekZ1ajNrQTRwY1VyVlFpa3NHVEQ5U3laWnBPc0M4a1hoTGE5RV9RdVI4RtIB_gFBVV95cUxPdHZSZ2ZwRTF3dWMtbklxXy1TNUNXTk9ObnB5RnZ4eTBEVEd2T1RkWXNseXBMQ1dWYkxpOThBRDRLd3REYnQtVTB1SEpvU3duUmlRYUFZYkhrS3hIbWUzc185amlBTm1EUXE4ZlhnX1dDaXRQLVJPNkJzNGVGeWJtNlB5ZTJBT2Q3OUZmNHhBZmZRTWNIbURrTjljZDlEZ1c2UHRENVhrRVlPUktOdTVXQ2hubF9fU01rSVJ1RXNHbjh6X0JsZVNmOFlxakdYNjRqTlA1TklabDNsdnE1dml5cXk0OG43QV80OFBUbEh3NVF1SzVxTmNCVy1xNTdWQQ?oc=5",
+            "query": "Navitas GaN power IC adoption",
+            "classification": "bullish",
+            "published": "Mon, 11 May 2026 07:00:00 GMT"
+          },
+          {
+            "title": "Cyient Semiconductors Leverages Navitas Tech to Launch India's First GaN Power IC Family - EE Times India",
+            "summary": "Cyient Semiconductors Leverages Navitas Tech to Launch India's First GaN Power IC Family&nbsp;&nbsp;EE Times India",
+            "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPVXBtWFRTNVZ1S21Db0s4TGpmTXBxdkVzcnFjLTVXWUw2YzFXQ0ItWE5qNWdBQ2s3UlpDUWwwdHloYUFLNTFMN1MxeWk2MExhNUZ2UDVhTE5pajgzaHBqTVRvU3RUTFFTRjAxblNObnhTcVYzLU14ZjFjcC1DdXQ5Zy1uWVByLVN1OFZITUwtQWY4eE9LVTlfX1ZEQ0RoQ3d1MlpZcGdaREhhRlJEY0xMZ1ZkNGotdw?oc=5",
+            "query": "Navitas GaN power IC adoption",
+            "classification": "bullish",
+            "published": "Tue, 12 May 2026 07:00:00 GMT"
+          }
+        ],
+        "timestamp": "2026-07-04T09:17:12.404023+00:00"
+      }
+    ],
     "last_research": null,
     "strategic_overlays": {
       "type": "NVTS_GAN",
@@ -657,53 +842,100 @@
         {
           "name": "DC + Tier-1 Kombo (her ikisi)",
           "bonus": 5,
-          "keywords": ["stratejik konvergens"]
+          "keywords": [
+            "stratejik konvergens"
+          ]
         },
         {
           "name": "Yuksek verim haberi (>%20)",
           "bonus": 5,
-          "keywords": ["20% efficiency", "30% power density"]
+          "keywords": [
+            "20% efficiency",
+            "30% power density"
+          ]
         }
       ],
       "moonshot_category": "GaN/SiC Adaptation",
-      "sector_cagr_band_pct": [15, 20],
+      "sector_cagr_band_pct": [
+        15,
+        20
+      ],
       "verdict_default": "AGRESIF EKLE / TUT (Tier-1 anlasma haberinde)"
-    }
+    },
+    "last_research_agent": "2026-07-04T09:17:12.404023+00:00"
   },
   "QBTS": {
     "name": "D-Wave Quantum",
     "big_vision": "Kuantum annealing ile enterprise optimizasyon ve cloud quantum hizmeti.",
     "current_milestone": "Advantage2 sistem + enterprise cloud contract",
-    "keywords": ["Advantage2", "quantum annealing", "enterprise quantum", "cloud quantum"],
-    "achievement_patterns": ["d-wave.{0,30}(contract|partnership|deploy|launch)"],
-    "strategic_overlays": {"type": "QUANTUM_BASKET", "basket_bonus": 25}
+    "keywords": [
+      "Advantage2",
+      "quantum annealing",
+      "enterprise quantum",
+      "cloud quantum"
+    ],
+    "achievement_patterns": [
+      "d-wave.{0,30}(contract|partnership|deploy|launch)"
+    ],
+    "strategic_overlays": {
+      "type": "QUANTUM_BASKET",
+      "basket_bonus": 25
+    }
   },
   "CRDO": {
     "name": "Credo Technology",
     "big_vision": "AI rack icinde 800G/1.6T Active Electrical Cable dominansi.",
     "current_milestone": "Hyperscaler AEC design win",
-    "keywords": ["800G AEC", "active electrical cable", "hyperscaler design win", "1.6T"],
-    "achievement_patterns": ["credo.{0,30}(design win|hyperscaler|800g|1.6t)"]
+    "keywords": [
+      "800G AEC",
+      "active electrical cable",
+      "hyperscaler design win",
+      "1.6T"
+    ],
+    "achievement_patterns": [
+      "credo.{0,30}(design win|hyperscaler|800g|1.6t)"
+    ]
   },
   "ALAB": {
     "name": "Astera Labs",
     "big_vision": "PCIe Gen6 + CXL retimer ile AI server fabric scaling.",
     "current_milestone": "CXL 3.0 / PCIe Gen6 hyperscaler ramp",
-    "keywords": ["PCIe Gen6", "CXL 3.0", "Aries retimer", "hyperscaler ramp"],
-    "achievement_patterns": ["astera.{0,30}(design win|ramp|cxl|pcie gen6)"]
+    "keywords": [
+      "PCIe Gen6",
+      "CXL 3.0",
+      "Aries retimer",
+      "hyperscaler ramp"
+    ],
+    "achievement_patterns": [
+      "astera.{0,30}(design win|ramp|cxl|pcie gen6)"
+    ]
   },
   "AEHR": {
     "name": "Aehr Test Systems",
     "big_vision": "SiC/GaN wafer-level burn-in test ekipman tekeli.",
     "current_milestone": "SiC/GaN test kapasite genislemesi",
-    "keywords": ["wafer level burn-in", "SiC test", "GaN test", "Fox-XP"],
-    "achievement_patterns": ["aehr.{0,30}(order|capacity|expansion|SiC|GaN)"]
+    "keywords": [
+      "wafer level burn-in",
+      "SiC test",
+      "GaN test",
+      "Fox-XP"
+    ],
+    "achievement_patterns": [
+      "aehr.{0,30}(order|capacity|expansion|SiC|GaN)"
+    ]
   },
   "POET": {
     "name": "POET Technologies",
     "big_vision": "Monolitik silicon photonics optical engine lisanslama.",
     "current_milestone": "800G optical engine JDA",
-    "keywords": ["optical engine", "silicon photonics", "800G", "JDA"],
-    "achievement_patterns": ["poet.{0,30}(jda|partnership|800g|optical engine)"]
+    "keywords": [
+      "optical engine",
+      "silicon photonics",
+      "800G",
+      "JDA"
+    ],
+    "achievement_patterns": [
+      "poet.{0,30}(jda|partnership|800g|optical engine)"
+    ]
   }
 }

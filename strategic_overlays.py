@@ -319,6 +319,27 @@ def atom_licensing_signal(ticker_news: list[dict]) -> dict:
         if len(evidence) >= 5:
             break
 
+    # ---- PR_ONLY KIRPMASI (olculmus vaka, 02.08.2026) ----------------------
+    # ATOM_FOUNDRY_INTEGRATION_PATTERNS icindeki CIPLAK `\bGAA\b` kalibi,
+    # "Makes Progress Towards Adoption of MST by GAA Manufacturers" basligini
+    # +30 "FOUNDRY INTEGRATION" saydi. Baslikda ne JDA imzasi ne uretim
+    # nitelendirmesi vardi; ayni donemde gelir YoY -%78 idi.
+    # Kural: niyet dili var + baglayici kanit yoksa uplift tavanlanir ve
+    # EXPONENTIAL mod kapanir. Regex'i gevsetmiyoruz — uzerine kapi koyuyoruz.
+    from evidence_classify import classify_news_items, clip_uplift
+
+    ev = classify_news_items(ticker_news)
+    details["pr_only"] = ev["pr_only"]
+    details["binding_evidence"] = ev["binding"]
+    if ev["pr_only"] and bonus > 0:
+        kirpilmis, uyari = clip_uplift(bonus, ev)
+        if uyari:
+            bonus = kirpilmis
+            details["exponential_mode"] = False
+            details["pr_only_clipped"] = True
+            labels.append(f"📄 PR_ONLY — uplift kirpildi (+{kirpilmis})")
+            warnings.append(uyari)
+
     return {
         "ticker": "ATOM",
         "overlay_type": "ATOM_LICENSING",
@@ -327,6 +348,8 @@ def atom_licensing_signal(ticker_news: list[dict]) -> dict:
         "warnings": warnings,
         "details": details,
         "evidence": evidence,
+        "pr_only": ev["pr_only"],
+        "binding_evidence": ev["binding"],
     }
 
 
@@ -516,6 +539,24 @@ def sealsq_pqc_signal(ticker_news: list[dict]) -> dict:
         if len(evidence) >= 6:
             break
 
+    # PR_ONLY kirpmasi — ATOM ile ayni kural (bkz. atom_licensing_signal).
+    # LAES'te 02.08.2026 olcumu: overlay ham +23 idi ve kanit olarak
+    # "SEALSQ and Parrot Expand Partnership..." gibi ortaklik/tanitim
+    # basliklari vardi; imzali tedarik sozlesmesi/backlog kaniti yoktu.
+    from evidence_classify import classify_news_items, clip_uplift
+
+    ev = classify_news_items(ticker_news)
+    details["pr_only"] = ev["pr_only"]
+    details["binding_evidence"] = ev["binding"]
+    if ev["pr_only"] and bonus > 0:
+        kirpilmis, uyari = clip_uplift(bonus, ev)
+        if uyari:
+            bonus = kirpilmis
+            details["demand_spike_active"] = False
+            details["pr_only_clipped"] = True
+            labels.append(f"📄 PR_ONLY — uplift kirpildi (+{kirpilmis})")
+            warnings.append(uyari)
+
     return {
         "ticker": "LAES",
         "company": "SEALSQ Corp",
@@ -525,6 +566,8 @@ def sealsq_pqc_signal(ticker_news: list[dict]) -> dict:
         "warnings": warnings,
         "details": details,
         "evidence": evidence,
+        "pr_only": ev["pr_only"],
+        "binding_evidence": ev["binding"],
     }
 
 

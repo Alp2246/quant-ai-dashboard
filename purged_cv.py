@@ -39,19 +39,23 @@ import pandas as pd
 from sklearn.base import clone
 from sklearn.metrics import accuracy_score
 
+from config import PURGED_CV_EMBARGO_DAYS, PURGED_CV_HORIZON_DAYS
+
 logger = logging.getLogger(__name__)
 
 
 def purged_kfold_indices(n_samples: int, n_splits: int = 5,
-                           horizon_days: int = 20,
-                           embargo_days: int = 5) -> list[tuple[np.ndarray, np.ndarray]]:
+                           horizon_days: int = PURGED_CV_HORIZON_DAYS,
+                           embargo_days: int = PURGED_CV_EMBARGO_DAYS) -> list[tuple[np.ndarray, np.ndarray]]:
     """
     Purged K-Fold split indeksleri uret.
 
     Args:
       n_samples:     toplam veri uzunlugu
       n_splits:      K kac olacak
-      horizon_days:  her sample'in label-horizon'u (ileri gunu)
+      horizon_days:  her sample'in label-horizon'u (ileri gunu).
+                     Tutarlilik icin bu deger backtest'teki holding_days ile
+                     ayni varsayima hizalanmalidir.
       embargo_days:  test sonrasi embargo bosluğu
 
     Returns:
@@ -91,8 +95,8 @@ def purged_kfold_indices(n_samples: int, n_splits: int = 5,
 
 def purged_kfold_cv_score(model, X: pd.DataFrame, y,
                              n_splits: int = 5,
-                             horizon_days: int = 20,
-                             embargo_days: int = 5) -> dict:
+                             horizon_days: int = PURGED_CV_HORIZON_DAYS,
+                             embargo_days: int = PURGED_CV_EMBARGO_DAYS) -> dict:
     """
     Purged K-Fold CV ile model dogrulugu olc.
 
@@ -104,6 +108,11 @@ def purged_kfold_cv_score(model, X: pd.DataFrame, y,
 
     overfitting_gap > 0.15 ise model siddetli overfit ediyor demektir.
     AXTI gibi spekulatif hisselerde bu gap genellikle 0.30'un ustundedir.
+
+    Not:
+      ML label horizontu ile tarihsel backtest holding_days'i farkliysa,
+      purged CV teknik olarak dogru olsa bile iki modul farkli "gelecek"
+      varsayimlariyla calisiyor demektir.
     """
     if hasattr(X, "reset_index"):
         X = X.reset_index(drop=True)

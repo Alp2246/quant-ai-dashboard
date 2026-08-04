@@ -46,8 +46,12 @@ def _analyze_lite(ticker: str) -> dict:
     return {
         "ticker": ticker,
         "master_score": r["master_score"],
+        "score_raw": r.get("score_raw"),
         "rating": r.get("rating"),
         "verdict": r.get("verdict"),
+        # Kapilardan gecmedi ise push YASAK (score_gate/verdict_rules karari)
+        "allow_push": r.get("allow_push", True),
+        "gates": r.get("gates"),
         "updated_at": datetime.now(timezone.utc).isoformat(),
     }
 
@@ -129,6 +133,18 @@ def run(*, push_telegram: bool = True) -> dict:
             v = r["verdict"]
             ms = r["master_score"]
             LOG.info("%s score=%.1f verdict=%s", t, ms, v)
+
+            # KAPI: allow_push=False ise gercek Telegram cagrisi HIC yapilmaz.
+            # (verdict string'ini degistirmek yetmez — LAES 94.5 vakasinda
+            #  push zaten "KRITIK ALIM" bandindan gidiyordu.)
+            if not r.get("allow_push", True):
+                g = r.get("gates") or {}
+                LOG.info(
+                    "%s PUSH BASTIRILDI — %s", t,
+                    "; ".join(g.get("reasons", [])[:2]) or "kapi kapali",
+                )
+                continue
+
             if push_telegram and is_push_worthy(v) and _cooldown_ok(t, v):
                 if _send_telegram(t, ms, v):
                     _mark_cooldown(t, v)

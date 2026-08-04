@@ -25,7 +25,10 @@ from alerts import check_buy_opportunity
 from alpha_engine_panel import render_alpha_engine_panel
 from backtest import backtest_strategy
 from capex_watch import derive_ticker_capex_weight, scan_sector
-from config import ALL_WATCHLIST_DEFAULTS, CHINA_TICKERS, REFRESH_MINUTES, TICKERS
+from config import (ALL_WATCHLIST_DEFAULTS, BACKTEST_COMMISSION_BPS,
+                    BACKTEST_HOLDING_DAYS, BACKTEST_LOOKBACK_YEARS,
+                    BACKTEST_SLIPPAGE_BPS, CHINA_TICKERS, REFRESH_MINUTES,
+                    TICKERS)
 from correlation_matrix import (build_correlation, find_pair_opportunities,
                                  relative_performance)
 from data_fetcher import (fetch_all_histories, fetch_history, get_currency,
@@ -106,6 +109,19 @@ RATING_COLORS = {
 _HIST_CACHE: dict[str, pd.DataFrame] = {}
 
 
+def current_backtest_metadata() -> dict:
+    """Active backtest assumptions from sidebar/session state."""
+    holding_days = int(st.session_state.get("bt_holding_days", BACKTEST_HOLDING_DAYS))
+    commission_bps = float(st.session_state.get("bt_commission_bps", BACKTEST_COMMISSION_BPS))
+    slippage_bps = float(st.session_state.get("bt_slippage_bps", BACKTEST_SLIPPAGE_BPS))
+    return {
+        "entry_execution": "next_open",
+        "signal_exit_execution": "next_open",
+        "holding_days": holding_days,
+        "roundtrip_cost_bps": 2.0 * (commission_bps + slippage_bps),
+    }
+
+
 # ===========================================================================
 # Cache wrapper'lar
 # ===========================================================================
@@ -159,12 +175,27 @@ def cached_fundamentals(ticker: str):
 
 
 @st.cache_data(ttl=REFRESH_MINUTES * 60, show_spinner=False)
-def cached_backtest(ticker: str, last_date_key: str):
+def cached_backtest(
+    ticker: str,
+    last_date_key: str,
+    holding_days: int = BACKTEST_HOLDING_DAYS,
+    years: float = BACKTEST_LOOKBACK_YEARS,
+    commission_bps: float = BACKTEST_COMMISSION_BPS,
+    slippage_bps: float = BACKTEST_SLIPPAGE_BPS,
+):
     df = _HIST_CACHE.get(ticker)
     if df is None or df.empty:
         df = cached_history(ticker)
     try:
-        return backtest_strategy(df, holding_days=20, years=2)
+        return backtest_strategy(
+            df,
+            holding_days=holding_days,
+            years=years,
+            commission_bps=commission_bps,
+            slippage_bps=slippage_bps,
+            entry_execution="next_open",
+            signal_exit_execution="next_open",
+        )
     except Exception as e:
         logger.error("backtest %s: %s", ticker, e)
         from backtest import _empty_result
@@ -500,9 +531,59 @@ def analyze_ticker(ticker: str, df: pd.DataFrame) -> dict:
                   "components": {}, "confidence_low": 0,
                   "confidence_high": 0, "ml_prob_up": 0.5}
 
+    # ---- CARPIMSAL KAPILAR: additive skor korunur, KARAR kapilardan gecer.
+    # (Olculmus vaka LAES 02.08.2026: additive 94.5 "KRITIK ALIM" + push,
+    #  ayni pakette SIDDETLI OVERFIT + fiyat<SMA20<SMA50 + marj -%187.)
     try:
-        handle_master_score(ticker, master["master_score"], master["rating"],
-                            details=master["breakdown"])
+        from score_gate import apply_gates
+        from verdict_rules import allow_push, gated_verdict
+
+        gates = apply_gates(
+            float(master.get("master_score", 0)),
+            technical=tech, ml_result=ml, fundamental=fund,
+            overlay_bonus=master.get("strategic_overlay_bonus", 0),
+            moonshot_bonus=(master.get("modifiers") or {}).get("moonshot", 0),
+            base_score=master.get("base_score"),
+            pr_only=bool(strategic.get("pr_only")),
+            binding=bool(strategic.get("binding_evidence")),
+        )
+        g_verdict, g_reasons = gated_verdict(
+            gates["final_score"],
+            market_status=gates["market_status"],
+            is_overfit=gates["is_overfit"],
+            fund_status=gates["fund_status"],
+            pr_only=gates["pr_only"],
+            cash_unsustainable=bool(runway.get("is_unsustainable")),
+        )
+        push_ok, push_red = allow_push(
+            g_verdict,
+            market_status=gates["market_status"],
+            is_overfit=gates["is_overfit"],
+        )
+        gates["reasons"].extend(g_reasons)
+        if push_red:
+            gates["reasons"].append(push_red)
+        gates["verdict"] = g_verdict
+        gates["allow_push"] = push_ok
+
+        master["score_raw"] = gates["score_raw"]
+        master["final_score"] = gates["final_score"]
+        master["gates"] = gates
+        master["rating"] = g_verdict
+        master["verdict"] = g_verdict
+    except Exception as e:
+        logger.error("score_gate %s: %s", ticker, e)
+        gates = None
+
+    try:
+        handle_master_score(
+            ticker,
+            master.get("final_score", master["master_score"]),
+            master["rating"],
+            details=master["breakdown"],
+            backtest_metadata=current_backtest_metadata(),
+            gates=gates,
+        )
     except Exception:
         pass
 
@@ -518,7 +599,11 @@ def analyze_ticker(ticker: str, df: pd.DataFrame) -> dict:
             "geo_risk": geo_risk,
             "ml": ml,
         }
-        triggered = handle_critical_triggers(ticker, provisional)
+        triggered = handle_critical_triggers(
+            ticker,
+            provisional,
+            backtest_metadata=current_backtest_metadata(),
+        )
     except Exception as e:
         logger.debug("trigger handler %s: %s", ticker, e)
 
@@ -1344,14 +1429,40 @@ def render_detail(results: dict):
                 st.caption(f"MDI/MDA panel hatası: {e}")
 
 
+def render_reality_check(results: dict):
+    """🔍 Gerceklik Kontrolu — tum icerik reality_check.py icinde."""
+    try:
+        from reality_check import render_reality_tab
+
+        hists = {t: r["df"] for t, r in results.items() if r.get("df") is not None}
+        render_reality_tab(list(results.keys()), hists)
+    except Exception as exc:
+        st.warning(f"Gerceklik kontrolu yuklenemedi: {str(exc)[:150]}")
+
+
 def render_backtest(results: dict):
+    bt_holding_days = int(st.session_state.get("bt_holding_days", BACKTEST_HOLDING_DAYS))
+    bt_years = float(st.session_state.get("bt_years", BACKTEST_LOOKBACK_YEARS))
+    bt_commission_bps = float(st.session_state.get("bt_commission_bps", BACKTEST_COMMISSION_BPS))
+    bt_slippage_bps = float(st.session_state.get("bt_slippage_bps", BACKTEST_SLIPPAGE_BPS))
+
     st.markdown("## 📈 Backtest - Son 2 Yil + Triple Barrier")
     st.caption("**Murphy Trend Takip** (RSI 50 yukari kesisim + MACD hist crossover) "
                "+ **Lopez de Prado Triple Barrier** "
-               "(SL=2×ATR, TP=3×ATR, 20-gun zaman bariyeri)  |  "
+               f"(SL=2×ATR, TP=3×ATR, {bt_holding_days}-gun zaman bariyeri)  |  "
                "Sharpe, MaxDD, Calmar dahil")
 
-    bts = {t: cached_backtest(t, str(r["df"].index[-1])[:10]) for t, r in results.items()}
+    bts = {
+        t: cached_backtest(
+            t,
+            str(r["df"].index[-1])[:10],
+            holding_days=bt_holding_days,
+            years=bt_years,
+            commission_bps=bt_commission_bps,
+            slippage_bps=bt_slippage_bps,
+        )
+        for t, r in results.items()
+    }
     total_trades = sum(bt["n_trades"] for bt in bts.values())
     avg_wr = sum(bt["win_rate"] for bt in bts.values()) / max(1, len(bts))
     avg_cum = sum(bt["cum_return"] for bt in bts.values()) / max(1, len(bts))
@@ -1383,6 +1494,8 @@ def render_backtest(results: dict):
             "B&H DD %": bt["buy_hold_drawdown_pct"],
             "Calmar": bt["calmar_ratio"],
             "Avg Tutma (gun)": bt["avg_holding_days"],
+            "Komisyon bps": bt.get("commission_bps", 0),
+            "Slippage bps": bt.get("slippage_bps", 0),
         })
     st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True,
                  column_config={
@@ -1390,7 +1503,11 @@ def render_backtest(results: dict):
                          "Win Rate %", min_value=0, max_value=100, format="%.1f%%"),
                  })
 
-    st.info("**Sharpe Ratio** > 1.0 = makul, > 2.0 = mukemmel. "
+    st.info("Backtest varsayimi: giris = sonraki bar acilisi, SAT/TIME cikis = "
+            "sonraki bar acilisi, TP/SL = intrabar bariyer dokunusu. "
+            f"Varsayilan maliyet = {list(bts.values())[0].get('commission_bps', 0):.0f} bps "
+            f"komisyon + {list(bts.values())[0].get('slippage_bps', 0):.0f} bps slippage "
+            "her tarafta. **Sharpe Ratio** > 1.0 = makul, > 2.0 = mukemmel. "
             "**Max Drawdown**: strateji bilanco zirvesinden inilen en derin dip "
             "(0'a yakin daha saglam). **Calmar** = cum_return / |max_dd|.")
 
@@ -1412,6 +1529,11 @@ def render_backtest(results: dict):
                 st.metric("Max Drawdown", f"{bt['max_drawdown_pct']:.1f}%",
                           f"B&H: {bt['buy_hold_drawdown_pct']:.1f}%")
                 st.metric("Calmar Ratio", f"{bt['calmar_ratio']:.2f}")
+                st.caption(
+                    f"Giris: {bt.get('entry_execution', 'n/a')} | "
+                    f"SAT/TIME cikis: {bt.get('signal_exit_execution', 'n/a')} | "
+                    f"RT cost: {bt.get('roundtrip_cost_bps', 0):.0f} bps"
+                )
             # Triple Barrier exit distribution
             ec = bt.get("exit_counts", {})
             if any(ec.values()):
@@ -2631,6 +2753,48 @@ def sidebar():
         st.session_state["auto_refresh"] = st.checkbox(
             "Otomatik yenile (15 dk)", value=True, key="auto_refresh_cb")
 
+        st.divider()
+        with st.expander("📈 Backtest Varsayimlari", expanded=False):
+            st.caption("Backtest zamanlama ve maliyet varsayimlarini buradan degistir.")
+            st.session_state["bt_holding_days"] = st.number_input(
+                "Holding days",
+                min_value=1,
+                max_value=252,
+                value=int(st.session_state.get("bt_holding_days", BACKTEST_HOLDING_DAYS)),
+                step=1,
+                key="bt_holding_days_input",
+            )
+            st.session_state["bt_years"] = st.number_input(
+                "Lookback (years)",
+                min_value=0.25,
+                max_value=10.0,
+                value=float(st.session_state.get("bt_years", BACKTEST_LOOKBACK_YEARS)),
+                step=0.25,
+                key="bt_years_input",
+            )
+            st.session_state["bt_commission_bps"] = st.number_input(
+                "Commission (bps / side)",
+                min_value=0.0,
+                max_value=500.0,
+                value=float(st.session_state.get("bt_commission_bps", BACKTEST_COMMISSION_BPS)),
+                step=1.0,
+                key="bt_commission_input",
+                help="UI seviyesinde negatif deger engellenir.",
+            )
+            st.session_state["bt_slippage_bps"] = st.number_input(
+                "Slippage (bps / side)",
+                min_value=0.0,
+                max_value=500.0,
+                value=float(st.session_state.get("bt_slippage_bps", BACKTEST_SLIPPAGE_BPS)),
+                step=1.0,
+                key="bt_slippage_input",
+                help="UI seviyesinde negatif deger engellenir.",
+            )
+            st.caption(
+                f"Round-trip toplam: "
+                f"{2 * (st.session_state['bt_commission_bps'] + st.session_state['bt_slippage_bps']):.0f} bps"
+            )
+
         # =================================================================
         # TELEGRAM PUSH SETUP - Telefona bildirim
         # =================================================================
@@ -3534,6 +3698,7 @@ def main():
         "🎯 Ozet", "📊 Detay", "🌟 Vision", "💼 Portfoy", "🛰 HIA", "🔬 Research",
         "🏭 Sektorel Zeka", "📈 Backtest", "🔮 Forecast", "💰 Temel",
         "📡 Radar", "📅 Milestone", "💵 DCA", "📋 Loglar",
+        "🔍 Gerceklik",
     ])
 
     with tabs[0]:
@@ -3588,6 +3753,9 @@ def main():
     with tabs[15]:
         try: render_logs()
         except Exception as e: st.error(f"Log hatasi: {e}")
+    with tabs[16]:
+        try: render_reality_check(results)
+        except Exception as e: st.error(f"Gerceklik kontrolu hatasi: {e}")
 
     if st.session_state.get("auto_refresh", True):
         import streamlit.components.v1 as components

@@ -75,8 +75,80 @@ def verdict_for(
     return label
 
 
+def gated_verdict(
+    final_score: float,
+    *,
+    market_status: str = "UNKNOWN",
+    is_overfit: bool = False,
+    fund_status: str = "PASS",
+    pr_only: bool = False,
+    cash_unsustainable: bool = False,
+    critical_alert: bool = False,
+) -> tuple[str, list[str]]:
+    """Kapilardan gecmis skordan verdict uretir. (verdict, sebepler)
+
+    NEDEN AYRI FONKSIYON (olculmus vaka — LAES 02.08.2026):
+    verdict_for yalnizca cash_unsustainable/critical_alert ile asagi ceker.
+    LAES'te "prob_up<0.5 VE fiyat<SMA50 VE marj -%187" ucu birden dogruyken
+    "KRITIK ALIM" uretildi ve telefona push gitti. Overfit bilgisi
+    hesaplaniyordu ama imzada YOKTU.
+
+    Bu fonksiyon o bilgileri karara sokar. Kurallar YALNIZCA ASAGI ceker —
+    hicbir kapi bir sembolu yukari tasiyamaz.
+    """
+    verdict = verdict_for(
+        final_score,
+        cash_unsustainable=cash_unsustainable,
+        critical_alert=critical_alert,
+    )
+    sebepler: list[str] = []
+
+    # Trend teyidi yoksa "KRITIK ALIM"/"GUCLU AL" YASAK — dip arayisi bandi
+    if market_status == "FAIL" and verdict in ("KRITIK ALIM", "GUCLU AL"):
+        verdict = "BEKLE"
+        sebepler.append("Trend teyidi yok (fiyat SMA20 ve SMA50 altinda) "
+                        "— dip arayisi/takip bandina indirildi")
+
+    # Overfit model teyit sayilmaz
+    if is_overfit and verdict in ("KRITIK ALIM", "GUCLU AL"):
+        verdict = "AL" if verdict == "KRITIK ALIM" else "BEKLE"
+        sebepler.append("Model siddetli overfit — tahmin teyit sayilmadi")
+
+    # Temel FAIL veya salt PR: en yuksek band kapali
+    if (fund_status == "FAIL" or pr_only) and verdict == "KRITIK ALIM":
+        verdict = "GUCLU AL" if not pr_only else "BEKLE"
+        sebepler.append("Temel dogrulama zayif / baglayici kanit yok "
+                        "— KRITIK ALIM bandi kapali")
+
+    return verdict, sebepler
+
+
+def allow_push(
+    verdict: str,
+    *,
+    market_status: str = "UNKNOWN",
+    is_overfit: bool = False,
+) -> tuple[bool, str | None]:
+    """Telefona push gitsin mi? (izin, red_sebebi)
+
+    String'i degistirmek YETMEZ — gercek push cagrisi da susmalidir.
+    Bu yuzden push yolundaki her cagri noktasi bunu sorar.
+    """
+    if is_overfit:
+        return False, "Model siddetli overfit — push bastirildi"
+    if market_status == "FAIL":
+        return False, "Trend teyidi yok (SMA20/SMA50 alti) — push bastirildi"
+    if verdict not in PUSH_VERDICTS:
+        return False, f"Verdict '{verdict}' push bandinda degil"
+    return True, None
+
+
 def is_push_worthy(verdict: str) -> bool:
-    """Bu verdict telefona bildirim gonderilmeye deger mi?"""
+    """Bu verdict telefona bildirim gonderilmeye deger mi?
+
+    DIKKAT: bu YALNIZCA band kontroludur. Kapili karar icin allow_push()
+    kullanin — overfit/trend vetosu burada YOKTUR.
+    """
     return verdict in PUSH_VERDICTS
 
 

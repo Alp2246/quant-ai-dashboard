@@ -13,7 +13,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-from config import ML_TEST_RATIO, ML_TRAIN_DAYS, RANDOM_STATE
+from config import (ML_TEST_RATIO, ML_TRAIN_DAYS, PURGED_CV_EMBARGO_DAYS,
+                    PURGED_CV_HORIZON_DAYS, RANDOM_STATE)
 from technical_indicators import add_indicators
 
 logger = logging.getLogger(__name__)
@@ -112,7 +113,9 @@ def train_model(
         X_full_s = scaler.transform(X)
         cv_report = purged_kfold_cv_score(
             model, pd.DataFrame(X_full_s, columns=FEATURE_COLS), y,
-            n_splits=5, horizon_days=20, embargo_days=5,
+            n_splits=5,
+            horizon_days=PURGED_CV_HORIZON_DAYS,
+            embargo_days=PURGED_CV_EMBARGO_DAYS,
         )
     except Exception as e:
         logger.debug("purged_cv atlandi: %s", e)

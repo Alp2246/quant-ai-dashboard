@@ -8,12 +8,22 @@ import logging
 from datetime import datetime
 from pathlib import Path
 
-from config import BASE_DIR
+from config import (BACKTEST_COMMISSION_BPS, BACKTEST_HOLDING_DAYS,
+                    BACKTEST_SLIPPAGE_BPS, BASE_DIR)
 
 logger = logging.getLogger(__name__)
 
 LOG_FILE = BASE_DIR / "alerts.log"
 CRITICAL_THRESHOLD = 85
+
+
+def _default_backtest_metadata() -> dict:
+    return {
+        "entry_execution": "next_open",
+        "signal_exit_execution": "next_open",
+        "holding_days": BACKTEST_HOLDING_DAYS,
+        "roundtrip_cost_bps": 2.0 * (BACKTEST_COMMISSION_BPS + BACKTEST_SLIPPAGE_BPS),
+    }
 
 
 def write_log(message: str, level: str = "INFO"):
@@ -44,14 +54,36 @@ def desktop_notify(title: str, message: str, app_name: str = "Quant AI"):
 
 
 def handle_master_score(ticker: str, score: float, rating: str,
-                        details: dict | None = None) -> dict:
+                        details: dict | None = None,
+                        backtest_metadata: dict | None = None,
+                        gates: dict | None = None) -> dict:
     """
     Master Score'a gore karar al (verdict_rules ile uyumlu):
       KRITIK ALIM / GUCLU AL -> toast + log + Telegram
+
+    gates: score_gate.apply_gates ciktisi. Verilirse ve allow_push=False ise
+    hicbir bildirim (toast/Telegram) gonderilmez.
+
+    DIKKAT (olculmus vaka — LAES 02.08.2026): buradaki eski kosul
+    `is_push_worthy(rating) OR score >= CRITICAL_THRESHOLD` idi. Ikinci
+    kosul, verdict asagi cekilse bile ham skor 85+ oldugunda push'u
+    ARKA KAPIDAN geciriyordu. Kapi verildiginde artik o bypass yok.
     """
-    from verdict_rules import is_push_worthy, verdict_for
+    from verdict_rules import allow_push, is_push_worthy, verdict_for
     rating = rating or verdict_for(score)
     result = {"notified": False, "logged": False, "rating": rating}
+
+    if gates is not None:
+        izin, red = allow_push(
+            rating,
+            market_status=gates.get("market_status", "UNKNOWN"),
+            is_overfit=bool(gates.get("is_overfit")),
+        )
+        if not izin:
+            write_log(f"{ticker}: PUSH BASTIRILDI — {red}", level="BILGI")
+            result["push_blocked"] = red
+            result["logged"] = True
+            return result
 
     if is_push_worthy(rating) or score >= CRITICAL_THRESHOLD:
         msg = (f"{ticker}: Master Score {score}/100 - {rating}"
@@ -65,7 +97,12 @@ def handle_master_score(ticker: str, score: float, rating: str,
         # Telegram push (telefona)
         try:
             from telegram_notifier import push_master_score_alert
-            tg_ok = push_master_score_alert(ticker, score, rating)
+            tg_ok = push_master_score_alert(
+                ticker,
+                score,
+                rating,
+                metadata=backtest_metadata or _default_backtest_metadata(),
+            )
             result["telegram"] = tg_ok
         except Exception as e:
             logger.debug("telegram push atlandi: %s", e)
@@ -198,7 +235,8 @@ def _detect_triggers(ticker: str, result: dict) -> list[dict]:
     return triggers
 
 
-def handle_critical_triggers(ticker: str, result: dict) -> list[dict]:
+def handle_critical_triggers(ticker: str, result: dict,
+                             backtest_metadata: dict | None = None) -> list[dict]:
     """
     Tum kritik tetikleyicileri tespit et, idempotent sekilde bildirim ver.
     Ayni event_id zaten gosterilmisse tekrar gosterilmez (state file'da
@@ -232,6 +270,7 @@ def handle_critical_triggers(ticker: str, result: dict) -> list[dict]:
         tg_ok = False
         try:
             from telegram_notifier import push_critical_event
+            trg["backtest_metadata"] = backtest_metadata or _default_backtest_metadata()
             tg_ok = push_critical_event(ticker, trg)
         except Exception as e:
             logger.debug("telegram trigger push atlandi: %s", e)

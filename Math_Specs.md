@@ -116,7 +116,33 @@ $$
 
 Volatilite-uyarlamalı: NVTS yüksek $\sigma$ → bariyerler geniş, ASML düşük $\sigma$ → dar.
 
-📂 **Kaynak**: `backtest.triple_barrier_labels()`
+### 2.1 Uygulama Varsayımları (backtest)
+
+- **Giriş yürütmesi**: `AL` sinyali bar kapanışında üretildiyse, işlem bir sonraki barın **Open** fiyatında açılır.
+- **Sinyal/zaman çıkışı**: `SAT` ve `TIME` çıkışları da bir sonraki barın **Open** fiyatında yürütülir.
+- **Bariyer çıkışı**: `TP` ve `SL`, aynı bar içinde `High/Low` dokunuşuyla anında yürütülir.
+- **Çakışma kuralı**: Aynı bar içinde hem `SL` hem `TP` dokunursa, muhafazakâr olarak **SL önce kazanır**.
+
+### 2.2 İşlem maliyeti ve slippage
+
+Uzun pozisyon için yürütme fiyatları maliyetle bozulur:
+
+$$
+P_{\text{entry,eff}} = P_{\text{entry,raw}} \cdot \left(1 + \frac{c + s}{10{,}000}\right)
+$$
+
+$$
+P_{\text{exit,eff}} = P_{\text{exit,raw}} \cdot \left(1 - \frac{c + s}{10{,}000}\right)
+$$
+
+Burada $c$ = `commission_bps`, $s$ = `slippage_bps`.
+Net trade getirisi:
+
+$$
+r_{\text{trade}} = \frac{P_{\text{exit,eff}}}{P_{\text{entry,eff}}} - 1
+$$
+
+📂 **Kaynak**: `backtest.backtest_strategy()`
 
 ---
 
@@ -181,22 +207,26 @@ $$
 **Fat-tail clipping** (aşırı uç olayları budama):
 
 $$
-S_T^{(i)} \;\leftarrow\; \min\!\Big( S_T^{(i)}, \;\; S_0 \cdot 20 \Big)
+S_T^{(i)} \;\leftarrow\; \min\!\Big( S_T^{(i)}, \;\; S_0 \cdot m_{\text{cap}} \Big)
 $$
 $$
 S_T^{(i)} \;\leftarrow\; \max\!\Big( S_T^{(i)}, \;\; 0.01 \Big)
 $$
+
+Burada $m_{\text{cap}}$ = `fat_tail_cap_multiplier` (varsayılan 20).
 
 **Çıktı istatistikleri** ($N = 10{,}000$ path):
 
 | Metrik | Formül |
 |---|---|
 | Median | $\tilde{S}_T = Q_{0.50}(\{S_T^{(i)}\})$ |
+| Median CAGR | $\left(\tilde{S}_T / S_0\right)^{1/T} - 1$ |
 | 95% güven aralığı | $[Q_{0.025},\; Q_{0.975}]$ |
 | VaR 5% | $-(S_0 - Q_{0.05}) / S_0$ |
 | CVaR 5% | $-\frac{1}{|\mathcal{A}|}\sum_{i \in \mathcal{A}} \frac{S_T^{(i)} - S_0}{S_0}$, $\mathcal{A} = \{i : S_T^{(i)} \le Q_{0.05}\}$ |
 | $P(\text{bust})$ | $\mathbb{P}(S_T < 0.2 \cdot S_0)$ |
 | $P(10\text{x})$ | $\mathbb{P}(S_T \ge 10 \cdot S_0)$ |
+| Cap-hit oranı | $\mathbb{P}(S_T \ge 0.995 \cdot S_0 \cdot m_{\text{cap}})$ |
 
 📂 **Kaynak**: `monte_carlo.simulate_paths()`, `monte_carlo.summarize()`
 
@@ -256,7 +286,9 @@ $$
 \mathcal{E}^{(k)} \;=\; \big\{ t : \min(\mathcal{T}_{\text{test}}^{(k)}) - h_e \le t \le \max(\mathcal{T}_{\text{test}}^{(k)}) + h_e \big\}
 $$
 
-Tipik $h_e = $ 5-20 bar (etiket horizonu kadar).
+Tipik $h_e = $ 5-20 bar (etiket horizonu kadar). Pratikte bu repo için
+`horizon_days`, backtest'teki `holding_days` ile hizalı tutulmalıdır; aksi
+halde ML doğrulaması ile tarihsel sinyal testi farklı gelecek ufukları varsayar.
 
 **Overfitting tanısı**:
 

@@ -1,6 +1,7 @@
 """
 config.py - Merkezi yapilandirma
 """
+import os as _os
 from pathlib import Path
 
 # Proje kok dizini
@@ -10,7 +11,7 @@ DATA_DIR.mkdir(exist_ok=True)
 
 # Cekirdek izlenen hisseler (ABD) - Investor Executive Summary'de gosterilir.
 # NVTS, QBTS, POET, ARQQ, SMCI kullanici portfoyune dahil edildi.
-TICKERS = [
+CORE_TICKERS = [
     "WOLF", "IONQ", "RGTI", "ATOM", "LAES", "NVTS",
     # Kullanici portfoyune eklenenler (Investor Executive Summary'ye dahil)
     "QBTS", "POET", "ARQQ", "SMCI",
@@ -31,11 +32,52 @@ AI_QUANTUM_WATCHLIST = [
     "PLTR", "AMBA",
 ]
 EXTRA_WATCHLIST = ["AXTI", "INDI", "QUBT", "ASML"] + AI_QUANTUM_WATCHLIST
+
+# --- Darbogaz tezi: kardes proje (aleabito_monitor) haritasindan gelen,
+# ABD/Avrupa'da GERCEKTEN alinabilir isimler. Gerceklik Kontrolu bunlari da
+# degerlendirir; boylece "darbogazi tutan sirket al-tut'u yendi mi?" sorusu
+# tek bir hisseyle degil, sepetle test edilir.
+# NOT: NBIS/CBRS/SNDK yakin tarihli listeleme — kisa gecmis, az islem cikar.
+BOTTLENECK_WATCHLIST = [
+    "LITE", "AAOI", "COHR", "POET",      # lazer / optik
+    "AXTI",                                # InP alttas
+    "SNDK", "MU",                          # bellek
+    "NBIS", "CBRS",                        # hesaplama kapasitesi
+    "AOSL", "POWI",                        # guc yari iletken
+    "IBIDY",                               # ABF altlik (OTC ADR)
+]
+
+# Darbogaz isimleri cekirdek analize dahil edilsin mi?
+# true  : her sekme (Ozet, Detay, Research Agent, Backtest, Radar...) kapsar.
+#         Yukleme suresi artar (10 -> 21 hisse).
+# false : yalnizca Gerceklik Kontrolu sekmesi degerlendirir.
+# .env veya ortam degiskeni ile kapatilabilir: INCLUDE_BOTTLENECK_IN_CORE=false
+INCLUDE_BOTTLENECK_IN_CORE = (
+    _os.getenv("INCLUDE_BOTTLENECK_IN_CORE", "true").lower() == "true"
+)
+
+# Uygulamanin her yerinde kullanilan cekirdek liste
+TICKERS = list(CORE_TICKERS)
+if INCLUDE_BOTTLENECK_IN_CORE:
+    for _t in BOTTLENECK_WATCHLIST:
+        if _t not in TICKERS:
+            TICKERS.append(_t)
 CHINA_TICKERS = ["0981.HK", "1347.HK"]
 ALL_WATCHLIST_DEFAULTS = EXTRA_WATCHLIST + CHINA_TICKERS
 
 # Sirket isimleri (haber aramasi icin)
 COMPANY_NAMES = {
+    # --- Darbogaz tezi (aleabito_monitor haritasindan) ---
+    "LITE": "Lumentum optical laser",
+    "AAOI": "Applied Optoelectronics transceiver",
+    "COHR": "Coherent photonics laser",
+    "AXTI": "AXT indium phosphide substrate",
+    "SNDK": "SanDisk NAND flash memory",
+    "NBIS": "Nebius AI cloud GPU",
+    "CBRS": "Cerebras AI inference chip",
+    "AOSL": "Alpha Omega power semiconductor",
+    "POWI": "Power Integrations power semiconductor",
+    "IBIDY": "Ibiden ABF substrate packaging",
     # Core
     "WOLF": "Wolfspeed semiconductor",
     "IONQ": "IonQ quantum computing",
@@ -100,6 +142,18 @@ MACD_SIGNAL = 9
 ML_TRAIN_DAYS = 252 * 2        # ~2 yil egitim
 ML_TEST_RATIO = 0.2
 RANDOM_STATE = 42
+
+# Backtest / label horizon ortak varsayimlari
+BACKTEST_LOOKBACK_YEARS = 2.0
+# Gerceklik Kontrolu daha UZUN pencere kullanir: 2 yilda hisse basina ~10-15
+# islem cikiyor ve n<30 oldugu icin hicbir hukum verilemiyordu. HISTORY_PERIOD
+# zaten 5y cektiginden bu ek maliyet getirmez. Backtest sekmesi degismez.
+REALITY_LOOKBACK_YEARS = 5.0
+BACKTEST_HOLDING_DAYS = 20
+BACKTEST_COMMISSION_BPS = 10.0
+BACKTEST_SLIPPAGE_BPS = 5.0
+PURGED_CV_HORIZON_DAYS = BACKTEST_HOLDING_DAYS
+PURGED_CV_EMBARGO_DAYS = 5
 
 # Sinyal esikleri
 SENTIMENT_BULLISH = 0.15       # compound > bu -> pozitif haber

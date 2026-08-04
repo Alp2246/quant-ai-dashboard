@@ -36,6 +36,21 @@ SEVERITY_ORDER = {"BILGI": 0, "GUCLU": 1, "UYARI": 2, "KRITIK": 3}
 DEFAULT_MIN_SEVERITY = "KRITIK"
 
 
+def format_backtest_metadata(metadata: dict | None) -> str:
+    """Backtest varsayimlarini tek satirlik Telegram ozeti yap."""
+    if not metadata:
+        return ""
+    try:
+        return (
+            f"\n<b>Backtest:</b> entry=<code>{metadata.get('entry_execution', '-')}</code>, "
+            f"exit=<code>{metadata.get('signal_exit_execution', '-')}</code>, "
+            f"hold=<code>{int(metadata.get('holding_days', 0))}d</code>, "
+            f"rt_cost=<code>{float(metadata.get('roundtrip_cost_bps', 0)):.0f}bps</code>"
+        )
+    except Exception:
+        return ""
+
+
 # ---------------------------------------------------------------------
 # Config yukleme / kaydetme
 # ---------------------------------------------------------------------
@@ -189,6 +204,7 @@ def format_critical_event(ticker: str, event: dict) -> str:
     title = event.get("title", "Kritik Olay")
     message = event.get("message", "")
     event_id = event.get("event_id", "")
+    bt_meta = format_backtest_metadata(event.get("backtest_metadata"))
 
     ts = datetime.now().strftime("%H:%M")
 
@@ -200,6 +216,7 @@ def format_critical_event(ticker: str, event: dict) -> str:
         f"<b>Olay ID:</b> <code>{event_id}</code>\n"
         f"<b>Saat:</b> {ts}\n\n"
         f"{message}\n\n"
+        f"{bt_meta}\n"
         f"<i>Quant AI Dashboard - Master Score v9</i>"
     )
     return body
@@ -220,19 +237,22 @@ def push_critical_event(ticker: str, event: dict) -> bool:
     return send_message(text, parse_mode="HTML")
 
 
-def push_master_score_alert(ticker: str, score: float, rating: str) -> bool:
+def push_master_score_alert(ticker: str, score: float, rating: str,
+                            metadata: dict | None = None) -> bool:
     """Master Score >= 85 olunca ozel kritik mesaj."""
     if not load_config().get("enabled"):
         return False
     if score < 85:
         return False
     ts = datetime.now().strftime("%H:%M")
+    bt_meta = format_backtest_metadata(metadata)
     text = (
         f"🔴 <b>KRITIK ALIM SINYALI</b>\n\n"
         f"<b>Hisse:</b> {ticker}\n"
         f"<b>Master Score:</b> <code>{score:.1f}/100</code>\n"
         f"<b>Rating:</b> {rating}\n"
         f"<b>Saat:</b> {ts}\n\n"
+        f"{bt_meta}\n"
         f"<i>Dashboard'a bak: 🎯 Detail sekmesi -> {ticker}</i>"
     )
     return send_message(text, parse_mode="HTML")
