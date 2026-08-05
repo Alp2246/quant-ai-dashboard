@@ -36,10 +36,9 @@ sh.Run "http://localhost:8501", 1, False
 Function PortListening(port)
   Dim oExec, out
   On Error Resume Next
-  Set oExec = sh.Exec("cmd /c netstat -ano ^| findstr "":" & port & """ ^| findstr LISTENING")
-  Do While oExec.Status = 0
-    WScript.Sleep 50
-  Loop
+  ' ReadAll ONCE gelmeli: "Status = 0 iken bekle" boru arabellegi dolunca
+  ' kilitlenir (cocuk surec yazamaz, biz Status'u bekleriz).
+  Set oExec = sh.Exec("cmd /c netstat -ano | findstr "":" & port & """ | findstr LISTENING")
   out = oExec.StdOut.ReadAll
   PortListening = (Len(Trim(out)) > 0)
   On Error GoTo 0
