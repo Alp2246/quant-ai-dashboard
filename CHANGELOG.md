@@ -99,6 +99,13 @@ olculmeli; ayrica veri akisinda iki bayatlik vardi.
   vermiyor) ve cogunluk fiyat SMA20/50 altinda — Ocak'a kadar takip
   kriteri: HAM skor yuksek + kapi acilirsa (fiyat>SMA50, model CV>%55)
   aday sayilir.
+- **Genel temizlik (11.10.2026)** — 125 .py derleme taramasi: 0 bozuk;
+  32 cekirdek modul import testi: 0 hata; app.py modul duzeyi calisti.
+  ~870 MB olü agirlik kaldirildi: `build/` (359MB PyInstaller ara urunu),
+  `tools/android-sdk` + JDK/node/git/gh yukleyicileri (APK deneme
+  toolchain'i, `_download_*.py` ile geri indirilebilir), Mayis kalintisi
+  `_build.log`/`_streamlit.err.log`. tools/'ta yalniz aktif tunnel
+  araclari kaldi (cloudflared, tailscale msi).
 
 ### Bilincli risk / dürüst not
 
