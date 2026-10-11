@@ -23,7 +23,9 @@ CORE_TICKERS = [
     "SNDK", "AXTI",
     # Bilesik buyukler kilidi: NVDA da gunluk skor + paper defter kapsamina
     # alindi ("NVDA gibi hisseleri kacirmak istemiyorum" — 11.10.2026).
-    "NVDA",
+    # AMD de cekirdege alindi: NVDA'nin en yakin yari iletken ikizi,
+    # darbogaz teziyle (GPU/HBM ekosistemi) dogrudan uyumlu.
+    "NVDA", "AMD",
 ]
 
 # Genisletilmis radar - watchlist defaults
@@ -40,7 +42,7 @@ AI_QUANTUM_WATCHLIST = [
     # Tier 2b - Bilesik buyukler ("bir sonraki NVDA'yi kacirma" kilidi:
     # tez kucuk-cap kesif olsa da bu isler ayri bir koldan izlenir;
     # mega-cap cezasi skorda zaten uygulaniyor)
-    "NVDA", "TSM",
+    "NVDA", "TSM", "MSFT", "AMZN", "META", "GOOGL",
     # Tier 3 - Spekulatif / Niş
     "PLTR", "AMBA",
 ]
@@ -122,6 +124,11 @@ COMPANY_NAMES = {
     "PLTR": "Palantir AI defense enterprise analytics",
     "AMBA": "Ambarella edge AI vision SoC automotive",
     "SMCI": "Super Micro Computer AI server liquid cooling",
+    "AMD": "Advanced Micro Devices GPU AI accelerator data center",
+    "MSFT": "Microsoft Azure OpenAI data center capex",
+    "AMZN": "Amazon AWS AI infrastructure Trainium",
+    "META": "Meta AI Llama data center capex",
+    "GOOGL": "Google Alphabet TPU AI infrastructure",
 }
 
 # Para birimi etiketi (yfinance otomatik dondurmezse fallback)
