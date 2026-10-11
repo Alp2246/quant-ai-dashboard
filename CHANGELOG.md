@@ -71,6 +71,44 @@ al-tut'un onune gecti.
 
 ---
 
+## [v11.1] — 2026-10-11 — Ilere Donuk Olcum + Sinyal Akisi Onari
+
+### Neden
+
+Kullanici Ocak 2026'da 10–50k USD gercek para yatiracak (2030/2035/2040
+ufku). v11.0 kuralinin edge'i geriye donuk testte degil GEREK ZAMANDA
+olculmeli; ayrica veri akisinda iki bayatlik vardi.
+
+### Yapilan
+
+- **`paper_trading.py`** — v11.0 kuralinin canli olcum defteri. Her kosuda
+  acik pozisyonlari yonetir (SL 2xATR / TP 6xATR / TIME 60 bar), sinyal
+  veren hisseye sanal giris acar, her olayi `data/paper_trades.jsonl`ye
+  yazar. Ocak'a kadar 2-3 ay out-of-sample veri toplanir; `summarize()`
+  win rate/expectancy raporlar.
+- **Gunluk otomasyon** (00:47 Europe/Istanbul, ABD kapanisi sonrasi):
+  score_job + reality_check --export + paper_trading. Ilk kosum 11.10.2026
+  basarili (3/3 adim OK, bildirim gitti). SMCI 37.7 DIKKAT + push kapida
+  bastirildi — huni canli calisiyor.
+- **`reality_snapshot.json` bayatligi kapatildi** — 71 gunluk bayatligin
+  nedeni crash degil, export adiminin hic ZAMANLANMAMIS olmasiydi. Gunluk
+  otomasyona eklendi; ilk taze export 11.10.2026.
+- **`UZUN_VADE_RAPORU.md`** — Ocak girisi icin aday tablosu (kapili skor +
+  sector_tam 10y bantlari + moonshot). O gunun gercegi: 10 hissenin 10'unda
+  da M_overfit=0.7 (kisa gecmisli spekulatif evrende ML modelleri guven
+  vermiyor) ve cogunluk fiyat SMA20/50 altinda — Ocak'a kadar takip
+  kriteri: HAM skor yuksek + kapi acilirsa (fiyat>SMA50, model CV>%55)
+  aday sayilir.
+
+### Bilincli risk / dürüst not
+
+"Maximum verimde olan hisseyi yakalamak" garantisi YOKTUR. Sistem
+olasilik siralar; Bessembinder gercegi: spekulatif hisselerin cogunlugu
+S&P'yi yenemez. Gercek para, paper defterinde olumlu expectancy gorulene
+kadar beklemelidir.
+
+---
+
 ## [v10.0] — 2026-08-04 — Carpimsal Veto Katmani (Gated Scoring)
 
 ### Neden bu surum var
