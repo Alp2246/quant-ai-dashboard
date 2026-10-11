@@ -166,6 +166,14 @@ def run(*, push_telegram: bool = True) -> dict:
     }
     STATE_FILE.write_text(json.dumps(payload, indent=2, ensure_ascii=False),
                           encoding="utf-8")
+    # Karar gecmisi: her gun bir satir/hisse (v11.3). Cozumleme yalnizca
+    # decision_log.resolve() ile, 30 gun doldugunda yapilir.
+    try:
+        import decision_log
+        n_log = decision_log.log_daily(results)
+        LOG.info("Karar kaydi: %d satir", n_log)
+    except Exception as exc:
+        LOG.warning("decision_log yazilamadi: %s", exc)
     LOG.info("Kaydedildi: %s | telegram=%d", STATE_FILE, alerts_sent)
     return payload
 

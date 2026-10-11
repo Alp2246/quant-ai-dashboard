@@ -3644,6 +3644,237 @@ def render_paper_portfolio(results: dict):
 # Main
 # ===========================================================================
 
+def render_paper_ledger(results: dict):
+    """paper_trading.py'nin ISLEM DEFTERI paneli (v11.3).
+
+    Sanal Portfoy sekmesi al-tut simulasyonudur; bu panel v11.0 giris
+    kuralinin GERCEK ZAMANDI islem defteridir: acik pozisyonlar, kapali
+    islemler, expectancy, std, birikim egrisi ve "edge kanitlandi mi?"
+    gostergesi. Ocak 2027 para kararinin ekrani burasi.
+    """
+    import paper_trading as pt
+
+    st.markdown("## 📒 Paper Islem Defteri — v11.0 Kurali, Canli Olcum")
+    st.caption("Her gun 00:47 cron acik pozisyonlari yonetir (SL 2xATR / TP "
+               "6xATR / 60 bar) ve yeni sinyal gorurse ertesi kapanistan "
+               "sanal girer. **Canli para yatirmadan once bu defter en az "
+               "30 kapali islem biriktirmeli.**")
+
+    summary = pt.summarize()
+    trades = pt.load_trades()
+    closed = (trades[trades["exit_reason"].notna()]
+              if not trades.empty and "exit_reason" in trades.columns
+              else trades.iloc[0:0])
+
+    n = int(summary.get("n_closed", 0))
+    win = float(summary.get("win_rate", 0.0))
+    avg = float(summary.get("avg_return", 0.0))
+    cum = float(summary.get("cum_return_pct", 0.0))
+    std = (float(closed["return_pct"].astype(float).std())
+           if not closed.empty else 0.0)
+
+    # ---- EDGE GOSTERGESI ----
+    if n < 30:
+        edge_renk, edge_msg = "#ffa726", (
+            f"⏳ **ÖRNEKLEM YETERSIZ (n={n} < 30)** — edge var/yok demek "
+            f"su an kanitsiz. Defterin ~2-3 ay veri biriktirmesi beklenir.")
+    elif avg > 0 and win >= 40:
+        edge_renk, edge_msg = "#00c853", (
+            f"✅ **EDGE SINYALI POZITIF (n={n})** — expectancy {avg:+.2f}%, "
+            f"win rate %{win:.0f}. Yine de tek basina karar degil; "
+            f"aleabito pencere_edge ile capraz dogrula.")
+    else:
+        edge_renk, edge_msg = "#ff1744", (
+            f"⚠️ **EDGE KANITLANAMADI (n={n})** — expectancy {avg:+.2f}%, "
+            f"win rate %{win:.0f}. Kural bu haliyle para koydurmaz.")
+
+    st.markdown(
+        f"<div style='background:linear-gradient(90deg,#1a1d24,{edge_renk}22);"
+        f"padding:16px;border-radius:10px;border-left:6px solid {edge_renk};"
+        f"margin:10px 0;'>{edge_msg}</div>", unsafe_allow_html=True)
+
+    m1, m2, m3, m4, m5 = st.columns(5)
+    m1.metric("Kapali Islem", n)
+    m2.metric("Win Rate", f"%{win:.1f}")
+    m3.metric("Expectancy (islem basi)", f"{avg:+.2f}%")
+    m4.metric("Std Sapma", f"%{std:.2f}" if std else "—")
+    m5.metric("Bilesik Getiri", f"%{cum:+.1f}")
+
+    # ---- ACIK POZISYONLAR ----
+    positions = pt._load_positions()
+    if positions:
+        st.markdown("### 🔓 Acik Pozisyonlar")
+        quotes = {t: float(r["df"]["Close"].iloc[-1])
+                  for t, r in results.items()
+                  if r.get("df") is not None and not r["df"].empty}
+        rows = []
+        for t, p in positions.items():
+            px = quotes.get(t)
+            if px is None:
+                continue
+            unf = (px / p["entry_price"] - 1) * 100
+            rows.append({
+                "Hisse": t, "Giris": p["entry_date"],
+                "Giris $": f"{p['entry_price']:.2f}", "Anlik $": f"{px:.2f}",
+                "K/Z %": f"{unf:+.2f}%",
+                "SL $": f"{p['sl']:.2f}", "TP $": f"{p['tp']:.2f}",
+                "TP mesafe %": f"{(p['tp'] / px - 1) * 100:+.1f}%",
+                "SL mesafe %": f"{(p['sl'] / px - 1) * 100:+.1f}%",
+                "Bar": p.get("holding_days", 60),
+            })
+        if rows:
+            st.dataframe(pd.DataFrame(rows), use_container_width=True,
+                         hide_index=True)
+    else:
+        st.info("Acik pozisyon yok. Sinyal kurali (RSI50 kes + MACD>0 + "
+                "Close>SMA200) gorulurse pozisyon acilir.")
+
+    # ---- KAPALI ISLEMLER + BIrikIM EGRISI ----
+    if not closed.empty:
+        st.markdown("### ✅ Kapali Islemler")
+        disp = closed[["ticker", "entry_date", "entry_price", "exit_date",
+                       "exit_price", "exit_reason", "return_pct",
+                       "days_held"]].copy()
+        disp.columns = ["Hisse", "Giris", "Giris $", "Cikis", "Cikis $",
+                        "Neden", "Getiri %", "Gun"]
+        st.dataframe(disp.sort_values("Cikis", ascending=False),
+                     use_container_width=True, hide_index=True)
+
+        chrono = closed.sort_values("exit_date")
+        eq = (1 + chrono["return_pct"].astype(float) / 100).cumprod() * 100
+        fig = go.Figure(go.Scatter(
+            x=chrono["exit_date"], y=eq, mode="lines+markers",
+            name="Birikim (baslangic=100)",
+            line=dict(width=3, color="#26c6da"),
+            marker=dict(size=7, color=["#00c853" if r > 0 else "#ff1744"
+                                       for r in chrono["return_pct"]])))
+        fig.update_layout(
+            template="plotly_dark", height=320,
+            paper_bgcolor="#0e1117", plot_bgcolor="#1a1d24",
+            margin=dict(l=20, r=20, t=20, b=20),
+            yaxis_title="Birikim endeksi", xaxis_title="Kapanis tarihi")
+        st.plotly_chart(fig, use_container_width=True, key="paper_equity")
+        st.caption(f"Neden dagilimi: {summary.get('by_reason', {})}")
+    else:
+        st.info("Henuz kapali islem yok — defter yeni basladi. Ilk islem "
+                "sinyal + bariyer kapanisindan sonra dusecek.")
+
+
+def render_decision_history():
+    """decision_log.py skor karti paneli (v11.3): 'gecen ay ne dediysek
+    bugun ne oldu?' — aleabito verdict_scorecard'in bu proje karsiligi."""
+    import decision_log as dlog
+
+    st.markdown("## 📜 Karar Gecmisi — Dediklerimiz Ne Oldu?")
+    st.caption(f"Her gun skor isi bir satir yazar; {dlog.RESOLVE_AFTER_DAYS} "
+               f"gun sonra satir, hissenin kendi getirisi eksi "
+               f"**{dlog.BENCHMARK_TICKER}** getirisiyle (alpha) cozulur. "
+               "pencere_edge > 0 ise AL sinyalleri bilgi tasiyor demektir.")
+
+    c1, c2 = st.columns([1, 4])
+    with c1:
+        if st.button("🔄 Simdi Cozumle", use_container_width=True):
+            with st.spinner("30 gunu dolan satirlar fiyatla cozuluyor..."):
+                r = dlog.resolve()
+            st.success(f"Cozuldu: {r['resolved']} | hata: {len(r['errors'])}")
+    sc = dlog.scorecard()
+
+    edge = sc["pencere_edge"]
+    renk = "#888" if edge is None else ("#00c853" if edge > 0 else "#ff1744")
+    st.markdown(
+        f"<div style='background:linear-gradient(90deg,#1a1d24,{renk}22);"
+        f"padding:16px;border-radius:10px;border-left:6px solid {renk};"
+        f"margin:10px 0;'>"
+        f"<div style='font-size:13px;color:#999;'>pencere_edge "
+        f"(AL ort.alpha - bekleyen ort.alpha, {sc['benchmark']} bazli)</div>"
+        f"<div style='font-size:28px;font-weight:bold;color:{renk};'>"
+        f"{'—' if edge is None else f'{edge:+.2f}%'}</div>"
+        f"<div style='font-size:14px;'>{sc['hukum']}</div></div>",
+        unsafe_allow_html=True)
+
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Toplam Karar", sc["total_rows"])
+    m2.metric("Cozulmus", sc["resolved"])
+    m3.metric("Bekleyen", sc["pending"])
+
+    st.markdown("### Karar Bazli Sonuclar (30g alpha)")
+    rows = []
+    for v, g in sc["by_verdict"].items():
+        rows.append({
+            "Verdict": v, "Karar": g["n"], "Cozulmus": g["n_alpha"],
+            "Ort. Alpha": ("—" if g["avg_alpha"] is None
+                           else f"{g['avg_alpha']:+.2f}%"),
+            "Hit Rate": ("—" if g["hit_rate"] is None
+                         else f"%{g['hit_rate']:.0f}"),
+            "Durum": g["label"],
+        })
+    if rows:
+        st.dataframe(pd.DataFrame(rows), use_container_width=True,
+                     hide_index=True)
+    else:
+        st.info("Kayit yok. Gunluk skor isi (00:47) calistikca dolar.")
+
+    pen, kont = sc["pencere"], sc["kontrol"]
+    st.caption(
+        f"AL/PENCERE grubu: n={pen['n']} (cozulmus {pen['n_alpha']}), "
+        f"ort.alpha {pen['avg_alpha']}  |  "
+        f"Bekleyenler: n={kont['n']} (cozulmus {kont['n_alpha']}), "
+        f"ort.alpha {kont['avg_alpha']}  |  Esik: her grupta n>={sc['min_n']}")
+
+
+def render_opportunity_radar(results: dict):
+    """radar_scanner paneli (v11.3): tum listeleri hacim/momentum/zirve/
+    yeni-listeleme/darbogaz bayraklariyla tarar, adaylari siralar."""
+    import radar_scanner as rs
+
+    st.markdown("## 🛰 Firsat Radari — Erken Uyari Tarayicisi")
+    st.caption(f"Tum listeler ({rs.MIN_AVG_DOLLAR_VOL // 1_000_000}M$ "
+               "ustu likidite): hacim patlamasi (≥2x 20g ort), 20g momentum "
+               "≥%15, SMA50 ustu, 52h zirvesine ≥%20 yakın, yeni listeleme "
+               "(<250 gun), darbogaz uyesi. SNDK'nin kacirilma kalibini "
+               "erken yakalamak icin tasarlandi.")
+
+    c1, c2 = st.columns([1, 4])
+    with c1:
+        force = st.button("🔄 Simdi Tara", use_container_width=True)
+    try:
+        res = rs.scan(force=force)
+    except Exception as e:
+        st.error(f"Tarama hatasi: {e}")
+        return
+
+    st.caption(f"Taranan: {res.get('n_scanned', 0)} hisse · "
+               f"tarandigi saat: {res.get('scanned_at', '-')[:16]} · "
+               f"cache gecerliligi {rs.CACHE_TTL_HOURS} saat")
+    if res.get("errors"):
+        st.caption(f"Atlanan: {len(res['errors'])} hisse (veri yok)")
+
+    aday = rs.adaylar(res)
+    if not aday:
+        st.info("Puan esigini (>=3) gecen aday yok — piyasada erken uyari "
+                "ureten hareket gorulmuyor.")
+        return
+
+    rows = []
+    for r in aday:
+        bayraklar = [k.replace("_", " ") for k in rs.WEIGHTS if r.get(k)]
+        rows.append({
+            "Hisse": r["ticker"], "Liste": r["liste"], "Puan": r["puan"],
+            "Fiyat $": r["fiyat"],
+            "Mom 20g": f"{r['mom_20g_pct']:+.1f}%",
+            "Hacim x": r["hacim_orani"],
+            "Zirveden": f"{r['zirveden_uzaklik_pct']:+.1f}%",
+            "Gun": r["islem_gunu"],
+            "Bayraklar": ", ".join(bayraklar),
+            "⚠️ Likidite": "DUSUK" if r["dusuk_likidite"] else "",
+        })
+    df_r = pd.DataFrame(rows)
+    st.dataframe(df_r, use_container_width=True, hide_index=True)
+    st.caption("DUSUK likidite = 20g ort. islem hacmi $5M alti; gercek "
+               "hesapta spread/slipaj maliyeti yuksek olur. Liste disi bir "
+               "hisse burada gorunuyorsa config'e eklemek tek satir.")
+
+
 def main():
     sidebar()
 
@@ -3694,7 +3925,8 @@ def main():
 
     tabs = st.tabs([
         "🚨 Erken Uyari",
-        "💸 Sanal Portfoy",
+        "💸 Sanal Portfoy", "📒 Paper Defter", "📜 Karar Gecmisi",
+        "🛰 Firsat Radari",
         "🎯 Ozet", "📊 Detay", "🌟 Vision", "💼 Portfoy", "🛰 HIA", "🔬 Research",
         "🏭 Sektorel Zeka", "📈 Backtest", "🔮 Forecast", "💰 Temel",
         "📡 Radar", "📅 Milestone", "💵 DCA", "📋 Loglar",
@@ -3708,52 +3940,61 @@ def main():
         try: render_paper_portfolio(results)
         except Exception as e: st.error(f"Sanal Portfoy hatasi: {e}")
     with tabs[2]:
+        try: render_paper_ledger(results)
+        except Exception as e: st.error(f"Paper Defter hatasi: {e}")
+    with tabs[3]:
+        try: render_decision_history()
+        except Exception as e: st.error(f"Karar Gecmisi hatasi: {e}")
+    with tabs[4]:
+        try: render_opportunity_radar(results)
+        except Exception as e: st.error(f"Firsat Radari hatasi: {e}")
+    with tabs[5]:
         try: render_overview(results)
         except Exception as e: st.error(f"Ozet hatasi: {e}")
-    with tabs[3]:
+    with tabs[6]:
         try: render_detail(results)
         except Exception as e: st.error(f"Detay hatasi: {e}")
-    with tabs[4]:
+    with tabs[7]:
         try: render_vision(results)
         except Exception as e: st.error(f"Vision hatasi: {e}")
-    with tabs[5]:
+    with tabs[8]:
         try: render_portfolio(results)
         except Exception as e: st.error(f"Portfoy hatasi: {e}")
-    with tabs[6]:
+    with tabs[9]:
         try: render_hardware_intel(results)
         except Exception as e: st.error(f"HIA hatasi: {e}")
-    with tabs[7]:
+    with tabs[10]:
         try: render_research_agent(results)
         except Exception as e: st.error(f"Research Agent hatasi: {e}")
-    with tabs[8]:
+    with tabs[11]:
         try:
             histories_for_sector = {t: r["df"] for t, r in results.items()
                                       if r.get("df") is not None}
             render_sector(results, histories_for_sector)
         except Exception as e:
             st.error(f"Sektorel Zeka hatasi: {e}")
-    with tabs[9]:
+    with tabs[12]:
         try: render_backtest(results)
         except Exception as e: st.error(f"Backtest hatasi: {e}")
-    with tabs[10]:
+    with tabs[13]:
         try: render_forecast(results)
         except Exception as e: st.error(f"Forecast hatasi: {e}")
-    with tabs[11]:
+    with tabs[14]:
         try: render_fundamentals(results)
         except Exception as e: st.error(f"Temel analiz hatasi: {e}")
-    with tabs[12]:
+    with tabs[15]:
         try: render_radar(results)
         except Exception as e: st.error(f"Radar hatasi: {e}")
-    with tabs[13]:
+    with tabs[16]:
         try: render_milestones(results)
         except Exception as e: st.error(f"Milestone hatasi: {e}")
-    with tabs[14]:
+    with tabs[17]:
         try: render_dca(results)
         except Exception as e: st.error(f"DCA hatasi: {e}")
-    with tabs[15]:
+    with tabs[18]:
         try: render_logs()
         except Exception as e: st.error(f"Log hatasi: {e}")
-    with tabs[16]:
+    with tabs[19]:
         try: render_reality_check(results)
         except Exception as e: st.error(f"Gerceklik kontrolu hatasi: {e}")
 
