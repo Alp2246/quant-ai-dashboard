@@ -19,28 +19,54 @@ logger = logging.getLogger(__name__)
 
 def generate_signals(df: pd.DataFrame, window: int = 5) -> pd.Series:
     """
-    Sinyal mantigi (John J. Murphy - Technical Analysis of the Financial Markets,
-    Trend Takip stratejisi):
+    Sinyal mantigi — v11.0 TREND kurali (olculmus vaka, 11.10.2026).
 
-      AL  = ( RSI 50'yi yukari keser ) AND
-            ( MACD histogrami negatiften pozitife doner )
-            -- ikisinin 'window' bar icinde olmasi yeterli
-      SAT = (RSI > 65) OR (Close < SMA20) OR (MACD hist > 0'dan < 0'a doner)
+    Eski "salinim" kurali (asagida _generate_signals_swing_v10 olarak arsivli)
+    10y/10 hisse testinde ISLEM BASI BEKLENTI -%0.22 uretiyordu
+    (304 islem, win %35.5 < kira noktasi %36.6; sinyal gunleri rastgele
+    gunlerden yalnizca +%1.01 iyiydi — kural bilgi tasimiyordu).
+    Kok neden UFUK UYUSMAZLIGIydi: getirinin aylarca biriktigi volatil
+    evrende pozisyon ort. 5-6 gunde kapaniyordu (cikistan sonra hisseler
+    20g +%9.2 / 60g +%28.3 gitmeye devam ediyordu).
 
-    Bu yaklasim "saglikli duzeltme" sonrasi yukari donen trendi yakalar;
-    teknoloji bogalarinda (WOLF/IONQ) ekstrem dusus beklemekten kacinir.
+    YENI kural:
+      AL  = RSI 50'yi yukari keser AND MACD histogrami > 0
+            AND fiyat SMA200 ustunde (yalnizca yukselis rejimi)
+      SAT = yok — cikis yapısaldir: SL / TP / TIME (backtest_strategy).
+
+    Olculmus sonuc (ayni veri, 11.10.2026): 102 islem, islem toplami
+    -%66.6 -> +%442.5, bilesik +%191.6; POET +%531.7 (al-tut +%12.4).
+    """
+    rsi = df["rsi"]
+    hist = df["macd_hist"]
+    sma200 = df["sma_200"] if "sma_200" in df.columns else df["Close"].rolling(200).mean()
+
+    rsi_cross_up = (rsi.shift(1) < 50) & (rsi >= 50)
+    buy = rsi_cross_up & (hist > 0) & (df["Close"] > sma200)
+
+    signals = pd.Series("BEKLE", index=df.index)
+    signals[buy] = "AL"
+    return signals
+
+
+def _generate_signals_swing_v10(df: pd.DataFrame, window: int = 5) -> pd.Series:
+    """ARSIV — v10.0 oncesi Murphy salinim kurali (11.10.2026'da emekli).
+
+    SAT kurali (RSI>65 / Close<SMA20 / MACD asagi) 304 islemin %77'sini
+    ort. 5 gunde -%2.3 ile kapatiyordu; tek basina geri almak kayiplari
+    buyuttu (-%110) cunku kural zayif islemleri SL'den once kesiyordu.
+    Sorun cikis degil UFUK'tu. Geri donus icin generate_signals'in govdesini
+    bununla degistirmek yeterli.
     """
     rsi = df["rsi"]
     hist = df["macd_hist"]
     close = df["Close"]
     sma20 = df["sma_20"]
 
-    # Crossover detection
     rsi_cross_up = (rsi.shift(1) < 50) & (rsi >= 50)
     hist_cross_up = (hist.shift(1) <= 0) & (hist > 0)
     hist_cross_down = (hist.shift(1) >= 0) & (hist < 0)
 
-    # 'window' bar icinde her ikisinin gerceklesmesi (yumusak AND)
     recent_rsi = rsi_cross_up.rolling(window).max().astype(bool)
     recent_hist = hist_cross_up.rolling(window).max().astype(bool)
 
@@ -100,7 +126,7 @@ def backtest_strategy(
     holding_days: int = BACKTEST_HOLDING_DAYS,
     years: float = BACKTEST_LOOKBACK_YEARS,
     atr_sl_mult: float = 2.0,
-    atr_tp_mult: float = 3.0,
+    atr_tp_mult: float = 6.0,   # v11.0: 3.0 -> 6.0 (ufuk uyumu, olcumlu)
     entry_execution: str = "next_open",
     signal_exit_execution: str = "next_open",
     commission_bps: float = BACKTEST_COMMISSION_BPS,
@@ -120,7 +146,7 @@ def backtest_strategy(
       Ust   Take-Profit = entry + atr_tp_mult * ATR
       Zaman holding_days bar sonra zorla cikis.
 
-    Her trade etiket: TP / SL / TIME / SAT.
+    Her trade etiket: TP / SL / TIME / END (+ SAT yalnizca eski arsiv kural).
     Risk metrikleri: Sharpe Ratio, Maximum Drawdown, Calmar Ratio.
     """
     if commission_bps < 0 or slippage_bps < 0:

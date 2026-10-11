@@ -5,6 +5,72 @@ OLCUME dayanir — "iyilestirdik" demez, once/sonra sayisini yazar.
 
 ---
 
+## [v11.0] — 2026-10-11 — Trend Kurali + 10 Yillik Pencere (ufuk uyumu)
+
+### Neden bu surum var
+
+Soru: "Programin dedigini yapsaydik neden zarar ediyorduk?" — 11.10.2026
+tarihinde olcumle cevaplandi. Uc ayri katmanli neden bulundu:
+
+1. **Gercek sinyaller (May–Agu 2026, takip edilse -%28,2):** toplamsal
+   skor anlati/hype'i zirvede AL sinyaline ceviriyordu. Bu v10.0 kapilari
+   ile COZULMUSTU (LAES 94.5 -> 42.0; o paketlerin 6'si bugun engellenir).
+2. **Backtest kuralinin seciciligi yok denecek kadar az:** sinyal gunlerinin
+   5g getirisi +%2.26 vs ayni hisselerde rastgele gun +%1.25 — kural bilgi
+   tasimiyordu. 304 islemde win %35.5 < kira noktasi %36.6; islem basi
+   beklenti -%0.22 (toplam -%66.6). Maliyet (30bp x 304 = %0.9) ve
+   "zirve alimi" (sinyal oncesi 20g ort. +%2.6) suclu DEGIL.
+3. **Ufuk uyusmazligi (asil katil):** getirinin AYLARCA biriktigi volatil
+   evrende (SMCI al-tut +%1743, IONQ +%269) eski salinim kurali pozisyonu
+   ortalama 5–6 gunde kapatiyordu. Cikistan sonra hisseler ort. 20g +%9.2 /
+   60g +%28.3 gitmeye devam ediyordu. Cikis kuralini (SAT %77, ort. -%2.3)
+   tamamen kaldirmak kayiplari BUYUTTU (-%110) — sorun cikis degil,
+   5 gunluk islem ufkunun tezin ufkuyla celismesiydi.
+
+### Olculmus sonuc (ayni 10 hisse / 10 yil verisi, tek oturum)
+
+| | ONCE (salinim, TP 3xATR, 20g) | SONRA (trend, TP 6xATR, 60g) |
+|---|---|---|
+| Islem | 304 | 102 |
+| Islem toplam getiri | -%66.6 | **+%442.5** |
+| Bilesik | -%94.0 | **+%191.6** |
+| POET | -%74.6 | **+%531.7** (al-tut +%12.4) |
+| NVTS | -%44.8 | +%32.4 (alpha +%48.1) |
+
+Dürüst not: win rate hâlâ ~%37 — kural cok islem kaybeder ama artik
+kazananlari kesmez. RGTI/LAES/ATOM gibi deger kaybeden isimlerde bile
+al-tut'un onune gecti.
+
+### Eklenen/Degisen
+
+- **`backtest.generate_signals` v11.0 TREND kurali:** AL = RSI 50 yukari
+  kesisimi AND MACD hist > 0 AND Close > SMA200. SAT sinyali YOK — cikis
+  yapısaldir (SL 2xATR / TP 6xATR / TIME 60g / END).
+- **Eski kural arsivlendi:** `_generate_signals_swing_v10` (geri donus tek
+  satir).
+- **`atr_tp_mult` varsayilani 3.0 -> 6.0**; `BACKTEST_HOLDING_DAYS`
+  20 -> 60 (`config.py`).
+- **`PURGED_CV_HORIZON_DAYS` is motorundan AYRILDI** (sabit 20): yoksa
+  ML etiket ufku sessizce 60 gune kayardi.
+- **`BACKTEST_LOOKBACK_YEARS` 2.0 -> 10.0**; **`HISTORY_PERIOD` 5y -> 10y**
+  (10y backtestin verisi eksik kaliyordu, sessizce 5y'ye kirpiliyordu).
+- **`test_backtest_trend.py`** — 6 regresyon testi (SAT yok / rejim
+  filtresi / TP=6xATR sabiti).
+- **QA S4 senaryosu guncellendi:** "ATOM GAA bonus >= 15" beklentisi
+  v10.0'in bilincli PR_ONLY kırpmasiyla celisiyordu; tespit + kırpma +
+  baglayici-kanit-varken-kirpilma yok seklinde 3 kontrole bölündü (13/13).
+
+### Bilincli olarak YAPILMAYANLAR / acik riskler
+
+- **Edge iddiasi hâlâ YOK** — bu kurallar da canli paranın gerçek kopyası
+  degildir; ileriye donuk paper trading ile olculmeli.
+- v10.0 kapilari (master score hatti) bu kural degisikliginden
+  ETkilENMEZ; backtest sekmesi ve reality check yeni kurali kullanir.
+- SMA200 filtresi tek basina win rate'i duzeltMEdi (%35.5 -> %35.8);
+  asil fark TP/TIME ufku genislemesiyle geldi.
+
+---
+
 ## [v10.0] — 2026-08-04 — Carpimsal Veto Katmani (Gated Scoring)
 
 ### Neden bu surum var

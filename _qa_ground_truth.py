@@ -183,10 +183,31 @@ atom_sig = so.atom_licensing_signal(atom_news)
 print(f"  ATOM raw bonus = {atom_sig.get('overlay_bonus')}")
 print(f"  labels = {atom_sig.get('overlay_labels')}")
 print(f"  exponential_mode = {atom_sig.get('exponential_mode')}")
-REC("S4-ATOM detects GAA evaluation phase (bonus >= 15)",
-    atom_sig.get("overlay_bonus", 0) >= 15,
-    ">= 15", atom_sig.get("overlay_bonus", 0),
-    "GAA + evaluation phase regex eksik olabilir.")
+# NOT (02.08.2026 olculmus vaka): regex'lerde hata YOK — 5 kalip da tutuyor.
+# Asil davranis evidence_classify.PR_ONLY_UPLIFT_CAP: baglayici kanit yoksa
+# +30 -> +8 kirpilmasi BILINCLI. Bu yuzden eski beklenti (>= 15) guncel degil.
+REC("S4-ATOM detects GAA evaluation phase",
+    bool(atom_sig.get("details", {}).get("foundry_integration")),
+    "foundry_integration=True",
+    atom_sig.get("details", {}).get("foundry_integration"),
+    "GAA + evaluation phase regex'leri tetiklenmeli.")
+REC("S4-ATOM PR_ONLY evaluation bonus kirpildi (<=8)",
+    atom_sig.get("overlay_bonus", 0) <= 8
+    and bool(atom_sig.get("details", {}).get("pr_only_clipped")),
+    "<= 8 ve pr_only_clipped=True", atom_sig.get("overlay_bonus", 0),
+    "Baglayici kanit yok — PR_ONLY_UPLIFT_CAP devrede olmali.")
+atom_binding = atom_news + [{
+    "title": "ATOMera signs JDA with leading GAA foundry",
+    "summary": ("Signed a joint development agreement with production "
+                "commitment and prepayment from the foundry."),
+    "link": "https://example.com/atom-jda",
+}]
+atom_sig2 = so.atom_licensing_signal(atom_binding)
+print(f"  ATOM (JDA'li) bonus = {atom_sig2.get('overlay_bonus')}")
+REC("S4-ATOM JDA baglayici kanit bonus >= 30",
+    atom_sig2.get("overlay_bonus", 0) >= 30,
+    ">= 30", atom_sig2.get("overlay_bonus", 0),
+    "Baglayici kanit (JDA imzasi) varken kirpilma OLMAMALI.")
 
 # Moonshot detector ATOM icin 'POTANSIYEL PATLAMA' verdict uretir mi?
 atom_moon = md.detect_moonshot("ATOM")

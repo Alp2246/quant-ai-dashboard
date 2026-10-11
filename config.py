@@ -128,7 +128,7 @@ FX_TO_USD = {
 }
 
 # Veri cekme
-HISTORY_PERIOD = "5y"          # yillik grafik icin
+HISTORY_PERIOD = "10y"         # 10y backtest verisini destekler (ustelik grafik icin)
 HISTORY_INTERVAL = "1d"
 REFRESH_MINUTES = 15
 
@@ -144,15 +144,19 @@ ML_TEST_RATIO = 0.2
 RANDOM_STATE = 42
 
 # Backtest / label horizon ortak varsayimlari
-BACKTEST_LOOKBACK_YEARS = 2.0
+BACKTEST_LOOKBACK_YEARS = 10.0
 # Gerceklik Kontrolu daha UZUN pencere kullanir: 2 yilda hisse basina ~10-15
 # islem cikiyor ve n<30 oldugu icin hicbir hukum verilemiyordu. HISTORY_PERIOD
-# zaten 5y cektiginden bu ek maliyet getirmez. Backtest sekmesi degismez.
+# artik 10y cektiginden 10y backtest verisi de hazir. Backtest sekmesi
+# bt_years widget'ini bu degere defaultlar.
 REALITY_LOOKBACK_YEARS = 5.0
-BACKTEST_HOLDING_DAYS = 20
+BACKTEST_HOLDING_DAYS = 60
 BACKTEST_COMMISSION_BPS = 10.0
 BACKTEST_SLIPPAGE_BPS = 5.0
-PURGED_CV_HORIZON_DAYS = BACKTEST_HOLDING_DAYS
+# ML etiket ufku v11.0'dan itibaren IS MOTORUNDAN AYRILDI: purged_cv/ml_model
+# 20gunluk etiketle egitilmeye devam eder (BACKTEST_HOLDING_DAYS=60 yapmak
+# ML etiket ufkuNU sessizce degistirirdi — bilincli olarak sabit 20).
+PURGED_CV_HORIZON_DAYS = 20
 PURGED_CV_EMBARGO_DAYS = 5
 
 # Sinyal esikleri

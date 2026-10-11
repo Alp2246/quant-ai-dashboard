@@ -1,0 +1,182 @@
+[
+  {
+    "ticker": "WOLF",
+    "n_trades": 1,
+    "win_rate": 0.0,
+    "avg_return": -23.9,
+    "cum_return": -23.9,
+    "buy_hold_return": 38.51,
+    "alpha_vs_bh": -62.41,
+    "sharpe_ratio": 0.0,
+    "max_drawdown_pct": 0.0,
+    "exit_counts": {
+      "TP": 0,
+      "SL": 1,
+      "TIME": 0,
+      "SAT": 0,
+      "END": 0
+    }
+  },
+  {
+    "ticker": "IONQ",
+    "n_trades": 8,
+    "win_rate": 37.5,
+    "avg_return": 7.57,
+    "cum_return": 26.27,
+    "buy_hold_return": 269.35,
+    "alpha_vs_bh": -243.08,
+    "sharpe_ratio": 0.76,
+    "max_drawdown_pct": -29.86,
+    "exit_counts": {
+      "TP": 3,
+      "SL": 5,
+      "TIME": 0,
+      "SAT": 0,
+      "END": 0
+    }
+  },
+  {
+    "ticker": "RGTI",
+    "n_trades": 5,
+    "win_rate": 20.0,
+    "avg_return": -9.12,
+    "cum_return": -49.34,
+    "buy_hold_return": 41.72,
+    "alpha_vs_bh": -91.06,
+    "sharpe_ratio": -0.98,
+    "max_drawdown_pct": -36.7,
+    "exit_counts": {
+      "TP": 0,
+      "SL": 4,
+      "TIME": 1,
+      "SAT": 0,
+      "END": 0
+    }
+  },
+  {
+    "ticker": "ATOM",
+    "n_trades": 10,
+    "win_rate": 30.0,
+    "avg_return": -0.8,
+    "cum_return": -26.2,
+    "buy_hold_return": -45.9,
+    "alpha_vs_bh": 19.7,
+    "sharpe_ratio": -0.12,
+    "max_drawdown_pct": -40.73,
+    "exit_counts": {
+      "TP": 2,
+      "SL": 6,
+      "TIME": 2,
+      "SAT": 0,
+      "END": 0
+    }
+  },
+  {
+    "ticker": "LAES",
+    "n_trades": 6,
+    "win_rate": 16.7,
+    "avg_return": -7.48,
+    "cum_return": -49.77,
+    "buy_hold_return": -80.57,
+    "alpha_vs_bh": 30.8,
+    "sharpe_ratio": -1.19,
+    "max_drawdown_pct": -46.7,
+    "exit_counts": {
+      "TP": 1,
+      "SL": 5,
+      "TIME": 0,
+      "SAT": 0,
+      "END": 0
+    }
+  },
+  {
+    "ticker": "NVTS",
+    "n_trades": 10,
+    "win_rate": 40.0,
+    "avg_return": 7.11,
+    "cum_return": 32.36,
+    "buy_hold_return": -15.78,
+    "alpha_vs_bh": 48.14,
+    "sharpe_ratio": 1.12,
+    "max_drawdown_pct": -53.72,
+    "exit_counts": {
+      "TP": 4,
+      "SL": 6,
+      "TIME": 0,
+      "SAT": 0,
+      "END": 0
+    }
+  },
+  {
+    "ticker": "QBTS",
+    "n_trades": 7,
+    "win_rate": 28.6,
+    "avg_return": 5.98,
+    "cum_return": 20.57,
+    "buy_hold_return": 43.55,
+    "alpha_vs_bh": -22.98,
+    "sharpe_ratio": 0.66,
+    "max_drawdown_pct": -30.74,
+    "exit_counts": {
+      "TP": 2,
+      "SL": 4,
+      "TIME": 1,
+      "SAT": 0,
+      "END": 0
+    }
+  },
+  {
+    "ticker": "POET",
+    "n_trades": 27,
+    "win_rate": 44.4,
+    "avg_return": 10.27,
+    "cum_return": 531.69,
+    "buy_hold_return": 12.42,
+    "alpha_vs_bh": 519.27,
+    "sharpe_ratio": 1.23,
+    "max_drawdown_pct": -34.43,
+    "exit_counts": {
+      "TP": 9,
+      "SL": 13,
+      "TIME": 4,
+      "SAT": 0,
+      "END": 1
+    }
+  },
+  {
+    "ticker": "ARQQ",
+    "n_trades": 7,
+    "win_rate": 28.6,
+    "avg_return": 1.01,
+    "cum_return": -23.47,
+    "buy_hold_return": -92.82,
+    "alpha_vs_bh": 69.35,
+    "sharpe_ratio": 0.12,
+    "max_drawdown_pct": -48.54,
+    "exit_counts": {
+      "TP": 2,
+      "SL": 5,
+      "TIME": 0,
+      "SAT": 0,
+      "END": 0
+    }
+  },
+  {
+    "ticker": "SMCI",
+    "n_trades": 21,
+    "win_rate": 47.6,
+    "avg_return": 5.1,
+    "cum_return": 109.46,
+    "buy_hold_return": 1743.24,
+    "alpha_vs_bh": -1633.78,
+    "sharpe_ratio": 0.85,
+    "max_drawdown_pct": -26.84,
+    "exit_counts": {
+      "TP": 6,
+      "SL": 11,
+      "TIME": 4,
+      "SAT": 0,
+      "END": 0
+    }
+  }
+]
