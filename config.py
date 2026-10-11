@@ -11,10 +11,19 @@ DATA_DIR.mkdir(exist_ok=True)
 
 # Cekirdek izlenen hisseler (ABD) - Investor Executive Summary'de gosterilir.
 # NVTS, QBTS, POET, ARQQ, SMCI kullanici portfoyune dahil edildi.
+# 11.10.2026: SNDK + AXTI cekirdege alindi (kullanici "yakalamak istiyorum"
+# dedi; ikisi de zaten BOTTLENECK listesindeydi ama gunluk skor + Telegram +
+# paper defter yalnizca bu listeyi tarayarak onlari atliyordu).
 CORE_TICKERS = [
     "WOLF", "IONQ", "RGTI", "ATOM", "LAES", "NVTS",
     # Kullanici portfoyune eklenenler (Investor Executive Summary'ye dahil)
     "QBTS", "POET", "ARQQ", "SMCI",
+    # Darbogaz tezinin actif kollari: Sandisk (NAND bellek darbogazi) +
+    # AXT (InP alttas darbogazi)
+    "SNDK", "AXTI",
+    # Bilesik buyukler kilidi: NVDA da gunluk skor + paper defter kapsamina
+    # alindi ("NVDA gibi hisseleri kacirmak istemiyorum" — 11.10.2026).
+    "NVDA",
 ]
 
 # Genisletilmis radar - watchlist defaults
@@ -28,6 +37,10 @@ AI_QUANTUM_WATCHLIST = [
     "CRDO", "ALAB", "AEHR",
     # Tier 2 - Foundation / Infrastructure
     "AVGO", "MRVL", "VRT", "MU", "LSCC", "ARM",
+    # Tier 2b - Bilesik buyukler ("bir sonraki NVDA'yi kacirma" kilidi:
+    # tez kucuk-cap kesif olsa da bu isler ayri bir koldan izlenir;
+    # mega-cap cezasi skorda zaten uygulaniyor)
+    "NVDA", "TSM",
     # Tier 3 - Spekulatif / Niş
     "PLTR", "AMBA",
 ]

@@ -112,11 +112,17 @@ def _send_telegram(ticker: str, score: float, verdict: str) -> bool:
     return send_message(text)
 
 
-# Cekirdek liste (quant-dashboard/config.py ile ayni — alpha_engine config karisikligini onler)
-CORE_TICKERS = [
-    "WOLF", "IONQ", "RGTI", "ATOM", "LAES", "NVTS",
-    "QBTS", "POET", "ARQQ", "SMCI",
-]
+# Cekirdek liste — TEK KAYNAK config.CORE_TICKERS. (Eski not: alpha_engine
+# config cakismasini onlemek icin burada sabit liste vardi; 11.10.2026'da
+# tek kaynaga donduruldu — asagida chdir + sys.path temizligi yapildiktan
+# sonra import guvenli. Import patlarsa eski 10'luk liste dusme.)
+try:
+    from config import CORE_TICKERS  # type: ignore
+except Exception:  # pragma: no cover
+    CORE_TICKERS = [
+        "WOLF", "IONQ", "RGTI", "ATOM", "LAES", "NVTS",
+        "QBTS", "POET", "ARQQ", "SMCI", "SNDK", "AXTI",
+    ]
 
 
 def run(*, push_telegram: bool = True) -> dict:
